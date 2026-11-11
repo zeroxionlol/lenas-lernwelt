@@ -2954,15 +2954,8 @@ lpAdd("biologie",
 
   <h2>2 · Fotosynthese: Die Pflanze kocht selbst</h2>
   <p>Tiere müssen fressen. Pflanzen nicht! In ihren grünen Blättern stellen sie mit <b>Licht</b> ihre Nahrung selbst her. Das heißt <b>Fotosynthese</b>.</p>
-  <svg class="lp-svg wide" viewBox="0 0 720 230" role="img" aria-label="Fotosynthese: Wasser und Kohlenstoffdioxid werden mit Licht zu Traubenzucker und Sauerstoff">
-   <circle cx="360" cy="34" r="22" fill="#ffd83d"/><g stroke="#f5a400" stroke-width="3" stroke-linecap="round"><path d="M360 64v22M335 58l-10 16M385 58l10 16"/></g><text x="398" y="38" font-weight="800" font-size="15">Licht</text>
-   <path d="M360 205c-80 -20 -100 -70 0 -110c100 40 80 90 0 110z" fill="#58b368" stroke="#1f2433" stroke-width="2"/><path d="M360 200V105" stroke="#e6f5ea" stroke-width="3"/>
-   <text x="360" y="158" text-anchor="middle" font-weight="800" font-size="13" fill="#fff">Blattgrün</text>
-   <rect x="20" y="92" width="190" height="44" rx="12" fill="#fff" stroke="#1f2433" stroke-width="2"/><text x="115" y="120" text-anchor="middle" font-weight="800" font-size="15">💧 Wasser</text>
-   <rect x="20" y="152" width="190" height="44" rx="12" fill="#fff" stroke="#1f2433" stroke-width="2"/><text x="115" y="180" text-anchor="middle" font-weight="800" font-size="15">💨 Kohlenstoffdioxid</text>
-   <rect x="510" y="92" width="190" height="44" rx="12" fill="#e3f6e7" stroke="#1f2433" stroke-width="2"/><text x="605" y="120" text-anchor="middle" font-weight="800" font-size="15">🍬 Traubenzucker</text>
-   <rect x="510" y="152" width="190" height="44" rx="12" fill="#e3f6e7" stroke="#1f2433" stroke-width="2"/><text x="605" y="180" text-anchor="middle" font-weight="800" font-size="15">Sauerstoff</text>
-   <g stroke="#1f2433" stroke-width="3" fill="none" stroke-linecap="round"><path d="M214 114h62M214 174h62M444 114h58M444 174h58"/></g><path d="M282 114l-12 -7v14zM282 174l-12 -7v14zM508 114l-12 -7v14zM508 174l-12 -7v14z" fill="#1f2433"/></svg>
+  <p>Hier siehst du die Blattküche in 3D. <b>Dreh das Modell</b> und tippe auf die Schilder.</p>
+  ${wBox(fotoBox(), fotoInit)}
   <div class="note"><b>Darum sind Pflanzen so wichtig:</b> Der Traubenzucker ist Nahrung für die Pflanze – und für alle, die Pflanzen fressen. Den Sauerstoff brauchen Menschen und Tiere zum Atmen.</div>
 
   <h2>3 · Von der Blüte zur Frucht</h2>
@@ -2995,6 +2988,331 @@ lpAdd("biologie",
   ])}
   ${lpPlan("Inhaltsfeld Vielfalt und Angepasstheiten von Lebewesen: Grundbauplan der Blütenpflanzen, Funktionszusammenhang der Pflanzenorgane, Bedeutung der Fotosynthese, Keimung, Fortpflanzung und Ausbreitung.")}`)}
 ]);
+
+/* =====================================================================
+   BIOLOGIE · Fotosynthese als isometrisches 3D-Modell (WebGL-Shader)
+   fotoBox() liefert das HTML, fotoInit(box) startet die Szene.
+   ===================================================================== */
+const FOTO_INFO = {
+  licht:  {t:0, em:"☀️", name:"Licht", txt:"Die Sonne liefert die <b>Energie</b>. Die kleinen Lichtblitze fliegen zu den Blättern. Ohne Licht kann die Pflanze nicht „kochen“."},
+  wasser: {t:1, em:"💧", name:"Wasser", txt:"Schau in den Boden: Die <b>Wurzeln</b> saugen Wasser auf. Durch die Sprossachse steigt es nach oben bis in die Blätter."},
+  co2:    {t:2, em:"💨", name:"Kohlenstoffdioxid", txt:"Ein <b>Gas aus der Luft</b>. Es kommt durch winzige Öffnungen in das Blatt. Menschen und Tiere atmen es aus."},
+  o2:     {t:3, em:"🫧", name:"Sauerstoff", txt:"Er entsteht bei der Fotosynthese <b>nebenbei</b>. Das Blatt gibt ihn an die Luft ab. Menschen und Tiere brauchen ihn zum Atmen."},
+  zucker: {t:4, em:"🍬", name:"Traubenzucker", txt:"Die <b>selbst gemachte Nahrung</b>. Die Pflanze verteilt ihn: nach oben zur Blüte und nach unten in die Wurzeln. Dort wird er gespeichert."}
+};
+const FOTO_SVG = `<svg class="lp-svg wide" viewBox="0 0 720 230" role="img" aria-label="Fotosynthese: Wasser und Kohlenstoffdioxid werden mit Licht zu Traubenzucker und Sauerstoff">
+   <circle cx="360" cy="34" r="22" fill="#ffd83d"/><g stroke="#f5a400" stroke-width="3" stroke-linecap="round"><path d="M360 64v22M335 58l-10 16M385 58l10 16"/></g><text x="398" y="38" font-weight="800" font-size="15">Licht</text>
+   <path d="M360 205c-80 -20 -100 -70 0 -110c100 40 80 90 0 110z" fill="#58b368" stroke="#1f2433" stroke-width="2"/><path d="M360 200V105" stroke="#e6f5ea" stroke-width="3"/>
+   <text x="360" y="158" text-anchor="middle" font-weight="800" font-size="13" fill="#fff">Blattgrün</text>
+   <rect x="20" y="92" width="190" height="44" rx="12" fill="#fff" stroke="#1f2433" stroke-width="2"/><text x="115" y="120" text-anchor="middle" font-weight="800" font-size="15">💧 Wasser</text>
+   <rect x="20" y="152" width="190" height="44" rx="12" fill="#fff" stroke="#1f2433" stroke-width="2"/><text x="115" y="180" text-anchor="middle" font-weight="800" font-size="15">💨 Kohlenstoffdioxid</text>
+   <rect x="510" y="92" width="190" height="44" rx="12" fill="#e3f6e7" stroke="#1f2433" stroke-width="2"/><text x="605" y="120" text-anchor="middle" font-weight="800" font-size="15">🍬 Traubenzucker</text>
+   <rect x="510" y="152" width="190" height="44" rx="12" fill="#e3f6e7" stroke="#1f2433" stroke-width="2"/><text x="605" y="180" text-anchor="middle" font-weight="800" font-size="15">Sauerstoff</text>
+   <g stroke="#1f2433" stroke-width="3" fill="none" stroke-linecap="round"><path d="M214 114h62M214 174h62M444 114h58M444 174h58"/></g><path d="M282 114l-12 -7v14zM282 174l-12 -7v14zM508 114l-12 -7v14zM508 174l-12 -7v14z" fill="#1f2433"/></svg>`;
+
+function fotoBox(){ return `<style>
+.fs-stage{position:relative;width:100%;max-width:720px;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#bfe6fb;border:2px solid var(--line);touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;margin-top:10px}
+.fs-stage:active{cursor:grabbing}
+@media (max-width:560px){.fs-stage{aspect-ratio:1/1.1}}
+.fs-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.fs-ov{position:absolute;inset:0;pointer-events:none}
+.fs-lab{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;cursor:pointer;white-space:nowrap;font-family:var(--head);font-weight:800;font-size:.8rem;line-height:1.5;
+  color:#1f2433;background:rgba(255,255,255,.92);border:2px solid #1f2433;border-radius:999px;padding:1px 10px;transition:background .15s,box-shadow .15s,opacity .2s}
+.fs-lab.sel{background:#ffd83d;box-shadow:0 0 0 5px rgba(255,216,61,.4)}
+.fs-lab.dim{opacity:.55}
+.fs-hint{position:absolute;left:10px;bottom:8px;font-size:.78rem;font-weight:700;color:#fff;background:rgba(31,36,51,.55);border-radius:999px;padding:1px 10px;pointer-events:none}
+.fs-zoom{position:absolute;right:8px;bottom:8px;display:flex;gap:6px}
+.fs-zoom button{width:38px;height:38px;border-radius:50%;border:2px solid #1f2433;background:#fff;font-weight:800;font-size:1.15rem;line-height:1;cursor:pointer;padding:0}
+.fs-bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;max-width:720px;margin-top:10px}
+.fs-bar label{display:flex;align-items:center;gap:8px;font-family:var(--head);font-weight:700;flex:1 1 220px}
+.fs-bar input[type=range]{flex:1;min-width:110px;accent-color:#f5a400}
+.fs-state{max-width:720px;font-weight:700;margin-top:8px}
+.fs-formel{display:flex;flex-wrap:wrap;gap:6px;align-items:center;max-width:720px;margin-top:10px;font-family:var(--head);font-weight:800}
+.fs-formel span{background:#fff;border:2px solid var(--line);border-radius:10px;padding:2px 10px}
+.fs-formel span.out{background:#e3f6e7}
+.fs-formel i{font-style:normal}
+</style>
+<div class="fs-stage" data-stage role="img" aria-label="3D-Modell der Fotosynthese: Licht, Wasser und Kohlenstoffdioxid gelangen in die Blätter. Dort entstehen Traubenzucker und Sauerstoff.">
+  <canvas></canvas><div class="fs-ov" data-ov></div>
+  <div class="fs-hint">↔ ziehen = drehen</div>
+  <div class="fs-zoom"><button type="button" data-z="-1" aria-label="Kleiner">−</button><button type="button" data-z="1" aria-label="Größer">+</button></div>
+</div>
+<div class="fs-bar">
+  <label>🌙 <input type="range" min="0" max="100" value="100" data-light aria-label="Wie hell scheint die Sonne?"> ☀️</label>
+  <button type="button" class="btn on" data-spin aria-pressed="true">Drehen</button>
+  <button type="button" class="btn" data-all>Alles zeigen</button>
+</div>
+<div class="fs-state" data-state aria-live="polite"></div>
+<div class="fs-formel" aria-label="Wasser und Kohlenstoffdioxid werden mit Licht zu Traubenzucker und Sauerstoff">
+  <span>💧 Wasser</span><i>+</i><span>💨 Kohlenstoffdioxid</span><i>—☀️ Licht→</i><span class="out">🍬 Traubenzucker</span><i>+</i><span class="out">🫧 Sauerstoff</span>
+</div>
+<div class="ph-panel" data-info aria-live="polite"></div>`; }
+
+function fotoInit(box){
+  const stage=$("[data-stage]",box), ov=$("[data-ov]",box), infoEl=$("[data-info]",box), stateEl=$("[data-state]",box),
+        lightEl=$("[data-light]",box), spinBtn=$("[data-spin]",box);
+  let sel=null, view=null;
+  const labs={};
+  function drawInfo(){ const o=sel&&FOTO_INFO[sel];
+    infoEl.innerHTML=o?`<h3>${o.em} ${o.name}</h3><p>${o.txt}</p>`
+      :`<h3>👩‍🍳 Die Blattküche</h3><p><b>Zutaten:</b> Licht, Wasser und Kohlenstoffdioxid. Im <b>Blattgrün</b> entstehen daraus Traubenzucker und Sauerstoff.</p><p>Tippe auf ein Schild im Bild. Schiebe dann die Sonne weg – was passiert?</p>`;
+    for(const k in labs){ labs[k].classList.toggle("sel",k===sel); labs[k].classList.toggle("dim",!!sel&&k!==sel); labs[k].setAttribute("aria-pressed",k===sel); } }
+  function pick(k){ sel=(sel===k?null:k); if(view) view.setFocus(sel?FOTO_INFO[sel].t:-1); drawInfo(); }
+  function drawState(){ const l=+lightEl.value;
+    stateEl.textContent = l>=60 ? "☀️ Volle Sonne: Die Blattküche läuft auf Hochtouren."
+      : l>=15 ? "⛅ Wenig Licht: Es entstehen weniger Traubenzucker und Sauerstoff."
+      : "🌙 Nacht: Ohne Licht macht die Fotosynthese Pause."; }
+  try{
+    view=createFotoView(stage);
+    for(const k in FOTO_INFO){ const o=FOTO_INFO[k], b=document.createElement("button"); b.type="button"; b.className="fs-lab"; b.textContent=o.em+" "+o.name; b.setAttribute("aria-pressed","false");
+      b.addEventListener("pointerdown",e=>e.stopPropagation()); b.addEventListener("click",()=>pick(k)); ov.appendChild(b); labs[k]=b; }
+    view.labels(labs);
+    view.onSpin=on=>{ spinBtn.classList.toggle("on",on); spinBtn.setAttribute("aria-pressed",on); };
+    spinBtn.onclick=()=>view.setSpin(!view.getSpin());
+    lightEl.addEventListener("input",()=>{ view.setLight(lightEl.value/100); drawState(); });
+    $("[data-all]",box).onclick=()=>{ sel=null; view.setFocus(-1); lightEl.value=100; view.setLight(1); view.reset(); drawInfo(); drawState(); };
+    box.querySelectorAll("[data-z]").forEach(b=>{ b.addEventListener("pointerdown",e=>e.stopPropagation()); b.onclick=()=>view.zoomBy(+b.dataset.z); });
+    if(matchMedia("(prefers-reduced-motion:reduce)").matches){ view.setSpin(false); view.setWind(0); }
+  }catch(err){ console.error(err); view=null; stage.outerHTML=FOTO_SVG; const bar=$(".fs-bar",box); if(bar) bar.remove(); stateEl.remove(); }
+  drawInfo(); if(view) drawState();
+  return ()=>{ if(view) view.dispose(); };
+}
+
+function createFotoView(stage){
+  const canvas=$("canvas",stage);
+  const renderer=new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  const scene=new THREE.Scene();
+  const camera=new THREE.OrthographicCamera(-4,4,3,-3,0.1,90);
+  const TARGET=new THREE.Vector3(0,1.1,0);
+
+  /* ---------- gemeinsame Shader-Bausteine ---------- */
+  const U={ uTime:{value:0}, uWind:{value:1}, uLight:{value:1}, uDay:{value:1}, uSun:{value:new THREE.Vector3()}, uSunDir:{value:new THREE.Vector3(0,1,0)}, uCam:{value:new THREE.Vector2(0,1)} };
+  const uni=o=>Object.assign({},U,o||{});
+  const G_COMMON=`
+    uniform float uTime,uWind,uLight,uDay; uniform vec3 uSun,uSunDir; uniform vec2 uCam;
+    vec3 sway(vec3 p){ float h=max(p.y,0.0); float a=h*h*0.022*uWind;
+      p.x+=sin(uTime*1.25+h*0.55)*a; p.z+=cos(uTime*0.95+h*0.4)*a*0.7; return p; }
+    float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+    float noise(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f);
+      return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y); }
+    float fbm(vec2 p){ float s=0.0,a=0.5; for(int i=0;i<4;i++){ s+=a*noise(p); p=p*2.03+7.1; a*=0.5; } return s; }
+    vec3 shade(vec3 base, vec3 n){ float d=dot(normalize(n),uSunDir)*0.5+0.5;
+      vec3 day=base*(0.56+0.5*d*d); vec3 night=base*vec3(0.30,0.36,0.58)*(0.65+0.35*d); return mix(night,day,uDay); }`;
+  const V_STD=G_COMMON+`
+    uniform float uSway,uFlut,uPhase; varying vec2 vUv; varying vec3 vN,vW;
+    void main(){ vUv=uv; vec4 w=modelMatrix*vec4(position,1.0);
+      vec3 p=mix(w.xyz,sway(w.xyz),uSway);
+      p.y+=sin(uTime*2.1+uPhase+uv.x*3.0)*0.05*uv.x*uv.x*uFlut*uWind;
+      vW=p; vN=normalize(mat3(modelMatrix)*normal);
+      gl_Position=projectionMatrix*viewMatrix*vec4(p,1.0); }`;
+  const mats=[];
+  const mk=(frag,uniforms,opt)=>{ const m=new THREE.ShaderMaterial(Object.assign({vertexShader:V_STD, fragmentShader:G_COMMON+"uniform float uPhase; varying vec2 vUv; varying vec3 vN,vW;"+frag,
+    uniforms:uni(Object.assign({uSway:{value:1},uFlut:{value:0},uPhase:{value:0}},uniforms||{}))},opt||{})); mats.push(m); return m; };
+  const col=h=>({value:new THREE.Color(h)});
+
+  /* ---------- Himmel (Vollbild-Shader mit Wolken und Sternen) ---------- */
+  const skyU=uni({uYaw:{value:0}, uAsp:{value:1.33}});
+  const sky=new THREE.Mesh(new THREE.PlaneGeometry(2,2), new THREE.ShaderMaterial({depthTest:false, depthWrite:false, uniforms:skyU,
+    vertexShader:"varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.0,1.0); }",
+    fragmentShader:G_COMMON+`uniform float uYaw,uAsp; varying vec2 vUv;
+      void main(){ float y=vUv.y;
+        vec3 day=mix(vec3(0.86,0.96,1.0),vec3(0.36,0.72,0.96),y);
+        vec3 dusk=mix(vec3(1.0,0.74,0.48),vec3(0.42,0.46,0.78),y);
+        vec3 night=mix(vec3(0.16,0.22,0.42),vec3(0.03,0.06,0.18),y);
+        float k=uLight; vec3 c=mix(night,dusk,smoothstep(0.0,0.3,k)); c=mix(c,day,smoothstep(0.25,0.7,k));
+        vec2 q=vec2(vUv.x*uAsp+uYaw*0.35,vUv.y);
+        float cl=fbm(q*vec2(2.2,4.5)+vec2(uTime*0.02,0.0)); cl=smoothstep(0.52,0.78,cl)*smoothstep(0.35,0.75,y);
+        c=mix(c,mix(vec3(0.34,0.38,0.55),vec3(1.0),uDay),cl*0.8);
+        vec2 g=floor(q*46.0); float st=step(0.985,hash(g))*(0.5+0.5*sin(uTime*2.0+hash(g+3.0)*30.0));
+        vec2 f=fract(q*46.0)-0.5; st*=smoothstep(0.32,0.0,length(f));
+        c+=vec3(st)*(1.0-smoothstep(0.0,0.3,k))*(1.0-cl);
+        gl_FragColor=vec4(c,1.0); }`}));
+  sky.frustumCulled=false; sky.renderOrder=-10; scene.add(sky); mats.push(sky.material);
+
+  /* ---------- Boden: Grasfläche + gläserner Erdblock ---------- */
+  const B=1.9, D=1.4;
+  const grass=new THREE.Mesh(new THREE.PlaneGeometry(B*2,B*2), mk(`
+    void main(){ vec2 p=vW.xz; float n=fbm(p*3.0), bl=noise(p*vec2(22.0,26.0));
+      vec3 c=mix(vec3(0.30,0.62,0.24),vec3(0.52,0.80,0.32),n); c=mix(c,vec3(0.22,0.50,0.20),smoothstep(0.62,0.9,bl)*0.5);
+      vec2 s=p+uSunDir.xz*1.1; float sh=smoothstep(1.7,0.2,length(s*vec2(1.0,1.25)))*0.36*uDay; c*=1.0-sh;
+      c=mix(c,vec3(0.35,0.24,0.14),smoothstep(0.32,0.1,length(p)));
+      float cut=smoothstep(-0.15,0.35,dot(p,uCam)); c=mix(c,vec3(0.16,0.34,0.14),smoothstep(0.0,0.12,abs(dot(p,uCam)-0.1))<0.5?0.5:0.0);
+      gl_FragColor=vec4(shade(c,vec3(0.0,1.0,0.0)),mix(1.0,0.16,cut)); }`,null,{transparent:true, depthWrite:false}));
+  grass.material.uniforms.uSway.value=0; grass.rotation.x=-Math.PI/2; grass.renderOrder=2; scene.add(grass);
+  const SOIL=`uniform float uAlpha,uDark;
+    void main(){ if(abs(vN.y)>0.5 && uAlpha<0.99) discard;
+      float d=-vW.y; vec2 p=vec2(vW.x+vW.z*0.7,vW.y);
+      float n=fbm(p*vec2(2.5,5.0));
+      vec3 c=mix(vec3(0.36,0.23,0.13),vec3(0.62,0.44,0.27),smoothstep(0.1,1.5,d+n*0.5));
+      c=mix(c,vec3(0.24,0.42,0.18),smoothstep(0.10,0.03,d));
+      float st=smoothstep(0.80,0.9,noise(p*vec2(9.0,11.0))); c=mix(c,vec3(0.72,0.68,0.62),st*0.6);
+      float wet=smoothstep(0.45,0.75,fbm(p*1.6+vec2(0.0,uTime*0.05))); c=mix(c,c*vec3(0.62,0.72,0.95),wet*0.6);
+      gl_FragColor=vec4(shade(c,vN*(uDark>0.5?-1.0:1.0))*(1.0-uDark*0.58),uAlpha); }`;
+  const boxGeo=new THREE.BoxGeometry(B*2,D,B*2); boxGeo.translate(0,-D/2,0);
+  const soilIn=new THREE.Mesh(boxGeo, mk(SOIL,{uAlpha:{value:1},uDark:{value:1}},{side:THREE.BackSide}));
+  soilIn.material.uniforms.uSway.value=0; scene.add(soilIn);
+  const soilOut=new THREE.Mesh(boxGeo, mk(SOIL,{uAlpha:{value:0.3},uDark:{value:0}},{transparent:true, depthWrite:false}));
+  soilOut.material.uniforms.uSway.value=0; soilOut.renderOrder=2; scene.add(soilOut);
+
+  /* ---------- Pflanze ---------- */
+  const PLAIN=`uniform vec3 uA,uB; void main(){ vec3 c=mix(uA,uB,vUv.y); gl_FragColor=vec4(shade(c,vN),1.0); }`;
+  const STEM_H=3.1;
+  const stemGeo=new THREE.CylinderGeometry(0.055,0.11,STEM_H,12,14); stemGeo.translate(0,STEM_H/2,0);
+  scene.add(new THREE.Mesh(stemGeo, mk(PLAIN,{uA:col("#3f9a45"),uB:col("#6cc35a")})));
+  // Wurzeln
+  const rootMat=mk(PLAIN,{uA:col("#f1dfb6"),uB:col("#d9bd86")}); rootMat.uniforms.uSway.value=0;
+  const CROWN=new THREE.Vector3(0,-0.04,0), tips=[];
+  [[0.3,1.45,1.1],[1.4,1.1,0.9],[2.4,1.5,1.2],[3.5,1.0,0.8],[4.4,1.5,1.15],[5.4,1.15,0.95],[0.9,0.4,1.25]].forEach(r=>{
+    const tip=new THREE.Vector3(Math.cos(r[0])*r[1],-r[2],Math.sin(r[0])*r[1]); tips.push(tip);
+    const mid=tip.clone().multiplyScalar(0.5); mid.y=-r[2]*0.62;
+    const g=new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(CROWN,mid,tip),16,0.075,8,false);
+    const p=g.attributes.position, uvA=g.attributes.uv; // zur Spitze hin dünner
+    const cv=new THREE.QuadraticBezierCurve3(CROWN,mid,tip), c=new THREE.Vector3();
+    for(let i=0;i<p.count;i++){ const u=uvA.getX(i); cv.getPoint(u,c); const k=1.25-u*0.95;
+      p.setXYZ(i,c.x+(p.getX(i)-c.x)*k,c.y+(p.getY(i)-c.y)*k,c.z+(p.getZ(i)-c.z)*k); }
+    scene.add(new THREE.Mesh(g,rootMat)); });
+  // Blätter
+  function leafGeo(L,W,flat){ const g=new THREE.PlaneGeometry(1,1,16,8), p=g.attributes.position;
+    for(let i=0;i<p.count;i++){ const u=p.getX(i)+0.5, v=p.getY(i)*2;
+      const w=W*Math.pow(Math.max(0,Math.sin(Math.PI*Math.pow(u,0.75))),0.8)*(1-0.15*u);
+      const y=flat?0.1*L*u*u+Math.abs(v)*w*0.25 : 0.28*L*Math.sin(u*2.2)-0.29*L*u*u+Math.abs(v)*w*0.35;
+      p.setXYZ(i,u*L,y,v*w); }
+    g.computeVertexNormals(); return g; }
+  const LEAF=`uniform vec3 uA,uB,uVeinCol; uniform float uVein;
+    void main(){ float v=abs(vUv.y-0.5)*2.0;
+      float mid=smoothstep(0.07,0.0,v)*smoothstep(1.0,0.85,vUv.x);
+      float side=smoothstep(0.78,1.0,sin((vUv.x*8.0-v*1.9)*3.14159)*0.5+0.5)*(1.0-vUv.x*0.4)*smoothstep(1.0,0.6,v);
+      vec3 c=mix(uA,uB,clamp(vUv.x*0.55+v*0.3,0.0,1.0));
+      c=mix(c,uVeinCol,clamp(mid+side*0.4,0.0,1.0)*uVein*0.75);
+      vec3 n=gl_FrontFacing?vN:-vN; c=shade(c,n);
+      float sp=noise(vUv*vec2(16.0,7.0)+vec2(uTime*0.7,uPhase)); sp=smoothstep(0.60,0.92,sp);
+      c+=vec3(0.70,0.85,0.15)*sp*0.26*uLight*uVein;
+      gl_FragColor=vec4(c,1.0); }`;
+  const leaves=[];
+  [[0.95,0.5,2.0,0.54],[1.5,3.2,1.85,0.5],[2.0,5.2,1.6,0.44],[2.5,1.9,1.25,0.36]].forEach((l,i)=>{
+    const m=new THREE.Mesh(leafGeo(l[2],l[3]), mk(LEAF,{uA:col("#2f9a45"),uB:col("#74cf58"),uVeinCol:col("#d9f4bf"),uVein:{value:1}},{side:THREE.DoubleSide}));
+    m.material.uniforms.uFlut.value=1; m.material.uniforms.uPhase.value=i*1.7;
+    m.position.set(0,l[0],0); m.rotation.order="YZX"; m.rotation.y=-l[1]; m.rotation.z=0.22; scene.add(m); m.updateMatrixWorld(true);
+    const L=l[2], u=0.55, c=new THREE.Vector3(u*L,0.28*L*Math.sin(u*2.2)-0.29*L*u*u+0.03,0).applyMatrix4(m.matrixWorld);
+    leaves.push({at:new THREE.Vector3(0,l[0],0), c}); });
+  // Blüte
+  const FLOWER=new THREE.Vector3(0,STEM_H+0.05,0);
+  const petalGeo=leafGeo(0.7,0.17,true);
+  for(let i=0;i<11;i++){ const m=new THREE.Mesh(petalGeo, mk(LEAF,{uA:col("#f5a400"),uB:col("#ffe24d"),uVeinCol:col("#fff3a8"),uVein:{value:0}},{side:THREE.DoubleSide}));
+    m.material.uniforms.uFlut.value=0.4; m.material.uniforms.uPhase.value=i;
+    m.position.copy(FLOWER); m.rotation.order="YZX"; m.rotation.y=i/11*Math.PI*2; m.rotation.z=0.35; scene.add(m); }
+  const head=new THREE.Mesh(new THREE.SphereGeometry(0.23,16,10), mk(PLAIN,{uA:col("#6b4423"),uB:col("#9a6a35")})); head.position.copy(FLOWER); head.scale.y=0.6; scene.add(head);
+
+  /* ---------- Sonne (Billboard mit Strahlen-Shader) ---------- */
+  const sun=new THREE.Mesh(new THREE.PlaneGeometry(1,1), new THREE.ShaderMaterial({transparent:true, depthWrite:false, uniforms:uni({uSize:{value:2.4}}),
+    vertexShader:G_COMMON+`uniform float uSize; varying vec2 vUv; void main(){ vUv=uv; vec4 mv=viewMatrix*vec4(uSun,1.0); mv.xy+=position.xy*uSize; gl_Position=projectionMatrix*mv; }`,
+    fragmentShader:G_COMMON+`varying vec2 vUv; void main(){ vec2 p=vUv*2.0-1.0; float r=length(p), a=atan(p.y,p.x);
+      float core=smoothstep(0.36,0.31,r);
+      float rays=(0.5+0.5*sin(a*12.0+uTime*0.9))*(0.5+0.5*sin(a*7.0-uTime*0.6));
+      float glow=exp(-r*3.4)*(0.75+0.9*rays);
+      vec3 c=mix(vec3(1.0,0.60,0.10),vec3(1.0,0.93,0.45),core); c=mix(vec3(1.0,0.45,0.2),c,smoothstep(0.0,0.5,uLight));
+      float al=clamp(core+glow*1.4,0.0,1.0)*smoothstep(1.0,0.7,r)*smoothstep(-0.02,0.2,uLight);
+      gl_FragColor=vec4(c,al); }`}));
+  sun.frustumCulled=false; sun.renderOrder=1; scene.add(sun); mats.push(sun.material);
+
+  /* ---------- Teilchen: Licht, Wasser, CO2, Sauerstoff, Zucker ---------- */
+  const A=[[],[],[],[],[]], misc=[], sw=[];
+  let seed=7; const rnd=()=>{ seed=(seed*16807)%2147483647; return (seed-1)/2147483646; };
+  const lerp=(a,b,t)=>a.clone().lerp(b,t);
+  function addP(type,pts,speed,size,s0,s1){ pts.forEach((p,i)=>A[i].push(p.x,p.y,p.z)); misc.push(type,rnd(),speed*(0.8+0.4*rnd()),rnd()); sw.push(s0,s1,size); }
+  const jit=r=>new THREE.Vector3((rnd()-0.5)*r,(rnd()-0.5)*r,(rnd()-0.5)*r);
+  leaves.forEach((lf,li)=>{
+    for(let i=0;i<14;i++){ const e=lf.c.clone().add(jit(0.5)); e.y=lf.c.y+0.05; const j=jit(0.5); addP(0,[j,j,j,j,e],0.42,0.2,0,1); }           // Licht
+    for(let i=0;i<11;i++){ const tip=tips[Math.floor(rnd()*tips.length)], s=tip.clone().add(jit(0.9)); s.y=Math.min(-0.25,tip.y-0.15+(rnd()-0.5)*0.5);
+      s.x=Math.max(-B+0.2,Math.min(B-0.2,s.x)); s.z=Math.max(-B+0.2,Math.min(B-0.2,s.z)); s.y=Math.max(-D+0.15,s.y);
+      addP(1,[s,tip,CROWN,lf.at,lf.c.clone().add(jit(0.25))],0.075,0.23,1,1); }                                                        // Wasser
+    for(let i=0;i<9;i++){ const dir=new THREE.Vector3(lf.c.x,0,lf.c.z).normalize(), far=lf.c.clone().addScaledVector(dir,1.6+rnd()*1.4).add(jit(1.4)); far.y=lf.c.y+0.4+rnd()*1.6;
+      const e=lf.c.clone().add(jit(0.3)); addP(2,[far,lerp(far,e,0.33),lerp(far,e,0.66),e,e],0.085,0.25,0,1); }                        // CO2
+    for(let i=0;i<9;i++){ const dir=new THREE.Vector3(lf.c.x,0,lf.c.z).normalize(), far=lf.c.clone().addScaledVector(dir,0.8+rnd()*1.2).add(jit(1.2)); far.y=lf.c.y+1.8+rnd()*1.4;
+      const s=lf.c.clone().add(jit(0.3)); addP(3,[s,lerp(s,far,0.25),lerp(s,far,0.5),lerp(s,far,0.75),far],0.09,0.27,1,0); }           // Sauerstoff
+    for(let i=0;i<7;i++){ const s=lf.c.clone().add(jit(0.25));
+      if((i+li)%3===0) addP(4,[s,lf.at,lerp(lf.at,FLOWER,0.5),FLOWER,FLOWER],0.07,0.26,1,1);
+      else { const tip=tips[Math.floor(rnd()*tips.length)]; addP(4,[s,lf.at,CROWN,lerp(CROWN,tip,0.7),tip],0.07,0.26,1,1); } }       // Zucker
+  });
+  const pg=new THREE.BufferGeometry(); const f3=a=>new THREE.Float32BufferAttribute(a,3);
+  pg.setAttribute("position",f3(A[4])); A.forEach((a,i)=>pg.setAttribute("a"+i,f3(a)));
+  pg.setAttribute("aMisc",new THREE.Float32BufferAttribute(misc,4)); pg.setAttribute("aSw",f3(sw));
+  const pU=uni({uPx:{value:40}, uFocus:{value:-1}});
+  const points=new THREE.Points(pg,new THREE.ShaderMaterial({transparent:true, depthWrite:false, uniforms:pU,
+    vertexShader:G_COMMON+`attribute vec3 a0,a1,a2,a3,a4,aSw; attribute vec4 aMisc; uniform float uPx,uFocus; varying float vType,vAl,vT;
+      void main(){ float type=aMisc.x; float t=fract(uTime*aMisc.z+aMisc.y); vec3 P;
+        if(type<0.5){ P=mix(uSun+a0,a4,t); }
+        else { float s=t*4.0; if(s<1.0) P=mix(a0,a1,s); else if(s<2.0) P=mix(a1,a2,s-1.0); else if(s<3.0) P=mix(a2,a3,s-2.0); else P=mix(a3,a4,s-3.0); }
+        if(type>1.5&&type<3.5){ float w=type<2.5?1.0-t:t; float k=aMisc.w*40.0;
+          P+=vec3(sin(uTime*1.3+k),cos(uTime*1.1+k*0.7),sin(uTime*0.9+k*0.3))*0.2*w; }
+        P=mix(P,sway(P),mix(aSw.x,aSw.y,t));
+        float rate=type<0.5?uLight:(type<1.5?0.25+0.75*uLight:uLight);
+        float vis=smoothstep(aMisc.w,aMisc.w+0.06,rate*1.06);
+        float foc=uFocus<-0.5?1.0:(abs(type-uFocus)<0.5?1.3:0.0);
+        vAl=vis*smoothstep(0.0,0.06,t)*(1.0-smoothstep(0.9,1.0,t))*(uFocus<-0.5?1.0:(foc>0.5?1.0:0.16));
+        vType=type; vT=t;
+        gl_Position=projectionMatrix*viewMatrix*vec4(P,1.0); gl_Position.z-=0.012*gl_Position.w;
+        gl_PointSize=max(2.0,aSw.z*uPx*(foc>1.0?1.3:1.0)); }`,
+    fragmentShader:`uniform float uTime; varying float vType,vAl,vT;
+      void main(){ if(vAl<0.01) discard; vec2 p=gl_PointCoord*2.0-1.0; p.y=-p.y; float r=length(p); vec3 c; float a; vec3 ink=vec3(0.10,0.13,0.20);
+        if(vType<0.5){ a=exp(-r*r*5.0)*1.3+(exp(-abs(p.x)*16.0)+exp(-abs(p.y)*16.0))*(1.0-r)*0.6; c=mix(vec3(1.0,0.78,0.15),vec3(1.0,0.98,0.75),exp(-r*r*9.0)); a=clamp(a,0.0,1.0)*step(r,1.0); }
+        else if(vType<1.5){ vec2 q=p; q.y-=0.1; float d=length(vec2(q.x,q.y*(q.y>0.0?0.62:1.0)))+max(q.y,0.0)*0.22; a=smoothstep(0.78,0.68,d);
+          c=mix(vec3(0.12,0.48,0.95),vec3(0.55,0.82,1.0),smoothstep(0.5,0.0,length(p-vec2(-0.2,0.05)))); c=mix(c,ink,smoothstep(0.56,0.68,d)*0.85); }
+        else if(vType<2.5){ a=smoothstep(0.82,0.72,r); c=mix(vec3(0.56,0.60,0.66),vec3(0.82,0.85,0.9),smoothstep(0.55,0.0,length(p-vec2(-0.25,0.25)))); c=mix(c,ink,smoothstep(0.58,0.7,r)*0.85); }
+        else if(vType<3.5){ a=smoothstep(0.85,0.75,r)*(0.45+0.55*smoothstep(0.4,0.66,r)); c=mix(vec3(0.85,0.97,1.0),vec3(0.05,0.42,0.72),smoothstep(0.52,0.7,r));
+          float hl=smoothstep(0.22,0.05,length(p-vec2(-0.28,0.3))); c=mix(c,vec3(1.0),hl); a=max(a,hl); }
+        else { vec2 q=abs(p); float d=max(q.x*0.866+q.y*0.5,q.y); a=smoothstep(0.82,0.72,d); c=mix(vec3(1.0,0.50,0.12),vec3(1.0,0.86,0.5),smoothstep(0.6,0.0,length(p-vec2(-0.2,0.2)))); c=mix(c,ink,smoothstep(0.56,0.7,d)*0.85); }
+        gl_FragColor=vec4(c,a*vAl); }`}));
+  points.frustumCulled=false; points.renderOrder=3; scene.add(points); mats.push(points.material);
+
+  /* ---------- Steuerung ---------- */
+  const ISO=Math.atan(1/Math.SQRT2), START_YAW=Math.PI/4;
+  let yaw=START_YAW, zoom=1, goalZoom=1, light=1, lightNow=1, spin=true, goalYaw=null, raf=0, last=0, time=0, W=10, H=10, wind=1;
+  let drag=null;
+  stage.addEventListener("pointerdown",e=>{ drag={id:e.pointerId,x:e.clientX,moved:0}; try{ stage.setPointerCapture(e.pointerId); }catch(_){} });
+  stage.addEventListener("pointermove",e=>{ if(!drag||drag.id!==e.pointerId) return; const dx=e.clientX-drag.x; drag.x=e.clientX; drag.moved+=Math.abs(dx);
+    if(drag.moved>4){ if(spin) api.setSpin(false); goalYaw=null; yaw-=dx*0.008; } });
+  const end=e=>{ if(drag&&drag.id===e.pointerId) drag=null; };
+  stage.addEventListener("pointerup",end); stage.addEventListener("pointercancel",end);
+
+  function resize(){ const r=stage.getBoundingClientRect(); W=Math.max(r.width,10); H=Math.max(r.height,10); renderer.setSize(W,H,false); }
+  const ro=new ResizeObserver(resize); ro.observe(stage); resize();
+  let visible=true; const io=new IntersectionObserver(es=>{ visible=es[0].isIntersecting; if(visible&&!raf){ last=0; raf=requestAnimationFrame(frame); } }); io.observe(stage);
+
+  let labList=[]; const v=new THREE.Vector3();
+  const SUNV=U.uSun.value;
+  function frame(t){ if(!visible){ raf=0; return; } raf=requestAnimationFrame(frame); const dt=Math.min((t-last)/1000||0,0.05); last=t; time+=dt;
+    if(spin) yaw+=dt*0.16;
+    if(goalYaw!=null){ let d=goalYaw-yaw; d=Math.atan2(Math.sin(d),Math.cos(d)); yaw+=d*Math.min(1,dt*4); if(Math.abs(d)<0.003) goalYaw=null; }
+    zoom+=(goalZoom-zoom)*Math.min(1,dt*6); lightNow+=(light-lightNow)*Math.min(1,dt*5);
+    U.uTime.value=time; U.uWind.value=wind; U.uLight.value=lightNow; U.uDay.value=Math.pow(lightNow,0.6);
+    SUNV.set(-1.6,0.8+3.1*lightNow,-1.1); U.uSunDir.value.copy(SUNV).sub(TARGET).normalize();
+    const asp=W/H, hh=Math.max(3.95,4.0/asp)/zoom, hw=hh*asp;
+    camera.left=-hw; camera.right=hw; camera.top=hh; camera.bottom=-hh; camera.updateProjectionMatrix();
+    camera.position.set(TARGET.x+Math.sin(yaw)*Math.cos(ISO)*40, TARGET.y+Math.sin(ISO)*40, TARGET.z+Math.cos(yaw)*Math.cos(ISO)*40); camera.lookAt(TARGET);
+    U.uCam.value.set(Math.sin(yaw),Math.cos(yaw)); skyU.uYaw.value=yaw; skyU.uAsp.value=asp; pU.uPx.value=renderer.getPixelRatio()*H/(2*hh);
+    renderer.render(scene,camera);
+    for(const L of labList){ v.copy(L.p===SUNV?SUNV:L.p); if(L.p===SUNV) v.y-=0.2; v.project(camera);
+      const x=Math.max(L.hw+4,Math.min(W-L.hw-4,(v.x*0.5+0.5)*W)), y=Math.max(16,Math.min(H-52,(-v.y*0.5+0.5)*H));
+      L.el.style.left=x+"px"; L.el.style.top=y+"px"; } }
+  raf=requestAnimationFrame(frame);
+
+  const api={
+    onSpin:null,
+    labels(map){ const P={ licht:SUNV, wasser:new THREE.Vector3(1.35,-0.95,1.35), co2:new THREE.Vector3(2.2,3.1,-0.4), o2:new THREE.Vector3(-1.4,4.0,1.4), zucker:new THREE.Vector3(1.0,0.2,1.0) };
+      labList=Object.keys(map).map(k=>({el:map[k], p:P[k], hw:map[k].offsetWidth/2||50})); },
+    setFocus(tp){ pU.uFocus.value=tp; },
+    setLight(l){ light=Math.max(0,Math.min(1,l)); },
+    setWind(w){ wind=w; },
+    setSpin(on){ spin=on; if(api.onSpin) api.onSpin(on); }, getSpin:()=>spin,
+    zoomBy(d){ goalZoom=Math.max(0.8,Math.min(2.2,goalZoom*(d>0?1.3:1/1.3))); },
+    reset(){ goalYaw=START_YAW; goalZoom=1; },
+    dispose(){ cancelAnimationFrame(raf); raf=0; visible=false; ro.disconnect(); io.disconnect();
+      scene.traverse(o=>{ if(o.geometry) o.geometry.dispose(); }); mats.forEach(m=>m.dispose()); renderer.dispose(); }
+  };
+  return api;
+}
 
 /* ============================ ERDKUNDE ============================ */
 lpAdd("erdkunde",
