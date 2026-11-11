@@ -218,6 +218,126 @@ footer{max-width:1180px;margin:0 auto;padding:0 16px 30px;color:var(--muted);fon
 .lp-plan summary{cursor:pointer;font-family:var(--head);font-weight:700}
 .lp-plan ul{margin:.5em 0 0;padding-left:1.2em;color:var(--muted)}
 @media(max-width:560px){.lp-big{font-size:1.25rem}.lp-item{font-size:1.25rem}}
+
+/* ===== NEU: Klavier ===== */
+.kb-ctl{display:flex;flex-wrap:wrap;gap:6px 22px;margin-bottom:6px}
+.kb-ctl>div{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.kb-wrap{overflow-x:auto;padding:4px 0 8px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.kb-svg{display:block;width:100%;min-width:560px;max-width:900px;height:auto}
+.kb-wrap.small .kb-svg{min-width:300px;max-width:430px}
+.kb-svg g{cursor:pointer}
+.kb-svg .kw rect{fill:#fff;stroke:#1f2433;stroke-width:2.5}
+.kb-svg .kbk rect{fill:#1f2433;stroke:#1f2433;stroke-width:2}
+.kb-svg text{font-family:var(--head);font-weight:800;text-anchor:middle;pointer-events:none}
+.kb-svg .kw text{font-size:22px;fill:#1f2433}
+.kb-svg .kbk text{font-size:12.5px;fill:#fff}
+.kb-svg .kw:hover rect{fill:#f3faee}
+.kb-svg .kbk:hover rect{fill:#3a4257}
+.kb-svg .on rect{fill:#9bdb6b!important}
+.kb-svg .kbk.on text{fill:#16300a}
+.kb-svg .hint rect{fill:#6fbf3f!important;stroke:#2e7d1e}
+.kb-svg .kbk.hint text,.kb-svg .kw.hint text{fill:#fff}
+.kb-svg .from rect{fill:#e9f6df!important;stroke-dasharray:6 4}
+.kb-svg .bad rect{fill:#f6a5a1!important}
+.kb-info{display:grid;grid-template-columns:minmax(180px,260px) 1fr;gap:12px;align-items:center}
+.kb-staff{width:100%;max-width:260px;display:block;border:2px solid var(--line);border-radius:12px}
+.kb-staffline{overflow-x:auto}.kb-staffline .kb-staff{max-width:none;min-width:640px}
+.kb-names{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;min-width:640px;margin-top:4px;padding-left:11%}
+.kb-names button{border:2px solid var(--ink);border-radius:8px;background:#fff;font-family:var(--head);font-weight:800;cursor:pointer;padding:2px 0}
+.kb-names button.on{background:var(--c);color:var(--on)}
+.kb-song{margin-top:12px;border-top:2px dashed var(--line);padding-top:10px}
+.kb-lyrics{margin-top:8px;font-size:1.25rem;line-height:1.9;font-family:var(--head)}
+.kb-lyrics span{padding:0 2px;border-radius:6px}
+.kb-lyrics span.done{color:#2e7d1e}
+.kb-lyrics span.cur{background:#9bdb6b;color:#16300a;font-weight:800}
+.kb-next{font-size:.95rem;font-family:var(--body);color:var(--muted)}
+.kb-keys{font-size:.88rem;color:var(--muted);margin-top:6px}
+.kb-rule .kb-sym{float:right;font-size:3.4rem;line-height:1;color:#2e7d1e;font-weight:700}
+.kb-machine,.kb-det{display:grid;grid-template-columns:minmax(170px,240px) 1fr;gap:14px;align-items:center;margin-top:8px}
+.kb-det .row .btn{min-width:64px;font-size:1.15rem}
+@media(max-width:620px){.kb-info,.kb-machine,.kb-det{grid-template-columns:1fr}.kb-staff{max-width:230px}}
+
+/* ===== NEU: Vokabeln ===== */
+.vk-boxes{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.vk-box{border:2px solid var(--line);border-radius:12px;padding:8px 4px;text-align:center;background:#fff;border-bottom:8px solid #cfd5e2}
+.vk-box b{display:block;font-family:var(--head);font-size:1.6rem;line-height:1.1}
+.vk-box small{font-weight:700;color:var(--muted);font-size:.8rem}
+.vk-box.b1{border-bottom-color:#f6a5a1}.vk-box.b2{border-bottom-color:#ffc078}.vk-box.b3{border-bottom-color:#ffe066}.vk-box.b4{border-bottom-color:#b2dc8f}.vk-box.b5{border-bottom-color:#2e9e4f;background:#effaf0}
+.vk-prog{font-weight:700;color:var(--muted)}
+.vk-sets{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.vk-sets button{text-align:left;border:2px solid var(--line);border-radius:14px;background:#fff;padding:10px 12px;cursor:pointer;position:relative}
+.vk-sets button .em{font-size:1.5rem;float:right}
+.vk-sets button b{display:block;font-family:var(--head)}
+.vk-sets button small{color:var(--muted);font-weight:700}
+.vk-sets button.on{border-color:var(--c);background:var(--soft);box-shadow:inset 0 0 0 2px var(--c)}
+.vk-sets button.vk-all{border-style:dashed}
+.vk-mini{display:block;height:6px;background:var(--line);border-radius:9px;margin-top:6px;overflow:hidden}
+.vk-mini i{display:block;height:100%;background:#2e9e4f}
+.vk-modes{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+.vk-modes button{border:2px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;padding:8px 4px;font-family:var(--head);font-weight:700;display:flex;flex-direction:column;align-items:center;line-height:1.15;font-size:.95rem}
+.vk-modes button .em{font-size:1.6rem}
+.vk-modes button.on{background:var(--c);color:var(--on);border-color:var(--c)}
+.vk-dir{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 4px}
+.vk-stage{margin-top:12px;min-height:200px}
+.vk-hint{color:var(--muted);font-size:.95rem;margin:.2em 0 .6em}
+.vk-list{display:flex;flex-direction:column;gap:6px}
+.vk-row{display:grid;grid-template-columns:minmax(170px,1.2fr) minmax(140px,1fr) 2fr 62px;gap:10px;align-items:start;border-bottom:1px solid var(--line);padding:6px 0}
+.vk-en b{font-family:var(--head);font-size:1.08rem}
+.vk-ipa{color:var(--muted);font-size:.9rem;font-family:"Lucida Sans Unicode","Segoe UI","DejaVu Sans",sans-serif}
+.vk-ex{font-size:.93rem}
+.vk-tip{font-size:.88rem;color:#8a3b00;margin-top:2px}
+.cov{background:repeating-linear-gradient(45deg,#e6e9f0,#e6e9f0 8px,#eef0f5 8px,#eef0f5 16px);color:transparent!important;border-radius:8px;cursor:pointer;user-select:none}
+.cov *{visibility:hidden}
+.vk-badge{font-size:.75rem;font-weight:800;border-radius:99px;padding:1px 6px;text-align:center;background:#eef0f5}
+.vk-badge.b1{background:#fde7e5}.vk-badge.b2{background:#ffe8cc}.vk-badge.b3{background:#fff3bf}.vk-badge.b4{background:#e3f6d5}.vk-badge.b5{background:#2e9e4f;color:#fff}
+.vk-q{font-family:var(--head);font-weight:800;font-size:1.8rem;text-align:center;padding:14px 8px;line-height:1.25}
+.vk-ipa-big{font-family:"Lucida Sans Unicode","Segoe UI","DejaVu Sans",sans-serif;font-weight:400}
+.vk-gap{font-size:1.4rem}.vk-gap span{color:var(--c);letter-spacing:2px}
+.vk-card{display:block;width:100%;min-height:190px;border:3px solid var(--ink);border-radius:18px;background:#fff;cursor:pointer;padding:16px;box-shadow:0 6px 0 var(--ink);margin:6px 0 14px;transition:transform .1s}
+.vk-card:active{transform:translateY(3px);box-shadow:0 3px 0 var(--ink)}
+.vk-card.on{background:var(--soft)}
+.vk-card small{display:block;color:var(--muted);font-weight:700}
+.vk-judge{justify-content:center}
+.vk-judge .btn{font-size:1.1rem;padding:10px 18px}
+.vk-yes{border-color:#2e9e4f!important}.vk-no{border-color:#d93a34!important}
+.vk-input{width:min(100%,320px);font-size:1.3rem}
+.vk-sol{margin-top:8px;color:var(--ink);font-weight:400}
+.vk-built{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin:6px 0 12px}
+.vk-built span{width:34px;height:42px;border-bottom:3px solid var(--ink);font-family:var(--head);font-weight:800;font-size:1.5rem;text-align:center}
+.vk-built span.sp{border:0;width:16px}
+.vk-letters{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:10px}
+.vk-letters button{width:44px;height:48px;border:2px solid var(--ink);border-radius:10px;background:#fff;font-family:var(--head);font-weight:800;font-size:1.4rem;cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+.vk-letters button:disabled{opacity:.15;box-shadow:none}
+.vk-note{font-family:var(--head);font-size:1.4rem;margin:6px 0}.vk-note b{font-size:2.4rem;color:var(--c)}
+.vk-wrong{margin:.4em 0 0;padding-left:1.1em}
+.vk-hl{background:#ffe066;border-radius:6px;padding:0 4px}.vk-hl2{background:#d0ebff;border-radius:6px;padding:0 4px}
+@media(max-width:700px){.vk-row{grid-template-columns:1fr 1fr}.vk-ex{grid-column:1/-1}.vk-badge{display:none}.vk-boxes{grid-template-columns:repeat(3,1fr)}.vk-q{font-size:1.45rem}}
+
+/* ===== NEU: Gewichte / Rechnen ===== */
+.gr-treppe{display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px;margin:10px 0 18px}
+.gr-stufe{display:flex;align-items:center;gap:4px}
+.gr-box{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:6px 12px;text-align:center;min-width:110px}
+.gr-stufe.on .gr-box{background:var(--c);color:var(--on)}
+.gr-box .u{font-family:var(--head);font-weight:800;font-size:1.1rem}
+.gr-box .v{font-family:var(--head);font-weight:800;font-size:1.25rem;font-variant-numeric:tabular-nums}
+.gr-mal{font-weight:800;color:var(--muted);font-size:.9rem;white-space:nowrap}
+.gr-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-top:8px}
+.gr-cards button{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:12px 8px;font-family:var(--head);font-weight:700;font-size:1.05rem;cursor:pointer;min-height:70px}
+.gr-cards button b{display:inline-block;background:var(--c);color:var(--on);border-radius:6px;padding:0 6px;margin-right:4px}
+.gr-cards button small{display:block;font-family:var(--body);color:#1c7a39;font-weight:800}
+.gr-cards button.sel,.gr-order button.sel{background:var(--soft);box-shadow:inset 0 0 0 3px var(--c)}
+.gr-cards button.ok,.gr-order button.ok{background:#e3f6e7;border-color:#2e9e4f;cursor:default}
+.gr-cards button.bad,.gr-order button.bad{background:#fde7e5;border-color:#d93a34}
+.gr-order{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.gr-order button{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px 16px;font-family:var(--head);font-weight:800;font-size:1.2rem;cursor:pointer}
+.gr-res{font-family:var(--head);font-weight:800;font-size:1.2rem;min-height:1.6em}
+.gr-res span{background:#e3f6e7;border-radius:8px;padding:0 6px}
+.gr-wrong{font-family:var(--hand);font-size:1.5rem;text-align:center;padding:14px;background:repeating-linear-gradient(#fff,#fff 23px,#dfe5f0 24px);border-radius:10px;margin:8px 0;text-decoration:underline wavy #d93a34;text-underline-offset:6px}
+.gr-task{display:grid;grid-template-columns:46px 1fr;gap:10px;margin-bottom:10px}
+.gr-task .gr-em{font-size:2rem}
+.gr-task p{margin:0 0 6px}
+.gr-task.solved{border-color:#2e9e4f;background:#f4fbf5}
+
 </style>
 </head>
 <body>
@@ -3649,6 +3769,867 @@ lpAdd("sport",
    ["Lena läuft 50 m in 9,2 s, Mia in 8,9 s. Wer war schneller?",["Mia","Lena","Beide gleich","Das kann man nicht sagen"],"Beim Laufen gewinnt die kleinere Zeit: 8,9 s ist weniger als 9,2 s."]
   ])}
   ${lpPlan("Bewegungsfeld 3 – Laufen, Springen, Werfen (Leichtathletik): grundlegende technisch-koordinative Fertigkeiten, ausdauerndes Laufen, leichtathletische Disziplinen.")}`)}
+]);
+
+
+/* =====================================================================
+   NEU (Nov 2026) · Zusätzliche Themen aus dem Unterricht
+   lpMore() hängt Themen an ein Fach an (vorne oder hinten).
+   ===================================================================== */
+function lpMore(sid, topics, front){ const s=SUBJECTS.find(x=>x.id===sid); if(front) s.topics.unshift(...topics); else s.topics.push(...topics); }
+const lpMix = a=>{ a=[...a]; for(let k=a.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [a[k],a[j]]=[a[j],a[k]]; } return a; };
+const lpRnd = n=>Math.floor(Math.random()*n);
+
+/* ============================ MUSIK · Klavier ============================ */
+const KB = {
+  ST:["c","d","e","f","g","a","h"], BASE:[0,2,4,5,7,9,11],
+  WHITE:{0:"c",2:"d",4:"e",5:"f",7:"g",9:"a",11:"h"},
+  SHARP:{1:"cis",3:"dis",6:"fis",8:"gis",10:"ais"}, FLAT:{1:"des",3:"es",6:"ges",8:"as",10:"b"},
+  name(st,acc){ const n=KB.ST[st]; if(acc>0) return n+"is"; if(acc<0) return n==="e"?"es":n==="a"?"as":n==="h"?"b":n+"es"; return n; },
+  semi(st,oct,acc){ return oct*12+KB.BASE[st]+acc; },
+  freq: s=>261.63*Math.pow(2,s/12),
+  play(s,d){ lpTone(KB.freq(s), d||.9, .3); }
+};
+/* Klaviatur als SVG. o.n = Anzahl weißer Tasten (ab c′), o.lab = "st" | "all" | "none", o.bl = "is" | "es" | "beide" */
+function kbSVG(o){
+  o=o||{}; const n=o.n||15, W=46, H=210, BW=30, BH=130; let w="", b="", x=0;
+  for(let s=0; x<n; s++){ const m=s%12;
+    if(KB.WHITE[m]!=null){
+      const lab=o.lab==="none"?"":KB.WHITE[m];
+      w+=`<g class="kw" data-s="${s}"><rect x="${x*W+2}" y="2" width="${W}" height="${H}" rx="7"/><text x="${x*W+2+W/2}" y="${H-16}">${lab}</text></g>`; x++;
+    } else if(x<n){
+      const cx=x*W+2; let lab="";
+      if(o.lab==="all") lab = o.bl==="es" ? KB.FLAT[m] : o.bl==="beide" ? `${KB.SHARP[m]}<tspan x="${cx}" dy="17">${KB.FLAT[m]}</tspan>` : KB.SHARP[m];
+      b+=`<g class="kbk" data-s="${s}"><rect x="${cx-BW/2}" y="2" width="${BW}" height="${BH}" rx="5"/><text x="${cx}" y="${o.bl==="beide"?BH-40:BH-22}">${lab}</text></g>`;
+    }
+  }
+  return `<svg class="kb-svg" viewBox="0 0 ${n*W+4} ${H+6}" role="img" aria-label="Klaviertastatur">${w}${b}</svg>`;
+}
+/* Notenzeile mit Ganzen Noten. notes: [[stammton 0-6, oktave 0/1/2, vorzeichen -1/0/1], …] */
+function kbStaff(notes, w){
+  w=w||260; let s=`<rect width="${w}" height="210" fill="#fff"/>`;
+  for(let i=0;i<5;i++) s+=`<line x1="8" y1="${70+i*20}" x2="${w-8}" y2="${70+i*20}" stroke="#1f2433" stroke-width="2"/>`;
+  s+=`<text x="10" y="160" font-size="118" font-family="'Segoe UI Symbol','Noto Music','Apple Symbols','DejaVu Sans',serif">𝄞</text>`;
+  const gap=(w-110)/Math.max(notes.length,1);
+  notes.forEach((nt,k)=>{ const d=nt[1]*7+nt[0], y=170-d*10, x=110+gap*(k+.5);
+    const led=[]; if(d<=1) led.push(170); if(d>=12) led.push(50); if(d>=14) led.push(30);
+    led.forEach(ly=>s+=`<line x1="${x-21}" y1="${ly}" x2="${x+21}" y2="${ly}" stroke="#1f2433" stroke-width="2"/>`);
+    if(nt[2]) s+=`<text x="${x-26}" y="${y+(nt[2]>0?10:6)}" font-size="${nt[2]>0?34:36}" font-weight="700" text-anchor="middle" fill="#2e7d1e">${nt[2]>0?"♯":"♭"}</text>`;
+    s+=`<ellipse cx="${x}" cy="${y}" rx="14" ry="9.5" fill="#fff" stroke="#1f2433" stroke-width="3.2"/><ellipse cx="${x}" cy="${y}" rx="5" ry="8" transform="rotate(-35 ${x} ${y})" fill="#fff"/>`;
+  });
+  return `<svg viewBox="0 0 ${w} 210" class="kb-staff" role="img" aria-label="Note im Notensystem">${s}</svg>`;
+}
+/* schwarze Taste → Notennamen mit ♯ und ♭ */
+function kbSpell(s){ const m=s%12, oct=Math.floor(s/12);
+  if(KB.WHITE[m]!=null) return {white:true, name:KB.WHITE[m], st:[[KB.ST.indexOf(KB.WHITE[m]),oct,0]]};
+  const up=KB.ST.indexOf(KB.SHARP[m][0]), dn=KB.ST.indexOf(KB.FLAT[m][0]);
+  return {white:false, is:KB.SHARP[m], es:KB.FLAT[m], up:[up,oct,1], dn:[dn,oct,-1]};
+}
+const KB_SONGS = {
+  leiter:{name:"🎼 C-Dur-Tonleiter", n:[0,2,4,5,7,9,11,12], d:[1,1,1,1,1,1,1,2], t:"c d e f g a h c".split(" ")},
+  entchen:{name:"🦆 Alle meine Entchen", n:[0,2,4,5,7,7, 9,9,9,9,7, 9,9,9,9,7, 5,5,5,5,4,4, 2,2,2,2,0], d:[1,1,1,1,2,2, 1,1,1,1,4, 1,1,1,1,4, 1,1,1,1,2,2, 1,1,1,1,4],
+    t:"Al-le mei-ne Ent-chen schwim-men auf dem See, schwim-men auf dem See, Köpf-chen in das Was-ser, Schwänz-chen in die Höh.".split(/[ -]/)},
+  haenschen:{name:"🎒 Hänschen klein", n:[7,4,4,5,2,2,0,2,4,5,7,7,7, 7,4,4,5,2,2,0,4,7,7,0], d:[1,1,2,1,1,2,1,1,1,1,1,1,2, 1,1,2,1,1,2,1,1,1,1,4],
+    t:"Häns-chen klein ging al-lein in die wei-te Welt hin-ein. Stock und Hut steht ihm gut, ist gar wohl-ge-mut.".split(/[ -]/)}
+};
+
+lpMore("musik", [
+ {id:"klavier", title:"Stammtöne und Vorzeichen am Klavier", em:"🎹", desc:"Ein Klavier zum Spielen: c – d – e – f – g – a – h, Kreuz und B, Lieder nachspielen und Notennamen üben.", render: el=>lpBuild(el, `
+  <h1>🎹 Stammtöne und Vorzeichen am Klavier</h1>
+  <p class="lead">Auf dem Klavier kannst du sehen, wie Töne zusammenhängen. Probier es aus: Tippe auf die Tasten – oder spiel mit der Computertastatur!</p>
+
+  <h2>1 · Dein Klavier</h2>
+  ${wBox(`<div class="kb-ctl">
+     <div><b>Beschriftung:</b><div class="lp-chips" data-lab><button type="button" data-v="st">Stammtöne</button><button type="button" data-v="all">alle Töne</button><button type="button" data-v="none">keine (Profi!)</button></div></div>
+     <div data-blrow><b>Schwarze Tasten:</b><div class="lp-chips" data-bl><button type="button" data-v="is">mit ♯ (cis …)</button><button type="button" data-v="es">mit ♭ (des …)</button><button type="button" data-v="beide">beide</button></div></div>
+   </div>
+   <div class="kb-wrap" data-kb></div>
+   <div class="kb-info"><div data-staff>${kbStaff([])}</div><div class="lp-out" data-o aria-live="polite">Tippe auf eine Taste.</div></div>
+   <div class="kb-song">
+     <div class="row"><b>Lied lernen:</b><select class="lp-sel" data-song><option value="">– frei spielen –</option>${Object.entries(KB_SONGS).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join("")}</select>
+     <button type="button" class="btn" data-demo disabled>▶ Vorspielen</button><button type="button" class="btn" data-restart disabled>↺ Von vorn</button></div>
+     <div class="kb-lyrics" data-lyr></div>
+   </div>
+   <p class="kb-keys">⌨️ <b>Computertastatur:</b> A S D F G H J K = weiße Tasten c bis c″ · W E T Z U = schwarze Tasten</p>`, box=>{
+    let lab="st", bl="is", song=null, pos=0, tm=[];
+    const kbEl=$("[data-kb]",box), out=$("[data-o]",box), stf=$("[data-staff]",box), lyr=$("[data-lyr]",box);
+    const setChips=(row,v)=>row.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+    const draw=()=>{ kbEl.innerHTML=kbSVG({n:15,lab,bl}); setChips($("[data-lab]",box),lab); setChips($("[data-bl]",box),bl); $("[data-blrow]",box).style.opacity=lab==="all"?1:.45; hint(); };
+    const keyEl=s=>kbEl.querySelector(`[data-s="${s}"]`);
+    function hint(){ kbEl.querySelectorAll(".hint").forEach(k=>k.classList.remove("hint")); if(song&&pos<song.n.length){ const k=keyEl(song.n[pos]); if(k) k.classList.add("hint"); } showLyrics(); }
+    function showLyrics(){ if(!song){ lyr.innerHTML=""; return; }
+      lyr.innerHTML = pos>=song.n.length ? `<span class="lp-big">🎉 Geschafft! Du hast „${song.name.replace(/^\S+ /,"")}“ gespielt.</span>`
+        : song.t.map((w,i)=>`<span class="${i<pos?"done":i===pos?"cur":""}">${w}</span>`).join(" ") + `<div class="kb-next">Nächste Taste: <b>${kbSpell(song.n[pos]).name}</b> – sie leuchtet grün.</div>`; }
+    function press(s, quiet){
+      KB.play(s); const k=keyEl(s); if(k){ k.classList.add("on"); setTimeout(()=>k.classList.remove("on"),260); }
+      if(quiet) return;
+      const sp=kbSpell(s);
+      if(sp.white){ stf.innerHTML=kbStaff(sp.st); out.innerHTML=`<span class="lp-big">${sp.name}</span> – ein <b>Stammton</b> (weiße Taste).`; }
+      else { stf.innerHTML=kbStaff(bl==="es"?[sp.dn]:bl==="beide"?[sp.up,sp.dn]:[sp.up]);
+        out.innerHTML=`<span class="lp-big">${sp.is} / ${sp.es}</span> – eine <b>schwarze Taste</b> mit zwei Namen:<br><b>${sp.is}</b> = ${sp.is[0]} mit Kreuz ♯ (einen Halbton höher) · <b>${sp.es}</b> = ${KB.ST[sp.dn[0]]} mit B ♭ (einen Halbton tiefer)`; }
+      if(song && pos<song.n.length && s===song.n[pos]){ pos++; hint(); }
+    }
+    kbEl.addEventListener("pointerdown",e=>{ const g=e.target.closest("[data-s]"); if(g){ e.preventDefault(); press(+g.dataset.s); } });
+    $("[data-lab]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ lab=b.dataset.v; draw(); } });
+    $("[data-bl]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ bl=b.dataset.v; if(lab!=="all") lab="all"; draw(); } });
+    $("[data-song]",box).addEventListener("change",e=>{ tm.forEach(clearTimeout); song=KB_SONGS[e.target.value]||null; pos=0; $("[data-demo]",box).disabled=$("[data-restart]",box).disabled=!song; hint(); });
+    $("[data-restart]",box).onclick=()=>{ pos=0; hint(); };
+    $("[data-demo]",box).onclick=()=>{ if(!song) return; tm.forEach(clearTimeout); tm=[]; let t=0;
+      song.n.forEach((s,i)=>{ tm.push(setTimeout(()=>press(s,true),t)); t+=song.d[i]*330; }); };
+    const MAP={a:0,w:1,s:2,e:3,d:4,f:5,t:6,g:7,z:8,y:8,h:9,u:10,j:11,k:12,o:13,l:14};
+    const onKey=e=>{ if(e.repeat||e.ctrlKey||e.metaKey||e.altKey) return; if(/input|select|textarea/i.test((e.target.tagName||""))) return;
+      const s=MAP[(e.key||"").toLowerCase()]; if(s==null) return; if(!box.isConnected) return; e.preventDefault(); press(s); };
+    document.addEventListener("keydown",onKey);
+    draw();
+    return ()=>{ document.removeEventListener("keydown",onKey); tm.forEach(clearTimeout); };
+  })}
+  <div class="note"><b>So findest du dich zurecht:</b> Die schwarzen Tasten sind immer in <b>Zweier- und Dreiergruppen</b> angeordnet. Das <b>c</b> ist die weiße Taste <b>links neben der Zweiergruppe</b>. Danach folgen die Stammtöne <b>c – d – e – f – g – a – h</b> – und dann beginnt alles wieder von vorn mit c.</div>
+
+  <h2>2 · Die Stammtöne</h2>
+  <p>Die sieben weißen Tasten heißen <b>Stammtöne</b>: <span class="lp-big">c – d – e – f – g – a – h</span></p>
+  <div class="lp-two">
+   <div class="card"><h3>🔁 Immer wieder von vorn</h3>Nach dem <b>h</b> kommt wieder ein <b>c</b> – nur höher. Von einem c bis zum nächsten c sind es <b>8 Töne</b>. Das nennt man eine <b>Oktave</b> (lateinisch <i>octo</i> = acht).</div>
+   <div class="card"><h3>🎼 Im Notensystem</h3>Jede Note steht auf einer <b>Linie</b> oder in einem <b>Zwischenraum</b>. Von c bis h geht es immer eine Stufe höher: Linie – Zwischenraum – Linie – … Das tiefe <b>c′</b> braucht eine kleine <b>Hilfslinie</b>.</div>
+  </div>
+  ${wBox(`<div class="kb-staffline">${kbStaff([[0,0,0],[1,0,0],[2,0,0],[3,0,0],[4,0,0],[5,0,0],[6,0,0],[0,1,0],[1,1,0],[2,1,0],[3,1,0],[4,1,0],[5,1,0],[6,1,0]],980)}</div>
+   <div class="kb-names">${"c d e f g a h c d e f g a h".split(" ").map((n,i)=>`<button type="button" data-i="${i}">${n}</button>`).join("")}</div>
+   <div class="row" style="margin-top:8px"><button type="button" class="btn primary" data-up>▶ Alle 14 Töne hinauf</button></div>`, box=>{
+    let tm=[]; const semis=[0,2,4,5,7,9,11,12,14,16,17,19,21,23];
+    const hi=i=>{ box.querySelectorAll(".kb-names button").forEach((b,j)=>b.classList.toggle("on",j===i)); KB.play(semis[i],.6); };
+    box.addEventListener("click",e=>{ const b=e.target.closest(".kb-names button"); if(b) hi(+b.dataset.i); });
+    $("[data-up]",box).onclick=()=>{ tm.forEach(clearTimeout); tm=semis.map((s,i)=>setTimeout(()=>hi(i),i*360)); };
+    return ()=>tm.forEach(clearTimeout);
+  })}
+
+  <h2>3 · Vorzeichen: Kreuz ♯ und B ♭</h2>
+  <p>Zwischen den Stammtönen liegen die <b>schwarzen Tasten</b>. Um sie aufzuschreiben, braucht man <b>Vorzeichen</b>. Sie stehen <b>vor</b> der Note.</p>
+  <div class="lp-two">
+   <div class="card kb-rule"><div class="kb-sym">♯</div><h3>Das Kreuz erhöht</h3>Der Ton wird um einen <b>Halbton höher</b> – du gehst zur nächsten Taste <b>nach rechts</b>.<br>An den Namen hängst du <b>-is</b> an:<div class="lp-big">c → cis · f → fis</div></div>
+   <div class="card kb-rule"><div class="kb-sym">♭</div><h3>Das B erniedrigt</h3>Der Ton wird um einen <b>Halbton tiefer</b> – du gehst zur nächsten Taste <b>nach links</b>.<br>An den Namen hängst du <b>-es</b> an:<div class="lp-big">d → des · g → ges</div></div>
+  </div>
+  <div class="note"><b>Drei Ausnahmen beim B ♭:</b> Bei Vokalen fällt das „e“ weg: <b>e → es</b> (nicht „ees“) und <b>a → as</b> (nicht „aes“). Und aus <b>h</b> wird einfach <b>b</b>!</div>
+  <p><b>Vorzeichen-Maschine:</b> Wähle einen Stammton und ein Vorzeichen.</p>
+  ${wBox(`<div class="lp-chips" data-st>${KB.ST.map((n,i)=>`<button type="button" data-v="${i}">${n}</button>`).join("")}</div>
+   <div class="lp-chips" data-acc><button type="button" data-v="1">♯ Kreuz</button><button type="button" data-v="0">♮ ohne</button><button type="button" data-v="-1">♭ B</button></div>
+   <div class="kb-machine"><div data-staff></div><div class="kb-wrap small" data-kb></div></div><div class="lp-out" data-o aria-live="polite"></div>`, box=>{
+    let st=0, acc=1;
+    const set=()=>{ box.querySelectorAll("[data-st] button").forEach(b=>b.classList.toggle("on",+b.dataset.v===st)); box.querySelectorAll("[data-acc] button").forEach(b=>b.classList.toggle("on",+b.dataset.v===acc));
+      const oct = (st===0&&acc<0) ? 1 : 0, s=KB.semi(st,oct,acc), nm=KB.name(st,acc), base=KB.ST[st];
+      $("[data-staff]",box).innerHTML=kbStaff([[st,oct,acc]]);
+      const kb=$("[data-kb]",box); kb.innerHTML=kbSVG({n:9,lab:"st"}); const k=kb.querySelector(`[data-s="${s}"]`); if(k) k.classList.add("hint");
+      const b0=kb.querySelector(`[data-s="${KB.semi(st,oct,0)}"]`); if(b0&&acc) b0.classList.add("from");
+      let txt;
+      if(acc===0) txt=`<span class="lp-big">${nm}</span> – ein Stammton ohne Vorzeichen.`;
+      else if(acc>0) txt=`<span class="lp-big">${base} + ♯ = ${nm}</span><br>Einen Halbton höher – eine Taste nach rechts.`+((base==="e"||base==="h")?` <b>Achtung:</b> Zwischen ${base} und ${base==="e"?"f":"c"} gibt es keine schwarze Taste! <b>${nm}</b> ist deshalb die <b>weiße Taste ${base==="e"?"f":"c"}</b>.`:"");
+      else txt=`<span class="lp-big">${base} + ♭ = ${nm}</span><br>Einen Halbton tiefer – eine Taste nach links.`+((base==="f"||base==="c")?` <b>Achtung:</b> Zwischen ${base==="f"?"e und f":"h und c"} gibt es keine schwarze Taste! <b>${nm}</b> ist deshalb die <b>weiße Taste ${base==="f"?"e":"h"}</b>.`:"")+((base==="e"||base==="a")?` <b>Ausnahme:</b> nicht „${base}es“, sondern <b>${nm}</b>.`:"")+(base==="h"?` <b>Ausnahme:</b> h mit ♭ heißt einfach <b>b</b>.`:"");
+      $("[data-o]",box).innerHTML=txt; KB.play(s,.8);
+    };
+    $("[data-st]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ st=+b.dataset.v; set(); } });
+    $("[data-acc]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ acc=+b.dataset.v; set(); } });
+    $("[data-kb]",box).addEventListener("pointerdown",e=>{ const g=e.target.closest("[data-s]"); if(g) KB.play(+g.dataset.s); });
+    set();
+  })}
+  <div class="lp-two">
+   <div class="card"><h3>⬆️ Die Kreuz-Reihe</h3><div class="lp-big">cis · dis · eis · fis · gis · ais · his</div></div>
+   <div class="card"><h3>⬇️ Die B-Reihe</h3><div class="lp-big">ces · des · es · fes · ges · as · b</div></div>
+  </div>
+  <div class="note"><b>Ein Ton – zwei Namen:</b> Die schwarze Taste zwischen c und d kann <b>cis</b> heißen (c erhöht) <b>oder</b> <b>des</b> (d erniedrigt). Es klingt genau gleich! Welcher Name richtig ist, siehst du am Vorzeichen in den Noten.</div>
+
+  <h2>4 · Spiel: Finde die Taste!</h2>
+  <p>Ein Notenname erscheint – tippe die richtige Taste. Jede Oktave zählt.</p>
+  ${wBox(`<div class="lp-chips" data-mode><button type="button" data-v="0">Stammtöne</button><button type="button" data-v="1">mit ♯</button><button type="button" data-v="2">mit ♭</button><button type="button" data-v="3">alles + Ausnahmen</button></div>
+   <div class="ph-qhead"><span data-score>0 Punkte</span><span data-streak></span></div>
+   <div class="lp-item" data-q>…</div><div class="kb-wrap" data-kb></div><div class="fb" data-fb></div>`, box=>{
+    let mode=0, cur=null, pts=0, streak=0, lock=false; const kb=$("[data-kb]",box), fb=$("[data-fb]",box);
+    kb.innerHTML=kbSVG({n:15,lab:"none"});
+    const pool=()=>{ const r=[]; KB.ST.forEach((n,st)=>{ [-1,0,1].forEach(a=>{
+      const nm=KB.name(st,a), odd=(a>0&&(n==="e"||n==="h"))||(a<0&&(n==="f"||n==="c"));
+      if(mode===0&&a===0 || mode===1&&a>=0&&!odd || mode===2&&a<=0&&!odd || mode===3) r.push({nm, pc:((KB.BASE[st]+a)%12+12)%12}); }); }); return r; };
+    const next=()=>{ const p=pool(); let n; do{ n=p[lpRnd(p.length)]; }while(cur&&n.nm===cur.nm&&p.length>1); cur=n; lock=false;
+      $("[data-q]",box).innerHTML=`Wo ist <b>${cur.nm}</b>?`; fb.textContent=""; kb.querySelectorAll(".hint,.bad").forEach(k=>k.classList.remove("hint","bad")); };
+    const setMode=()=>{ box.querySelectorAll("[data-mode] button").forEach(b=>b.classList.toggle("on",+b.dataset.v===mode)); cur=null; next(); };
+    $("[data-mode]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ mode=+b.dataset.v; setMode(); } });
+    kb.addEventListener("pointerdown",e=>{ const g=e.target.closest("[data-s]"); if(!g||lock) return; e.preventDefault(); const s=+g.dataset.s; KB.play(s,.6);
+      if(s%12===cur.pc){ lock=true; pts++; streak++; g.classList.add("hint"); fb.className="fb ok"; fb.textContent=streak>=5?`Richtig! 🔥 ${streak} in Folge!`:"Richtig! ⭐";
+        $("[data-score]",box).textContent=pts+" Punkte"; $("[data-streak]",box).textContent=streak>1?"🔥 "+streak:""; setTimeout(next,900); }
+      else { streak=0; $("[data-streak]",box).textContent=""; g.classList.add("bad"); setTimeout(()=>g.classList.remove("bad"),500); fb.className="fb no";
+        const sp=kbSpell(s); fb.textContent=`Das war ${sp.white?sp.name:sp.is+" / "+sp.es}. Versuch es noch einmal!`; } });
+    setMode();
+  })}
+
+  <h2>5 · Noten-Detektiv: Notennamen mit Vorzeichen</h2>
+  <p>Wie heißt die Note? Achte auf das Vorzeichen davor! (So wie auf deinem Arbeitsblatt.)</p>
+  ${wBox(`<div class="lp-chips" data-mode><button type="button" data-v="0">ohne Vorzeichen</button><button type="button" data-v="1">mit ♯</button><button type="button" data-v="2">mit ♭</button><button type="button" data-v="3">gemischt</button></div>
+   <div class="ph-qhead"><span data-score>0 von 0 richtig</span><span data-streak></span></div>
+   <div class="kb-det"><div data-staff></div><div><div class="row" data-btn></div><div class="fb" data-fb></div><div class="kb-wrap small" data-kb></div></div></div>`, box=>{
+    let mode=3, cur=null, ok=0, all=0, streak=0, lock=false; const fb=$("[data-fb]",box);
+    const pick=()=>{ const d=lpRnd(13), st=d%7, oct=Math.floor(d/7); let a=0;
+      if(mode===1) a=1; else if(mode===2) a=-1; else if(mode===3) a=[-1,0,1][lpRnd(3)];
+      return {st,oct,a,nm:KB.name(st,a)}; };
+    const next=()=>{ let n; do{ n=pick(); }while(cur&&n.nm===cur.nm); cur=n; lock=false; fb.textContent=""; $("[data-kb]",box).innerHTML="";
+      $("[data-staff]",box).innerHTML=kbStaff([[cur.st,cur.oct,cur.a]]);
+      const opts=new Set([cur.nm]);
+      const cand=lpMix([KB.name(cur.st,-cur.a||1),KB.name(cur.st,0),KB.name((cur.st+1)%7,cur.a),KB.name((cur.st+6)%7,cur.a),KB.name((cur.st+2)%7,cur.a),KB.name((cur.st+1)%7,0)]);
+      cand.forEach(c=>{ if(opts.size<4) opts.add(c); });
+      $("[data-btn]",box).innerHTML=lpMix([...opts]).map(o=>`<button type="button" class="btn" data-o="${o}">${o}</button>`).join(""); };
+    const setMode=()=>{ box.querySelectorAll("[data-mode] button").forEach(b=>b.classList.toggle("on",+b.dataset.v===mode)); cur=null; next(); };
+    $("[data-mode]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ mode=+b.dataset.v; setMode(); } });
+    $("[data-btn]",box).addEventListener("click",e=>{ const b=e.target.closest("button[data-o]"); if(!b||lock) return; lock=true; all++;
+      const s=KB.semi(cur.st,cur.oct,cur.a); KB.play(s,.7); const good=b.dataset.o===cur.nm;
+      if(good){ ok++; streak++; b.classList.add("on"); fb.className="fb ok"; fb.textContent=streak>=5?`Richtig! 🔥 ${streak} in Folge!`:"Richtig! ⭐"; }
+      else { streak=0; fb.className="fb no"; fb.innerHTML=`Nicht ganz – das ist <b>${cur.nm}</b>.`; }
+      $("[data-score]",box).textContent=`${ok} von ${all} richtig`; $("[data-streak]",box).textContent=streak>1?"🔥 "+streak:"";
+      const kb=$("[data-kb]",box); kb.innerHTML=kbSVG({n:15,lab:"st"}); const k=kb.querySelector(`[data-s="${s}"]`); if(k) k.classList.add("hint");
+      setTimeout(next, good?1300:2600); });
+    setMode();
+  })}
+
+  <h2>6 · Jetzt du! 💪</h2>
+  ${wQuiz([
+   ["Wie heißen die sieben Stammtöne?",["c – d – e – f – g – a – h","a – b – c – d – e – f – g","c – d – e – f – g – a – b","do – re – mi – fa – so – la – ti"],"Im Deutschen heißt der siebte Stammton h."],
+   ["Was macht ein Kreuz ♯ vor einer Note?",["Es erhöht den Ton um einen Halbton","Es erniedrigt den Ton um einen Halbton","Es macht den Ton lauter","Es macht den Ton länger"],"Kreuz = einen Halbton höher, eine Taste nach rechts."],
+   ["Wie heißt d mit einem B ♭?",["des","dis","das","de"],"Beim B hängt man -es an: d → des."],
+   ["Wie heißt a mit einem B ♭?",["as","aes","ais","b"],"Ausnahme: Bei a und e fällt das e weg – as und es."],
+   ["Wie heißt h mit einem B ♭?",["b","hes","his","ces"],"Die große Ausnahme: h mit ♭ heißt einfach b."],
+   ["Welche Taste ist eis?",["Die weiße Taste f","Die schwarze Taste zwischen e und f","Die weiße Taste e","Die schwarze Taste zwischen f und g"],"Zwischen e und f gibt es keine schwarze Taste – einen Halbton über e liegt das f."],
+   ["Wo findest du auf dem Klavier das c?",["Links neben der Zweiergruppe der schwarzen Tasten","Rechts neben der Dreiergruppe","Ganz in der Mitte der Dreiergruppe","Auf einer schwarzen Taste"],"Das c liegt immer links neben den zwei schwarzen Tasten."],
+   ["fis und ges sind …",["dieselbe Taste mit zwei Namen","zwei verschiedene schwarze Tasten","beide weiße Tasten","eine Oktave voneinander entfernt"],"f erhöht und g erniedrigt landen auf derselben schwarzen Taste."]
+  ])}
+  ${lpPlan("Ordnungssysteme der musikalischen Parameter: Tonhöhen und ihre Notation (Stammtöne, Versetzungszeichen ♯ und ♭), Orientierung auf der Klaviatur; Gestaltung: einfache Melodien instrumental nachspielen.")}`)}
+]);
+
+/* ============================ ENGLISCH · Vokabeln ============================ */
+/* Jede Vokabel: [englisch, Lautschrift, deutsch, Beispielsatz, Tipp] */
+const VOK_SETS = [
+ {id:"pb1", em:"🛼", name:"Pick-up B · This is fun!", page:"S. 196–197", w:[
+  ["day","deɪ","Tag","It's a nice day for the boating lake.",""],
+  ["skates (pl)","skeɪts","Inlineskates; Rollschuhe; Schlittschuhe","Please show me your new skates.",""],
+  ["can't","kɑːnt","kann nicht; können nicht; darf nicht; dürfen nicht","Where's Mr Fluff? I can't see him.","can't ist die Kurzform von cannot."],
+  ["to meet","miːt","treffen; sich treffen","Where can we meet? – Let's meet in the park.",""],
+  ["to show","ʃəʊ","zeigen","Please show me your new skates.",""],
+  ["game","ɡeɪm","Spiel","I like this new computer game.",""],
+  ["to be into","biː ˈɪntə","mögen; stehen auf","I'm into sports. = I really like sports.",""],
+  ["to try","traɪ","versuchen; probieren","Luke, try skating – it's great!",""],
+  ["I'm sorry!","ˌaɪm ˈsɒri","Tut mir leid!","Oh, I'm sorry. Are you OK?",""],
+  ["I'm fine.","ˌaɪm ˈfaɪn","Mir geht's gut.","Are you OK? – Yes, I'm fine.",""],
+  ["cute","kjuːt","niedlich; süß","I like Lou. She's cute!",""],
+  ["lucky charm","ˌlʌki ˈtʃɑːm","Glücksbringer; Talisman","Holly's lucky charm is pink.",""],
+  ["text (message)","ˈtekst ˌmesɪdʒ","SMS; Kurznachricht","","Du kannst text message sagen oder einfach text."],
+  ["wrong","rɒŋ","falsch","","Achtung Aussprache: Das „w“ wird nicht gesprochen. wrong ↔ right"]]},
+ {id:"pb2", em:"🚦", name:"Pick-up B · Unterwegs", page:"S. 197", w:[
+  ["to do","duː","machen; tun","It's a nice day. What can we do? – We can go cycling!",""],
+  ["to swim","swɪm","schwimmen","",""],
+  ["to read","riːd","lesen","This text is in English. Can you read it?",""],
+  ["to skate","skeɪt","Inlineskates fahren; Schlittschuh laufen","","to skate → skates → skating"],
+  ["to cross","krɒs","überqueren; kreuzen","",""],
+  ["traffic light","ˈtræfɪk ˌlaɪt","Ampel","Cross the road when the traffic light is green.",""],
+  ["loud","laʊd","laut","I like music when it's loud.",""],
+  ["bus","bʌs","Bus","","Vorsicht bei der Mehrzahl: buses [-ɪz]!"],
+  ["to cycle","ˈsaɪkl","Fahrrad fahren","","to cycle → cycling"],
+  ["pavement","ˈpeɪvmənt","Bürgersteig","Walk on the pavement, not on the road.",""],
+  ["to warn","wɔːn","warnen","",""],
+  ["bell","bel","Glocke; Klingel","",""],
+  ["without","wɪˈðaʊt","ohne","","without ↔ with"],
+  ["light","laɪt","Licht; Lampe","Always cycle with a light.",""]]},
+ {id:"clo", em:"👕", name:"Clothes · Kleidung", page:"S. 197", w:[
+  ["belt","belt","Gürtel","",""], ["boots","buːts","Stiefel","",""], ["cardigan","ˈkɑːdɪɡən","Strickjacke","",""],
+  ["helmet","ˈhelmɪt","Helm","",""], ["jacket","ˈdʒækɪt","Jacke","",""], ["jeans","dʒiːnz","Jeans","",""],
+  ["jumper","ˈdʒʌmpə","Pullover; Pulli","",""], ["leggings","ˈleɡɪŋz","Leggings","",""], ["shirt","ʃɜːt","Hemd; Shirt","",""],
+  ["shoes","ʃuːz","Schuhe","",""], ["skirt","skɜːt","Rock","",""], ["trousers","ˈtraʊzəz","Hose","","trousers steht immer in der Mehrzahl."],
+  ["T-shirt","ˈtiːʃɜːt","T-Shirt","",""]]},
+ {id:"pb3", em:"🎨", name:"Pick-up B · Freizeit", page:"S. 198", w:[
+  ["free time","ˌfriː ˈtaɪm","Freizeit","I read books in my free time.",""],
+  ["to draw","drɔː","zeichnen","Let's draw a picture.",""],
+  ["to paint","peɪnt","anmalen; malen","Let's paint the walls blue.",""],
+  ["piano","piˈænəʊ","Klavier; Piano","I play the piano.","Achtung: I play THE piano – mit the!"],
+  ["to take photos","ˌteɪk ˈfəʊtəʊz","fotografieren; Fotos machen","Please take a photo of Sherlock.",""],
+  ["to watch TV","ˌwɒtʃ tiːˈviː","fernsehen","Let's watch TV.",""],
+  ["to watch","wɒtʃ","beobachten; (sich) ansehen; zuschauen","",""],
+  ["card","kɑːd","Karte; Spielkarte","Let's play cards.",""],
+  ["reading","ˈriːdɪŋ","Lesen","I love books. My hobby is reading.","reading → to read"],
+  ["plan","plæn","Plan; Entwurf","","Achtung Aussprache!"],
+  ["to be lucky","biː ˈlʌki","Glück haben","","I'm lucky. = Ich habe Glück. · I'm happy. = Ich bin glücklich."],
+  ["to find","faɪnd","finden; herausfinden","Where are my skates? I can't find them.",""]]},
+ {id:"u2a", em:"🏫", name:"Unit 2 · Schule und Mensa", page:"S. 199", w:[
+  ["planner","ˈplænə","Handbuch; Kalender","",""],
+  ["rule","ruːl","Regel","In Tony's home there's only one rule: NO CATS!",""],
+  ["lunch","lʌntʃ","Mittagessen","My favourite lunch is pizza.",""],
+  ["cafeteria","ˌkæfəˈtɪəriə","Cafeteria","Lunch at school is in the cafeteria.",""],
+  ["money","ˈmʌni","Geld","Oh no, where's my money?",""],
+  ["machine","məˈʃiːn","Automat; Maschine; Apparat; Gerät","In our street there's a machine for sweets.",""],
+  ["to pay (for)","peɪ","bezahlen","I can't pay for my lunch. No money!",""],
+  ["finger","ˈfɪŋɡə","Finger","","Achtung Aussprache: Das „g“ wird ausgesprochen!"],
+  ["art","ɑːt","Kunst; Kunstunterricht","I love the pictures in the art room.",""],
+  ["to buy","baɪ","kaufen","Let's buy a new planner.",""],
+  ["sweets (pl)","swiːts","Süßigkeiten; Bonbons","No, Sherlock! Sweets aren't good for dogs.",""],
+  ["shop","ʃɒp","Geschäft; Laden","Is there a shop at your school?",""],
+  ["uniform","ˈjuːnɪfɔːm","Uniform","The uniform at Thomas Tallis School is blue.",""],
+  ["recording studio","rɪˈkɔːdɪŋ ˌstjuːdiəʊ","Aufnahmestudio; Tonstudio","A recording studio at a school? Wow!",""],
+  ["classroom","ˈklɑːsruːm","Klassenzimmer","","classroom → class"]]},
+ {id:"u2b", em:"✏️", name:"Unit 2 · Mein Mäppchen", page:"S. 199–200", w:[
+  ["pen","pen","Füller","",""],
+  ["pencil","ˈpensl","Bleistift; Buntstift","",""],
+  ["pencil case","ˈpensl ˌkeɪs","Federmäppchen; Mäppchen","In my pencil case there are two pencils and one pen.",""],
+  ["exercise book","ˈeksəsaɪz ˌbʊk","Übungsheft","","exercise book → book"],
+  ["ruler","ˈruːlə","Lineal","",""],
+  ["rubber","ˈrʌbə","Radiergummi","",""],
+  ["schoolbag","ˈskuːlbæɡ","Schultasche","","schoolbag → bag"],
+  ["to have got","hæv ˈɡɒt","besitzen; haben","Luke has got a dog.",""],
+  ["question","ˈkwestʃən","Frage","Question: How old are you?",""],
+  ["an","ən","ein/-e","","Vor a, e, i, o, u wird a zu an: a cat, a dog – ABER: an animal, an idea."],
+  ["test","test","Test; Klassenarbeit; Prüfung","",""],
+  ["today","təˈdeɪ","heute","","today → day"]]},
+ {id:"u2c", em:"👋", name:"Unit 2 · Neu in der Klasse", page:"S. 200", w:[
+  ["tutor","ˈtjuːtə","Klassenlehrer/-in","Mr Swindon is Luke and Dave's tutor.",""],
+  ["tutor group","ˈtjuːtə ˌɡruːp","Klasse (in einer englischen Schule)","Jay is new in Luke and Dave's tutor group.",""],
+  ["Good morning.","ɡʊd ˈmɔːnɪŋ","Guten Morgen.","",""],
+  ["everyone","ˈevriwʌn","jeder; alle","Good morning! Is everyone here today?",""],
+  ["to call","kɔːl","nennen","My name is Jahangir, but you can call me Jay.",""],
+  ["him","hɪm","ihn; ihm","Tell Mr Swindon your name. Tell him your name.",""],
+  ["no","nəʊ","kein/-e","No problem!",""],
+  ["to sing","sɪŋ","singen","Let's sing a song.",""],
+  ["to dance","dɑːns","tanzen","The music is great – let's dance.",""],
+  ["project","ˈprɒdʒekt","Projekt","","Achtung Aussprache!"],
+  ["well","wel","tja; nun","Are you happy with a school uniform? – Well, not always!",""],
+  ["something","ˈsʌmθɪŋ","etwas","I've got something nice for you.",""],
+  ["Wait and see!","ˌweɪt ənd ˈsiː","Warte ab!","What has Jay got for Holly? – Wait and see!",""],
+  ["to look at","ˈlʊk ət","anschauen; ansehen","Look at that picture in your book.",""],
+  ["silly","ˈsɪli","dumm; doof; albern","I don't like this game. It's silly!",""],
+  ["teacher","ˈtiːtʃə","Lehrer/-in","","Du kannst tutor oder teacher sagen."]]},
+ {id:"u2d", em:"🥕", name:"Unit 2 · Familie, Essen und mehr", page:"S. 200", w:[
+  ["office","ˈɒfɪs","Büro","",""],
+  ["job","dʒɒb","Arbeit; Aufgabe; Job","What's your job? – I'm a teacher.",""],
+  ["grandparents (pl)","ˈɡrænˌpeərənts","Großeltern","","grandparents = grandpa and grandma"],
+  ["talent show","ˈtælənt ˌʃəʊ","Talentwettbewerb","",""],
+  ["to text","tekst","eine SMS schicken","","to text → text message"],
+  ["food","fuːd","Essen; Lebensmittel","There's no food in my schoolbag.",""],
+  ["carrot","ˈkærət","Karotte; Möhre","",""],
+  ["pudding","ˈpʊdɪŋ","Pudding; Nachtisch","","Nachtisch heißt auf Englisch pudding oder dessert."],
+  ["restaurant","ˈrestrɒnt","Restaurant; Gaststätte","","Achtung Aussprache!"],
+  ["to help","help","helfen","Can you help me, please?",""],
+  ["pocket money","ˈpɒkɪt ˌmʌni","Taschengeld","You can buy sweets with your pocket money.",""]]}
+];
+const VOK = (()=>{
+  const all=[]; VOK_SETS.forEach(S=>S.w.forEach(w=>all.push({en:w[0],ipa:w[1],de:w[2],ex:w[3],tip:w[4],set:S.id})));
+  const KEY="lenas-lernwelt-vokabeln-v1", DAY=864e5, INT=[0,0,1,2,4,7,14];
+  let store={}; try{ store=JSON.parse(localStorage.getItem(KEY)||"{}")||{}; }catch(e){ store={}; }
+  const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){} };
+  const today=()=>{ const d=new Date(); d.setHours(0,0,0,0); return d.getTime(); };
+  const strip=s=>s.replace(/\s*\((pl|sg)\)/g,"");
+  const speak=w=>strip(w.en).replace(/[()]/g,"");
+  const lower=s=>s.toLowerCase().replace(/[’`´]/g,"'").replace(/[.!?,;:„“"]/g,"").replace(/\s+/g," ").trim();
+  /* erlaubte Antworten */
+  function enVariants(w){ const base=strip(w.en), v=new Set();
+    [base.replace(/\s*\([^)]*\)/g,""), base.replace(/[()]/g,"")].forEach(s=>{ s=lower(s); v.add(s); v.add(s.replace(/^to /,"")); });
+    return v; }
+  function deVariants(w){ const v=new Set();
+    w.de.split(";").forEach(p=>{ p=p.trim();
+      [p.replace(/\s*\([^)]*\)\s*/g," "), p.replace(/[()]/g,"")].forEach(q=>{ q=lower(q);
+        const m=q.match(/^(.*?)\/-(\w+)(.*)$/); if(m){ v.add(lower(m[1]+m[3])); v.add(lower(m[1]+m[2]+m[3])); } else v.add(q); }); });
+    return v; }
+  const check=(w,ans,dir)=>{ const a=lower(ans); const V=dir==="en"?enVariants(w):deVariants(w); return V.has(a)||(dir==="en"&&V.has(a.replace(/^to /,""))); };
+  const lev=(a,b)=>{ const m=[...Array(a.length+1)].map((_,i)=>[i]); for(let j=1;j<=b.length;j++) m[0][j]=j;
+    for(let i=1;i<=a.length;i++) for(let j=1;j<=b.length;j++) m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]===b[j-1]?0:1)); return m[a.length][b.length]; };
+  const near=(w,ans,dir)=>{ const a=lower(ans).replace(/^to /,""); if(a.length<4) return false; return [...(dir==="en"?enVariants(w):deVariants(w))].some(v=>lev(v,a)===1); };
+  const box=w=>store[w.en]?store[w.en].b:0;
+  const due=w=>store[w.en]&&store[w.en].d<=today();
+  function record(w,ok){ const r=store[w.en]||{b:0,d:0}; r.b = !ok ? 1 : r.b===0 ? 2 : Math.min(5,r.b+1); r.d=today()+INT[r.b]*DAY; store[w.en]=r; save(); }
+  function reset(){ store={}; save(); }
+  return {all, box, due, record, reset, check, near, speak, strip, lower};
+})();
+
+lpMore("englisch", [
+ {id:"vokabeln", title:"Vokabeln", em:"📚", desc:"Alle Wörter aus Pick-up B und Unit 2 – mit Lernkartei, Karteikarten, Hören, Schreiben, Lautschrift und Vokabeltest.", render: el=>lpBuild(el, `
+  <h1>📚 Vokabeln</h1>
+  <p class="lead">Hier findest du alle Vokabeln aus deinem Englischbuch (Pick-up B und Unit 2). Mit der <b>Lernkartei</b> merkt sich die Seite, welche Wörter du schon kannst – und welche du heute wiederholen solltest.</p>
+
+  <h2>1 · So lernst du Vokabeln richtig</h2>
+  <div class="lp-steps">
+   <div><span class="em">🍰</span><b>Kleine Portionen</b>Lieber jeden Tag 10 Minuten und 10 Wörter als einmal 1 Stunde und 80 Wörter.</div>
+   <div><span class="em">🔊</span><b>Hören und laut sprechen</b>Hör dir jedes Wort an und sprich es laut nach. So lernen Ohr und Mund mit.</div>
+   <div><span class="em">✍️</span><b>Schreiben</b>Erst wenn du ein Wort richtig <b>schreiben</b> kannst, sitzt es wirklich. Achte auf jeden Buchstaben!</div>
+   <div><span class="em">🔁</span><b>In beide Richtungen</b>Übe Deutsch → Englisch <b>und</b> Englisch → Deutsch. Im Test kommt beides.</div>
+   <div><span class="em">🗂️</span><b>Wiederholen mit Abstand</b>Wörter wandern in der Lernkartei nach hinten, wenn du sie kannst. Dann kommen sie später wieder – genau dann, wenn du sie fast vergessen hättest.</div>
+   <div><span class="em">💡</span><b>Sätze und Bilder</b>Lern das Wort im Beispielsatz und stell dir ein Bild dazu vor. Ein Wort mit Geschichte bleibt besser hängen.</div>
+  </div>
+
+  <h2>2 · Deine Lernkartei</h2>
+  <p>Jedes Wort startet in Fach 1. <b>Gewusst?</b> → ein Fach weiter. <b>Falsch?</b> → zurück in Fach 1. Fach 1 übst du jeden Tag, Fach 2 nach 1 Tag, Fach 3 nach 2 Tagen, Fach 4 nach 4 Tagen und Fach 5 nach einer Woche. Ist ein Wort in Fach 5 und du weißt es wieder: ⭐ gelernt!</p>
+  ${wBox(``, root=>{ vkApp(root); })}
+  ${lpPlan("Verfügen über sprachliche Mittel – Wortschatz: grundlegender Wortschatz zu den Themen Schule, Freizeit, Hobbys, Kleidung, Familie; Aussprache und Lautschrift; Lernstrategien: Wörter systematisch lernen, wiederholen und behalten (z. B. mit Lernkartei).")}`)}
+], true);
+
+function vkApp(root){
+  const SETS=VOK_SETS; let sel=new Set(["pb1"]), mode="list", dir="mix", cover="", sess=null;
+  const W=()=>VOK.all.filter(w=>sel.has(w.set));
+  const sayB=t=>`<button type="button" class="lp-say" data-say="${esc(t)}" aria-label="Anhören">🔊</button>`;
+  const MODES=[["list","📋","Liste"],["cards","🃏","Karteikarten"],["choice","✅","Auswahl"],["write","✍️","Schreiben"],["listen","👂","Hören"],["scramble","🧩","Buchstaben­salat"],["gap","🕳️","Lückensatz"],["ipa","🔤","Lautschrift"],["test","📝","Vokabeltest"]];
+  root.innerHTML=`<div class="vk-dash" data-dash></div>
+   <h2>3 · Wähle deine Wörter</h2><p>Tippe ein oder mehrere Päckchen an.</p><div class="vk-sets" data-sets></div>
+   <h2>4 · Lernen und üben</h2><div class="vk-modes" data-modes></div>
+   <div class="vk-dir" data-dirrow><b>Richtung:</b><div class="lp-chips" data-dir><button type="button" data-v="de">Deutsch → Englisch</button><button type="button" data-v="en">Englisch → Deutsch</button><button type="button" data-v="mix">gemischt</button></div></div>
+   <div class="card vk-stage" data-stage></div>`;
+  const dash=$("[data-dash]",root), stage=$("[data-stage]",root);
+  function drawDash(){
+    const c=[0,0,0,0,0,0]; let d=0; VOK.all.forEach(w=>{ c[VOK.box(w)]++; if(VOK.due(w)) d++; });
+    const learned=VOK.all.filter(w=>VOK.box(w)===5).length;
+    dash.innerHTML=`<div class="vk-boxes">${["Neu",1,2,3,4,5].map((n,i)=>`<div class="vk-box b${i}"><b>${c[i]}</b><small>${i?"Fach "+n:"noch neu"}</small></div>`).join("")}</div>
+     <div class="row" style="margin-top:10px"><button type="button" class="btn primary" data-due ${d?"":"disabled"}>▶ Heute dran: ${d} Wort${d===1?"":"e"} wiederholen</button>
+     <span class="vk-prog">${learned} von ${VOK.all.length} Wörtern in Fach 5</span>
+     <button type="button" class="btn" data-reset style="margin-left:auto">↺ Kartei leeren</button></div>`;
+  }
+  function drawSets(){
+    $("[data-sets]",root).innerHTML=SETS.map(S=>{ const ws=VOK.all.filter(w=>w.set===S.id), k=ws.filter(w=>VOK.box(w)>=3).length;
+      return `<button type="button" data-id="${S.id}" class="${sel.has(S.id)?"on":""}"><span class="em">${S.em}</span><b>${S.name}</b><small>${ws.length} Wörter · ${S.page}</small><span class="vk-mini"><i style="width:${Math.round(k/ws.length*100)}%"></i></span></button>`; }).join("")
+      + `<button type="button" data-id="*" class="vk-all"><b>Alle auswählen</b><small>${VOK.all.length} Wörter</small></button>`;
+  }
+  function drawModes(){
+    $("[data-modes]",root).innerHTML=MODES.map(m=>`<button type="button" data-m="${m[0]}" class="${mode===m[0]?"on":""}"><span class="em">${m[1]}</span>${m[2]}</button>`).join("");
+    $("[data-dir]",root).querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.v===dir));
+    $("[data-dirrow]",root).style.display=["list","listen","scramble","gap","ipa"].includes(mode)?"none":"";
+  }
+  const refresh=()=>{ drawDash(); drawSets(); };
+
+  /* ---------- Liste ---------- */
+  function list(){
+    const ws=W();
+    stage.innerHTML=`<div class="row" style="justify-content:space-between"><b>${ws.length} Wörter</b><div class="lp-chips" data-cov>
+      <button type="button" data-v="" class="${cover===""?"on":""}">alles zeigen</button><button type="button" data-v="en" class="${cover==="en"?"on":""}">Englisch abdecken</button><button type="button" data-v="de" class="${cover==="de"?"on":""}">Deutsch abdecken</button></div></div>
+     <p class="vk-hint">${cover?"Sag das Wort zuerst laut – dann tippe auf das graue Feld, um nachzusehen.":"Tipp: Deck eine Seite ab und teste dich selbst!"}</p>
+     <div class="vk-list">${ws.map((w,i)=>`<div class="vk-row">
+       <div class="vk-en ${cover==="en"?"cov":""}" data-i="${i}">${sayB(VOK.speak(w))} <b>${esc(w.en)}</b> <span class="vk-ipa">[${w.ipa}]</span></div>
+       <div class="vk-de ${cover==="de"?"cov":""}" data-i="${i}">${esc(w.de)}</div>
+       <div class="vk-ex">${w.ex?`<i>${esc(w.ex)}</i> ${sayB(w.ex)}`:""}${w.tip?`<div class="vk-tip">❗ ${esc(w.tip)}</div>`:""}</div>
+       <div class="vk-badge b${VOK.box(w)}" title="Lernkartei">${VOK.box(w)?"Fach "+VOK.box(w):"neu"}</div></div>`).join("")}</div>`;
+  }
+  /* ---------- Übungs-Sitzung ---------- */
+  function start(words, m){
+    let pool=words; if(m==="gap") pool=pool.filter(w=>gapOf(w));
+    if(!pool.length){ stage.innerHTML=`<p>Für diese Wörter gibt es hier keine passenden Aufgaben. Wähle ein anderes Päckchen.</p>`; return; }
+    const n = m==="test"?Math.min(10,pool.length):Math.min(10,pool.length);
+    const ordered = lpMix(pool).sort((a,b)=>(VOK.due(b)-VOK.due(a))||(VOK.box(a)-VOK.box(b)));
+    sess={m, list:lpMix(ordered.slice(0,n)), i:0, right:0, wrong:[], answers:[]}; ask();
+  }
+  const dirFor=()=>dir==="mix"?(Math.random()<.5?"de":"en"):dir;  /* "de": Deutsch gezeigt → Englisch antworten */
+  function head(){ return `<div class="ph-qhead"><span>${MODES.find(x=>x[0]===sess.m)[1]} Wort ${sess.i+1} von ${sess.list.length}</span><span class="stars">${"★".repeat(sess.right)}${"☆".repeat(sess.list.length-sess.right)}</span></div>`; }
+  function gapOf(w){ if(!w.ex) return null; const h=VOK.strip(w.en).replace(/^to /,"").replace(/\s*\([^)]*\)/g,"").replace(/[.!]$/,"");
+    const forms=[h, h+"s", h+"ing", h.replace(/e$/,"ing")]; if(h==="have got") forms.push("has got");
+    for(const f of forms.sort((a,b)=>b.length-a.length)){ const re=new RegExp("(^|[^A-Za-z])("+f.replace(/[.*+?^${}()|[\]\\']/g,"\\$&")+")(?=[^A-Za-z]|$)","i"); const m=w.ex.match(re);
+      if(m) return {txt:w.ex.replace(re,(a,p)=>p+"_____"), ans:m[2]}; }
+    return null; }
+  function opts(w, key){ const others=lpMix(VOK.all.filter(x=>x!==w&&x[key]!==w[key]&&(sel.has(x.set)||Math.random()<.3))); const o=[w];
+    for(const x of others){ if(o.length>=4) break; if(!o.some(y=>y[key]===x[key])) o.push(x); } return lpMix(o); }
+  function ask(){
+    const w=sess.list[sess.i], m=sess.m; sess.d=dirFor(); const d=sess.d; let h=head();
+    if(m==="cards"){
+      const front = d==="de" ? `<div class="vk-q">${esc(w.de)}</div>` : `<div class="vk-q">${esc(w.en)} ${sayB(VOK.speak(w))}</div>`;
+      stage.innerHTML=h+`<button type="button" class="vk-card" data-flip>${front}<small>Sag die Antwort laut – dann tippe zum Umdrehen</small></button><div class="row vk-judge" data-judge hidden><button type="button" class="btn vk-yes" data-ok="1">😊 Gewusst</button><button type="button" class="btn vk-no" data-ok="0">🤔 Noch nicht</button></div>`;
+      if(d==="en") lpSay(VOK.speak(w));
+    } else if(m==="choice"||m==="listen"||m==="ipa"){
+      const showEn = m==="ipa" || (m==="choice"&&d==="de")? "en" : "de";
+      const q = m==="listen" ? `<div class="vk-q"><button type="button" class="btn primary" data-replay>🔊 Nochmal hören</button></div><p class="vk-hint">Was bedeutet das Wort?</p>`
+              : m==="ipa" ? `<div class="vk-q vk-ipa-big">[${w.ipa}]</div><p class="vk-hint">Welches Wort gehört zu dieser Lautschrift?</p>`
+              : d==="de" ? `<div class="vk-q">${esc(w.de)}</div><p class="vk-hint">Wie heißt das auf Englisch?</p>` : `<div class="vk-q">${esc(w.en)} ${sayB(VOK.speak(w))}</div><p class="vk-hint">Was heißt das auf Deutsch?</p>`;
+      sess.opts=opts(w, showEn==="en"?"en":"de");
+      stage.innerHTML=h+q+sess.opts.map((o,k)=>`<button type="button" class="ph-opt" data-k="${k}">${esc(showEn==="en"?o.en:o.de)}</button>`).join("")+`<div class="fb" data-fb></div>`;
+      if(m==="listen") lpSay(VOK.speak(w));
+    } else if(m==="write"||m==="test"||m==="gap"){
+      const target = m==="gap" ? "gap" : d==="de" ? "en" : "de";
+      sess.target=target;
+      let q;
+      if(m==="gap"){ const g=gapOf(w); sess.gap=g; q=`<div class="vk-q vk-gap">${esc(g.txt).replace("_____","<span>_____</span>")}</div><p class="vk-hint">Tipp: ${esc(w.de)}</p>`; }
+      else q = target==="en" ? `<div class="vk-q">${esc(w.de)}</div><p class="vk-hint">Schreib das englische Wort${m==="test"?"":" (ohne „to“ ist auch okay)"}.</p>` : `<div class="vk-q">${esc(w.en)} ${m==="test"?"":sayB(VOK.speak(w))}</div><p class="vk-hint">Schreib eine deutsche Bedeutung.</p>`;
+      stage.innerHTML=h+q+`<form class="row" data-form autocomplete="off"><input class="lp-in vk-input" data-in autocapitalize="off" spellcheck="false" aria-label="Antwort"><button class="btn primary" type="submit">Prüfen</button>${m==="test"?"":`<button type="button" class="btn" data-tipp>💡 Tipp</button>`}</form><div class="fb" data-fb></div>`;
+      setTimeout(()=>{ const i=$("[data-in]",stage); if(i) i.focus(); },30);
+    } else if(m==="scramble"){
+      const word=VOK.strip(w.en).replace(/^to /,"").replace(/\s*\([^)]*\)/g,"");
+      sess.word=word; sess.letters=lpMix(word.replace(/[^A-Za-z']/g,"").split("").map((c,k)=>({c,k}))); sess.built=[];
+      stage.innerHTML=h+`<div class="vk-q">${esc(w.de)}</div><p class="vk-hint">Tippe die Buchstaben in der richtigen Reihenfolge.</p><div class="vk-built" data-built></div><div class="vk-letters" data-letters></div><div class="row"><button type="button" class="btn" data-back>⌫ Zurück</button><button type="button" class="btn" data-tipp>💡 Tipp</button></div><div class="fb" data-fb></div>`;
+      drawLetters();
+    }
+  }
+  function drawLetters(){
+    const word=sess.word; let k=0;
+    $("[data-built]",stage).innerHTML=word.split("").map(ch=>/[A-Za-z']/.test(ch)?`<span>${sess.built[k++]?sess.built[k-1].c:""}</span>`:`<span class="sp">${ch===" "?"&nbsp;":ch}</span>`).join("");
+    $("[data-letters]",stage).innerHTML=sess.letters.map((l,i)=>`<button type="button" data-l="${i}" ${sess.built.includes(l)?"disabled":""}>${l.c}</button>`).join("");
+  }
+  function feedback(ok, w, extra){
+    sess.answers.push({w,ok}); if(ok) sess.right++; else sess.wrong.push(w);
+    VOK.record(w, ok);
+    const fb=$("[data-fb]",stage); fb.className="fb "+(ok?"ok":"no");
+    fb.innerHTML=(ok?"Richtig! ⭐ ":"Nicht ganz. ")+(extra||"")+`<div class="vk-sol">${sayB(VOK.speak(w))} <b>${esc(w.en)}</b> <span class="vk-ipa">[${w.ipa}]</span> = ${esc(w.de)}${w.tip?`<div class="vk-tip">❗ ${esc(w.tip)}</div>`:""}</div>
+      <div style="margin-top:10px"><button type="button" class="btn primary" data-next>${sess.i+1<sess.list.length?"Weiter ➜":"Ergebnis ansehen"}</button></div>`;
+    if(ok||sess.m!=="test") lpSay(VOK.speak(w));
+    const nb=$("[data-next]",stage); if(nb) setTimeout(()=>nb.focus(),30);
+    drawDash();
+  }
+  function finish(){
+    const s=sess, n=s.list.length, p=s.right/n; let extra="";
+    if(s.m==="test"){ const note=p>=.92?1:p>=.81?2:p>=.67?3:p>=.5?4:p>=.3?5:6; extra=`<div class="vk-note">Note <b>${note}</b></div>`; }
+    stage.innerHTML=`<div class="big">${p===1?"🏆 Perfekt – alles richtig!":p>=.7?"🎉 Super gemacht!":p>=.4?"💪 Schon gut – weiter so!":"🌱 Übung macht den Meister!"}</div>${extra}
+     <p>Du hast <b>${s.right} von ${n}</b> Wörtern gewusst.</p>
+     ${s.wrong.length?`<div class="lp-out"><b>Diese Wörter üben wir noch einmal:</b><ul class="vk-wrong">${s.wrong.map(w=>`<li>${sayB(VOK.speak(w))} <b>${esc(w.en)}</b> – ${esc(w.de)}</li>`).join("")}</ul></div>`:""}
+     <div class="row" style="margin-top:12px">${s.wrong.length?`<button type="button" class="btn primary" data-redo>↺ Fehlerwörter üben</button>`:""}<button type="button" class="btn ${s.wrong.length?"":"primary"}" data-new>▶ Neue Runde</button></div>`;
+    sess.done=true; drawSets();
+  }
+  function next(){ sess.i++; if(sess.i<sess.list.length) ask(); else finish(); }
+  function show(){ drawModes(); sess=null; if(mode==="list") list(); else start(W(), mode); }
+
+  /* ---------- Ereignisse ---------- */
+  root.addEventListener("click",e=>{
+    const t=e.target;
+    if(t.closest("[data-say]")) return;
+    const sb=t.closest("[data-sets] button"); if(sb){ const id=sb.dataset.id;
+      if(id==="*"){ sel = sel.size===SETS.length ? new Set([SETS[0].id]) : new Set(SETS.map(S=>S.id)); }
+      else { if(sel.has(id)&&sel.size>1) sel.delete(id); else sel.add(id); }
+      drawSets(); show(); return; }
+    const mb=t.closest("[data-modes] button"); if(mb){ mode=mb.dataset.m; show(); return; }
+    const db=t.closest("[data-dir] button"); if(db){ dir=db.dataset.v; show(); return; }
+    if(t.closest("[data-due]")){ const due=VOK.all.filter(w=>VOK.due(w)); mode = mode==="list"?"write":mode; drawModes(); start(due, ["choice","cards","write","test","listen","ipa","scramble","gap"].includes(mode)?mode:"write"); stage.scrollIntoView({behavior:"smooth",block:"start"}); return; }
+    const rs=t.closest("[data-reset]"); if(rs){ if(rs.dataset.sure){ VOK.reset(); refresh(); show(); } else { rs.dataset.sure="1"; rs.textContent="Wirklich leeren? Nochmal tippen"; setTimeout(()=>{ if(rs.isConnected){ delete rs.dataset.sure; rs.textContent="↺ Kartei leeren"; } },3000); } return; }
+    const cv=t.closest("[data-cov] button"); if(cv){ cover=cv.dataset.v; list(); return; }
+    const covd=t.closest(".cov"); if(covd){ covd.classList.remove("cov"); const r=covd.closest(".vk-row"); const w=W()[+covd.dataset.i]; if(w) lpSay(VOK.speak(w)); return; }
+    if(!sess) return;
+    if(t.closest("[data-next]")) return next();
+    if(t.closest("[data-redo]")){ const ws=sess.wrong; sess=null; sess={m:mode,list:lpMix(ws),i:0,right:0,wrong:[],answers:[]}; return ask(); }
+    if(t.closest("[data-new]")) return show();
+    const w=sess.list[sess.i];
+    if(t.closest("[data-replay]")) return lpSay(VOK.speak(w));
+    if(t.closest("[data-flip]")){ const c=t.closest("[data-flip]"); if(c.classList.contains("on")) return; c.classList.add("on");
+      c.innerHTML=`<div class="vk-q">${sess.d==="de"?esc(w.en)+" "+sayB(VOK.speak(w)):esc(w.de)}</div><div class="vk-ipa">[${w.ipa}]</div>${w.ex?`<div class="vk-ex"><i>${esc(w.ex)}</i></div>`:""}`;
+      if(sess.d==="de") lpSay(VOK.speak(w)); $("[data-judge]",stage).hidden=false; return; }
+    const jb=t.closest("[data-judge] button"); if(jb){ const ok=jb.dataset.ok==="1"; sess.answers.push({w,ok}); if(ok) sess.right++; else sess.wrong.push(w); VOK.record(w,ok); drawDash(); return next(); }
+    const ob=t.closest(".ph-opt"); if(ob&&!sess.locked){ sess.locked=true; const o=sess.opts[+ob.dataset.k], ok=o===w;
+      stage.querySelectorAll(".ph-opt").forEach((x,k)=>{ if(sess.opts[k]===w) x.classList.add("ok"); x.disabled=true; }); if(!ok) ob.classList.add("no");
+      feedback(ok,w); sess.locked=false; return; }
+    if(t.closest("[data-tipp]")){
+      if(sess.m==="scramble"){ const k=sess.built.length, need=sess.word.replace(/[^A-Za-z']/g,"")[k]; const l=sess.letters.find(x=>x.c===need&&!sess.built.includes(x)); if(l){ sess.built.push(l); drawLetters(); checkScr(); } return; }
+      const i=$("[data-in]",stage); const sol = sess.m==="gap" ? sess.gap.ans : sess.target==="en" ? VOK.strip(w.en).replace(/^to /,"").replace(/\s*\([^)]*\)/g,"") : w.de.split(";")[0].replace(/\s*\([^)]*\)/g,"");
+      const have=(i.value||"").trim(); let k=0; while(k<have.length&&k<sol.length&&have[k].toLowerCase()===sol[k].toLowerCase()) k++;
+      i.value=sol.slice(0,Math.min(sol.length,k+1)); i.focus(); sess.tipps=(sess.tipps||0)+1; return; }
+    const lb=t.closest("[data-letters] button"); if(lb){ sess.built.push(sess.letters[+lb.dataset.l]); drawLetters(); checkScr(); return; }
+    if(t.closest("[data-back]")){ sess.built.pop(); drawLetters(); $("[data-fb]",stage).textContent=""; return; }
+  });
+  function checkScr(){ const word=sess.word.replace(/[^A-Za-z']/g,""); if(sess.built.length<word.length) return;
+    const got=sess.built.map(l=>l.c).join(""); const ok=got.toLowerCase()===word.toLowerCase();
+    $("[data-letters]",stage).innerHTML=""; $("[data-back]",stage).disabled=$("[data-tipp]",stage).disabled=true; feedback(ok, sess.list[sess.i], ok?"":`Du hast „${esc(got)}“ gelegt.`); }
+  root.addEventListener("submit",e=>{ e.preventDefault(); if(!sess||sess.locked) return; const i=$("[data-in]",stage); if(!i||!i.value.trim()) return;
+    const w=sess.list[sess.i]; let ok, extra="";
+    if(sess.m==="gap"){ ok=VOK.lower(i.value)===VOK.lower(sess.gap.ans); if(!ok) extra=`Richtig ist: <b>${esc(sess.gap.ans)}</b>. `; }
+    else { ok=VOK.check(w,i.value,sess.target); if(!ok&&VOK.near(w,i.value,sess.target)) extra="Ganz knapp – achte auf die Schreibweise! "; }
+    sess.locked=true; i.disabled=true; e.target.querySelectorAll("button").forEach(b=>b.disabled=true);
+    feedback(ok,w,extra); sess.locked=false; });
+  refresh(); show();
+}
+
+/* ============================ ENGLISCH · Pick-up B ============================ */
+lpMore("englisch", [
+ {id:"hobbies-can", title:"Hobbies, clothes and can / can't", em:"🛼", desc:"Pick-up B: über Hobbys sprechen, Kleidung, was man kann und nicht kann – und die Geschichte von Mr Fluff.", render: el=>lpBuild(el, `
+  <h1>🛼 Hobbies, clothes and can / can't</h1>
+  <p class="lead">In Pick-up B geht es um Freizeit: Was machst du gern? Was ziehst du an? Und was <b>kannst</b> du – und was nicht?</p>
+
+  <h2>1 · Story: Where's Mr Fluff?</h2>
+  <div class="lp-two">
+   <div class="card"><h3>🐹 Worum geht es?</h3>Holly hat zwei Meerschweinchen: <b>Mr Fluff</b> und <b>Honey</b>. Ihre Freundin Olivia bastelt gern Modelle und bringt Holly ein Geschenk mit. Nach dem Besuch ist Mr Fluff plötzlich verschwunden! Holly sucht überall … Am Ende klingelt Olivia noch einmal – und in ihrer Tasche steckt eine Überraschung.</div>
+   <div class="card"><h3>📖 Wichtige Wörter</h3>${[["guinea pig","Meerschweinchen"],["model","Modell"],["bag","Tasche"],["kitchen","Küche"],["living room","Wohnzimmer"],["outside","draußen"],["to explore","erkunden"],["Don't worry!","Keine Sorge!"]].map(w=>`<div>${say(w[0])} <b>${w[0]}</b> – ${w[1]}</div>`).join("")}</div>
+  </div>
+  <p>Lies die Geschichte im Buch (S. 26/27) und beantworte dann die Fragen:</p>
+  ${wQuiz([
+   ["What are Mr Fluff and Honey?",["Holly's guinea pigs","Olivia's cats","Two models","Holly's sisters"],"Mr Fluff and Honey are Holly's two guinea pigs."],
+   ["Where do the guinea pigs usually live?",["In the kitchen","In the garden","In Olivia's room","In the living room"],"They live in the kitchen – but today they are in Holly's room."],
+   ["What is Olivia's hobby?",["Making models","Playing football","Reading","Skating"],"Olivia is busy with a new model – her models are everywhere!"],
+   ["What is in Olivia's bag the first time?",["A model guinea pig","A real guinea pig","A cat","Sweets"],"It's a model for Holly's room."],
+   ["Where is Mr Fluff at the end?",["In Olivia's bag","Under the bed","In the street","In the kitchen"],"Guinea pigs explore everywhere – in bags too!"]
+  ])}
+
+  <h2>2 · Talk about hobbies</h2>
+  <p>Es gibt viele Arten, über Hobbys zu sprechen. Bau dir einen Satz und hör ihn dir an!</p>
+  ${wBox(`<div class="lp-chips" data-p></div><div class="lp-chips" data-h></div><div class="lp-out"><span class="lp-big" data-s></span> <button type="button" class="lp-say" data-play aria-label="Anhören">🔊</button></div>`, box=>{
+    const P=["I love …","I like …","My hobby is …","I'm into …","… is fun.","My favourite hobby is …"], H=["cycling","swimming","skating","reading books","drawing","playing the piano","taking photos","playing football","listening to music","making models","playing computer games","dancing"];
+    let p=0,h=0; const cap=s=>s[0].toUpperCase()+s.slice(1);
+    $("[data-p]",box).innerHTML=P.map((x,i)=>`<button type="button" data-i="${i}">${x}</button>`).join(""); $("[data-h]",box).innerHTML=H.map((x,i)=>`<button type="button" data-i="${i}">${x}</button>`).join("");
+    const draw=()=>{ $("[data-p]",box).querySelectorAll("button").forEach((b,i)=>b.classList.toggle("on",i===p)); $("[data-h]",box).querySelectorAll("button").forEach((b,i)=>b.classList.toggle("on",i===h));
+      const s = P[p].startsWith("…") ? cap(H[h])+" is fun." : P[p].replace(" …"," "+H[h]+"."); $("[data-s]",box).textContent=s; return s; };
+    $("[data-p]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ p=+b.dataset.i; lpSay(draw()); } });
+    $("[data-h]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ h=+b.dataset.i; lpSay(draw()); } });
+    $("[data-play]",box).onclick=()=>lpSay(draw()); draw();
+  })}
+  <div class="note"><b>Achtung, -ing!</b> Nach <b>I love / I like / My hobby is / I'm into</b> steht das Hobby mit <b>-ing</b>: I love swimm<b>ing</b>. Bei Wörtern auf -e fällt das e weg: danc<b>e</b> → danc<b>ing</b>. Manchmal wird der letzte Buchstabe verdoppelt: swim → swi<b>mm</b>ing.</div>
+  <h3>play, go, watch oder read?</h3>
+  <p>Welches Verb passt? Sortiere!</p>
+  ${wSort(["play …","go …","watch …","read …"],[["football",0],["badminton",0],["basketball",0],["volleyball",0],["computer games",0],["cards",0],["the piano",0,"Bei Instrumenten: play THE piano."],["with my friends",0],["in the garden",0],["cycling",1,"go + -ing: go cycling"],["swimming",1],["skating",1],["skateboarding",1],["TV",2,"watch TV = fernsehen"],["films",2],["books",3],["magazines",3]])}
+  <h3>Wie findest du das? – Adjektive</h3>
+  ${wFlip([["favourite","Lieblings-","favourite"],["cute","niedlich, süß","cute"],["happy","glücklich","happy"],["new","neu","new"],["boring","langweilig","boring"],["cool","cool, toll","cool"],["nice","schön, nett","nice"],["fun","Spaß, lustig","fun"]],"Was heißt das?")}
+
+  <h2>3 · Clothes</h2>
+  <p>Wo trägst du das? Sortiere die Kleidungsstücke.</p>
+  ${wSort(["👕 on your torso","👖 on your legs","👟 on your feet"],[["shirt",0],["jumper",0],["jacket",0],["cardigan",0],["T-shirt",0],["leggings",1],["skirt",1],["jeans",1],["trousers",1],["shoes",2],["boots",2]])}
+  <div class="lp-two">
+   <div class="card"><h3>💬 Useful phrases</h3>${["I like your skirt.","I love your jacket.","Your shoes are cool.","Thanks. It's my favourite jumper.","Yes, it's a nice colour."].map(s=>`<div>${say(s)} ${s}</div>`).join("")}</div>
+   <div class="card"><h3>🎲 Spiel: I can see …</h3>Schaut euch ein Foto an. A: <i>I can see a boy in a white shirt.</i> B: <i>That's the cute boy.</i><br>Stimmt es? <b>That's right.</b> ✔ – oder: <b>Sorry, that's wrong.</b> ✘</div>
+  </div>
+
+  <h2>4 · can und can't</h2>
+  <div class="lp-two">
+   <div class="card"><h3>✔ can = kann, können, darf</h3><div class="lp-big">I can swim.</div>Nach <b>can</b> kommt das Verb in der <b>Grundform</b>. <b>can</b> bleibt bei allen Personen gleich – auch bei he, she, it gibt es <b>kein -s</b>!</div>
+   <div class="card"><h3>✘ can't = kann nicht, darf nicht</h3><div class="lp-big">Dogs can't read.</div><b>can't</b> ist die Kurzform von <b>cannot</b>.<br><b>Frage:</b> Can you swim? – Yes, I can. / No, I can't.</div>
+  </div>
+  <p><b>Satz-Baukasten:</b> Vergleiche, wo das Verb steht!</p>
+  ${wBox(`<div class="lp-chips" data-a></div><div class="lp-chips" data-b></div><div class="lp-chips" data-c></div>
+   <div class="lp-out"><div>🇬🇧 <span class="lp-big" data-en></span> <button type="button" class="lp-say" data-play aria-label="Anhören">🔊</button></div><div>🇩🇪 <span class="lp-big" data-de></span></div></div>`, box=>{
+    const S=[["I","Ich","kann"],["You","Du","kannst"],["Holly","Holly","kann"],["Dave","Dave","kann"],["We","Wir","können"]], C=[["can",""],["can't","nicht"]],
+      V=[["swim","schwimmen"],["play the piano","Klavier spielen"],["cycle","Fahrrad fahren"],["skate","Inliner fahren"],["take photos","Fotos machen"],["draw pictures","Bilder malen"],["play cards","Karten spielen"]];
+    let a=0,b=0,c=0;
+    const chips=(sel,arr,cur)=>{ $(sel,box).innerHTML=arr.map((x,i)=>`<button type="button" data-i="${i}" class="${i===cur?"on":""}">${x[0]}</button>`).join(""); };
+    const draw=()=>{ chips("[data-a]",S,a); chips("[data-b]",C,b); chips("[data-c]",V,c);
+      $("[data-en]",box).innerHTML=`${S[a][0]} <span class="vk-hl">${C[b][0]}</span> <span class="vk-hl2">${V[c][0]}</span>.`;
+      $("[data-de]",box).innerHTML=`${S[a][1]} <span class="vk-hl">${S[a][2]}</span>${b?" nicht":""} <span class="vk-hl2">${V[c][1]}</span>.`; };
+    box.addEventListener("click",e=>{ const x=e.target.closest("button[data-i]"); if(!x) return; const i=+x.dataset.i, row=x.parentElement.dataset;
+      if("a" in row) a=i; else if("b" in row) b=i; else if("c" in row) c=i; draw(); lpSay($("[data-en]",box).textContent); });
+    $("[data-play]",box).onclick=()=>lpSay($("[data-en]",box).textContent); draw();
+  })}
+  <div class="note"><b>Satzstellung:</b> Im Deutschen steht das Verb <b>am Ende</b>: Ich kann Klavier <b>spielen</b>. Im Englischen steht es <b>direkt hinter can</b>: I can <b>play</b> the piano.</div>
+  <p><b>can oder can't?</b> Entscheide!</p>
+  ${wSort(["✔ can","✘ can't"],[["🚦🔴 You ___ cross the road when the traffic light is red.",1,"Bei Rot darfst du nicht gehen."],["🚦🟢 You ___ cross the road when it's green.",0],["🐟 Fish ___ swim.",0],["🐶 Dogs ___ read books.",1],["🚲🌙 You ___ cycle at night without a light.",1,"Ohne Licht ist es gefährlich – und verboten."],["🔔 You ___ warn people with a bell on your bike.",0],["🚌🎧 You ___ listen to loud music on the bus.",1],["🖼️ You ___ look at the pictures in a museum.",0],["🐧 Penguins ___ fly.",1],["🐦 Birds ___ fly.",0],["📚 You ___ read books in the library.",0]])}
+
+  <h2>5 · Jetzt du! 💪</h2>
+  ${wQuiz([
+   ["Welcher Satz ist richtig?",["Holly can skate fast.","Holly cans skate fast.","Holly can skates fast.","Holly can to skate fast."],"Nach can kommt die Grundform – und can bekommt kein -s."],
+   ["Wie lautet die Kurzform von cannot?",["can't","cann't","cant'","ca'nt"],"can't – das Apostroph steht für das weggelassene „no“."],
+   ["Can you play the piano? – No, …",["I can't.","I don't.","I can.","I not can."],"Kurze Antwort: Yes, I can. / No, I can't."],
+   ["Welches Verb passt? I … cycling.",["go","play","watch","read"],"go cycling, go swimming, go skating."],
+   ["Welches Verb passt? We … cards.",["play","go","watch","make"],"play cards = Karten spielen."],
+   ["Was zieht man an die Füße?",["boots","jumper","skirt","belt"],"boots = Stiefel."],
+   ["Wie sagt man „Ich stehe auf Sport“?",["I'm into sports.","I'm in sports.","I into sports.","I'm on sports."],"to be into = mögen, stehen auf."],
+   ["My hobby is … (lesen)",["reading","read","to read","reads"],"Nach My hobby is steht die -ing-Form."]
+  ])}
+  ${lpPlan("Kommunikative Kompetenz: über Hobbys, Freizeit und Kleidung sprechen; Verfügen über sprachliche Mittel: Modalverb can/can't in Aussagen, Fragen und Kurzantworten; Leseverstehen: einfache Geschichten verstehen.")}`)}
+]);
+
+/* ============================ MATHE · Gewichte & Rechnen mit Größen ============================ */
+const GR = {
+  L:[["mm",1],["cm",10],["dm",100],["m",1000],["km",1e6]],
+  G:[["mg",1],["g",1e3],["kg",1e6],["t",1e9]],
+  num:s=>{ s=String(s).trim().replace(/\s/g,"").replace(",","."); return s===""||isNaN(+s)?NaN:+s; },
+  fmt:n=>{ n=Math.round(n*1e6)/1e6; const neg=n<0; let [a,b]=String(Math.abs(n)).split("."); a=a.replace(/\B(?=(\d{3})+(?!\d))/g," "); return (neg?"−":"")+a+(b?","+b:""); },
+  eq:(a,b)=>Math.abs(a-b)<=1e-9*Math.max(1,Math.abs(b))
+};
+const grF = (cat,u)=>GR[cat].find(x=>x[0]===u)[1];
+
+lpMore("mathe", [
+ {id:"gewichte", title:"Gewichte: mg, g, kg und t", em:"⚖️", desc:"Milligramm, Gramm, Kilogramm, Tonne – schätzen, umrechnen und die Umrechnungszahl 1000.", render: el=>lpBuild(el, `
+  <h1>⚖️ Gewichte: mg, g, kg und t</h1>
+  <p class="lead">Wie schwer ist ein Floh, ein Apfel, ein Hund oder ein Schiff? Dafür gibt es vier Gewichtseinheiten.</p>
+
+  <h2>1 · Die Gewichtseinheiten</h2>
+  <div class="units">
+   <div class="unit"><span class="em">🦟</span><div class="sym">1 mg</div><b>Milligramm</b><div>so schwer wie ein Sandkorn. Ein Floh wiegt etwa 2 mg.</div></div>
+   <div class="unit"><span class="em">📎</span><div class="sym">1 g</div><b>Gramm</b><div>so schwer wie eine Büroklammer. Eine Tafel Schokolade: 100 g.</div></div>
+   <div class="unit"><span class="em">🥛</span><div class="sym">1 kg</div><b>Kilogramm</b><div>so schwer wie eine Tüte Milch (1 Liter) oder eine Packung Mehl.</div></div>
+   <div class="unit"><span class="em">🚗</span><div class="sym">1 t</div><b>Tonne</b><div>so schwer wie ein kleines Auto. Ein Elefant wiegt etwa 5 t.</div></div>
+  </div>
+  <div class="note"><b>Merke:</b> Zwischen allen Gewichtseinheiten ist die Umrechnungszahl <b>1000</b>.<br>
+   1 t = 1000 kg · 1 kg = 1000 g · 1 g = 1000 mg<br>
+   Eselsbrücke: <b>Kilo</b> heißt „tausend“ (1 <b>k</b>g = 1000 g) – <b>Milli</b> heißt „Tausendstel“ (1 <b>m</b>g ist der tausendste Teil von 1 g).</div>
+
+  <h2>2 · Die Umrechnungstreppe</h2>
+  <p>Gib ein Gewicht ein und sieh es in allen Einheiten.</p>
+  ${wBox(`<div class="conv"><input type="text" data-v value="1,5" inputmode="decimal" aria-label="Maßzahl"><select data-u aria-label="Einheit">${GR.G.map(u=>`<option ${u[0]==="kg"?"selected":""}>${u[0]}</option>`).join("")}</select><span class="fb no" data-m></span></div>
+   <div class="gr-treppe" data-t></div>`, box=>{
+    const upd=()=>{ const v=GR.num($("[data-v]",box).value), u=$("[data-u]",box).value; const m=$("[data-m]",box);
+      if(isNaN(v)){ m.textContent="Bitte eine Zahl eingeben."; return; } m.textContent="";
+      const base=v*grF("G",u); const R=[...GR.G].reverse();
+      $("[data-t]",box).innerHTML=R.map((x,i)=>`<div class="gr-stufe ${x[0]===u?"on":""}" style="margin-top:${i*24}px"><div class="gr-box"><div class="u">${x[0]}</div><div class="v">${GR.fmt(base/x[1])}</div></div>${i<3?`<div class="gr-mal">· 1000 ➜</div>`:""}</div>`).join(""); };
+    $("[data-v]",box).addEventListener("input",upd); $("[data-u]",box).addEventListener("change",upd); upd();
+  })}
+  <div class="note"><b>Treppe runter</b> (große → kleine Einheit): <b>· 1000</b> – die Zahl wird größer.<br><b>Treppe rauf</b> (kleine → große Einheit): <b>: 1000</b> – die Zahl wird kleiner.<br>Wird die Maßeinheit kleiner, dann wird die Maßzahl größer – und umgekehrt!</div>
+
+  <h2>3 · Kommazahlen und gemischte Angaben</h2>
+  <div class="units">
+   <div class="unit"><div class="sym">1,7 kg</div>= 1 kg 700 g<br>= 1700 g</div>
+   <div class="unit"><div class="sym">2,8 t</div>= 2 t 800 kg<br>= 2800 kg</div>
+   <div class="unit"><div class="sym">4 kg 20 g</div>= 4020 g<br><b>Achtung:</b> nicht 420 g!</div>
+   <div class="unit"><div class="sym">0,4 t</div>= 400 kg</div>
+  </div>
+  <div class="note"><b>Trick mit der Stellenwerttafel:</b> Jede Einheit hat <b>drei Stellen</b> (H, Z, E). Bei 4 kg 20 g schreibst du die 20 in die g-Spalten: <span class="lp-mono">4 | 0 2 0</span> → 4020 g. Leere Stellen füllst du mit <b>Nullen</b>.</div>
+  ${wBox(`<div style="overflow-x:auto"><table class="tafel"><thead><tr><th colspan="3">t</th><th colspan="3">kg</th><th colspan="3">g</th><th colspan="3">mg</th></tr><tr>${"HZEHZEHZEHZE".split("").map(c=>`<th><small>${c}</small></th>`).join("")}</tr></thead><tbody><tr data-row></tr></tbody></table></div>
+   <div class="lp-chips" data-ex>${["4 kg 20 g","1,7 kg","2,8 t","6500 mg","1 t 455 kg","0,4 t"].map((x,i)=>`<button type="button" data-i="${i}">${x}</button>`).join("")}</div><div class="lp-out" data-o></div>`, box=>{
+    const EX=[[4020,"g","4 kg 20 g = 4020 g = 4,02 kg"],[1700,"g","1,7 kg = 1 kg 700 g = 1700 g"],[2800,"kg","2,8 t = 2 t 800 kg = 2800 kg"],[6500,"mg","6500 mg = 6 g 500 mg = 6,5 g"],[1455,"kg","1 t 455 kg = 1455 kg = 1,455 t"],[400,"kg","0,4 t = 400 kg"]];
+    const set=i=>{ box.querySelectorAll("[data-ex] button").forEach((b,j)=>b.classList.toggle("on",j===i)); const [v,u,t]=EX[i];
+      const mg=Math.round(v*grF("G",u)); const digits=String(mg).padStart(12," "); const unitEnd={t:3,kg:6,g:9,mg:12}[u];
+      $("[data-row]",box).innerHTML=digits.split("").map((d,k)=>`<td class="${k>=unitEnd?"zero":""}">${d===" "?"":(k>=unitEnd&&d==="0"?"":d)}</td>`).join("");
+      $("[data-o]",box).innerHTML=`<span class="lp-big">${t}</span>`; };
+    box.addEventListener("click",e=>{ const b=e.target.closest("[data-ex] button"); if(b) set(+b.dataset.i); }); set(0);
+  })}
+
+  <h2>4 · Schätzen: Welche Einheit passt?</h2>
+  ${wSort(["mg","g","kg","t"],[["🍎 Ein Apfel wiegt etwa 150 …",1],["🐘 Ein Elefant wiegt etwa 5 …",3],["🧒 Ein Kind wiegt etwa 35 …",2],["🦟 Eine Mücke wiegt etwa 2 …",0],["📎 Eine Büroklammer wiegt etwa 1 …",1],["🚗 Ein Auto wiegt etwa 1,5 …",3],["🐱 Eine Katze wiegt etwa 4,5 …",2],["🏓 Ein Tischtennisball wiegt etwa 2,7 …",1],["🐧 Ein Kaiserpinguin wiegt etwa 38 …",2],["🚢 Die Titanic wog leer etwa 21 831 …",3],["🐕 Ein Mastiff wiegt bis zu 90 …",2],["💊 In einer Tablette sind 500 … Wirkstoff",0]])}
+
+  <h2>5 · Umrechnen-Trainer</h2>
+  <p>Rechne um und tippe die Zahl ein. Komma geht auch!</p>
+  ${wBox(`<div class="ph-qhead"><span data-sc>0 richtig</span><span data-st></span></div><div class="lp-item" data-q></div>
+   <form class="row" data-f autocomplete="off" style="justify-content:center"><input class="lp-in" data-in inputmode="decimal" style="width:160px" aria-label="Antwort"><b data-unit></b><button class="btn primary">Prüfen</button><button type="button" class="btn" data-tip>💡 Tipp</button></form><div class="fb" data-fb style="text-align:center"></div>`, box=>{
+    let cur, sc=0, st=0, lock=false; const U=GR.G;
+    const gen=()=>{ const r=lpRnd(5), i=lpRnd(3), sm=U[i], bg=U[i+1];
+      if(r===0){ const a=[2,3,4,5,6,7,8,9,12,15,25,40][lpRnd(12)]; return {q:`${a} ${bg[0]} = ? ${sm[0]}`,a:a*1000,u:sm[0],tip:`Treppe runter: ${a} · 1000`}; }
+      if(r===1){ const a=[2,3,5,7,8,13,15,31,55,66][lpRnd(10)]*1000; return {q:`${GR.fmt(a)} ${sm[0]} = ? ${bg[0]}`,a:a/1000,u:bg[0],tip:`Treppe rauf: ${GR.fmt(a)} : 1000`}; }
+      if(r===2){ const a=1+lpRnd(9), b=[5,20,50,250,500,700,8,95][lpRnd(8)]; return {q:`${a} ${bg[0]} ${b} ${sm[0]} = ? ${sm[0]}`,a:a*1000+b,u:sm[0],tip:`${a} ${bg[0]} = ${a*1000} ${sm[0]}, dann + ${b}. Denk an die Nullen!`}; }
+      if(r===3){ const a=[1.5,2.8,0.4,1.7,3.25,0.9,4.5,0.05][lpRnd(8)]; return {q:`${GR.fmt(a)} ${bg[0]} = ? ${sm[0]}`,a:Math.round(a*1000),u:sm[0],tip:`Komma um drei Stellen nach rechts: ${GR.fmt(a)} · 1000`}; }
+      const a=[2500,6500,1200,750,3070,90][lpRnd(6)]; return {q:`${GR.fmt(a)} ${sm[0]} = ? ${bg[0]}`,a:a/1000,u:bg[0],tip:`Komma um drei Stellen nach links: ${GR.fmt(a)} : 1000`}; };
+    const next=()=>{ cur=gen(); lock=false; $("[data-q]",box).textContent=cur.q; $("[data-unit]",box).textContent=cur.u; const i=$("[data-in]",box); i.value=""; i.disabled=false; $("[data-fb]",box).textContent=""; };
+    $("[data-f]",box).addEventListener("submit",e=>{ e.preventDefault(); if(lock) return; const v=GR.num($("[data-in]",box).value); if(isNaN(v)) return; const fb=$("[data-fb]",box);
+      if(GR.eq(v,cur.a)){ lock=true; sc++; st++; fb.className="fb ok"; fb.textContent=st>=5?`Richtig! 🔥 ${st} in Folge!`:"Richtig! ⭐"; $("[data-sc]",box).textContent=sc+" richtig"; $("[data-st]",box).textContent=st>1?"🔥 "+st:""; setTimeout(next,1100); }
+      else { st=0; $("[data-st]",box).textContent=""; fb.className="fb no"; fb.innerHTML=`Noch nicht. ${cur.tip}`; } });
+    $("[data-tip]",box).onclick=()=>{ const fb=$("[data-fb]",box); fb.className="fb"; fb.textContent="💡 "+cur.tip; };
+    next();
+  })}
+
+  <h2>6 · Alte Einheiten: Pfund und Zentner</h2>
+  <div class="lp-two">
+   <div class="card"><h3>🧈 1 Pfund (Pfd)</h3><div class="lp-big">= 500 g</div>„Ein Pfund Butter“ sagen manche Leute noch heute auf dem Markt.</div>
+   <div class="card"><h3>🥔 1 Zentner (Ztr)</h3><div class="lp-big">= 50 kg</div>Bauern messen Kartoffeln manchmal noch in Zentnern. 2 Zentner = 100 kg.</div>
+  </div>
+
+  <h2>7 · Jetzt du! 💪</h2>
+  ${wQuiz([
+   ["Wie viele Gramm sind 1 kg?",["1000 g","100 g","10 g","10 000 g"],"Kilo heißt tausend: 1 kg = 1000 g."],
+   ["3 t = ?",["3000 kg","300 kg","30 kg","3 000 000 kg"],"1 t = 1000 kg, also 3 t = 3000 kg."],
+   ["4 kg 20 g = ?",["4020 g","420 g","4200 g","4002 g"],"4 kg = 4000 g, dazu 20 g → 4020 g."],
+   ["15 000 mg = ?",["15 g","150 g","1,5 g","1500 g"],"15 000 : 1000 = 15."],
+   ["Welche Einheit passt? Ein Hund wiegt 20 …",["kg","g","t","mg"],"Ein Hund wiegt etwa 20 kg."],
+   ["Wie viel sind 2 Pfund?",["1 kg","2 kg","500 g","200 g"],"1 Pfund = 500 g, 2 Pfund = 1000 g = 1 kg."],
+   ["Was ist schwerer: 0,9 t oder 980 kg?",["980 kg","0,9 t","beide gleich","das kann man nicht sagen"],"0,9 t = 900 kg – also ist 980 kg schwerer."]
+  ])}
+  ${lpPlan("Inhaltsfeld Arithmetik/Größen: Größen schätzen, messen und in benachbarte Einheiten umrechnen (Gewichte: mg, g, kg, t); Größen in Kommaschreibweise.")}`)},
+
+ {id:"rechnen-mit-groessen", title:"Rechnen mit Längen und Gewichten", em:"🧮", desc:"Erst gleiche Einheit, dann rechnen: Rechentrainer, Paare finden, Ordnen, Fehler finden und Sachaufgaben.", render: el=>lpBuild(el, `
+  <h1>🧮 Rechnen mit Längen und Gewichten</h1>
+  <p class="lead">Mit Größen kannst du rechnen wie mit Zahlen – du musst nur auf die Einheiten aufpassen.</p>
+
+  <h2>1 · Die goldene Regel</h2>
+  <div class="note" style="font-size:1.1rem"><b>Erst in die gleiche Einheit umrechnen – dann rechnen!</b></div>
+  <div class="lp-two">
+   <div class="card"><h3>➖ Längen</h3><div class="lp-mono">2 km − 600 m<br>= 2000 m − 600 m<br>= <b>1400 m</b> = 1,4 km</div></div>
+   <div class="card"><h3>➕ Gewichte</h3><div class="lp-mono">750 g + 8 kg<br>= 750 g + 8000 g<br>= <b>8750 g</b> = 8,75 kg</div></div>
+   <div class="card"><h3>✖️ Mal</h3><div class="lp-mono">5 · 1 km 40 m<br>= 5 · 1040 m<br>= <b>5200 m</b> = 5,2 km</div></div>
+   <div class="card"><h3>➗ Geteilt</h3><div class="lp-mono">1 km : 50<br>= 1000 m : 50<br>= <b>20 m</b></div></div>
+  </div>
+  <div class="note"><b>Größe : Größe?</b> Wenn du eine Länge durch eine Länge teilst, kommt <b>keine Länge</b> heraus, sondern eine Zahl: „Wie oft passt …?“ <span class="lp-mono">6 kg : 500 g = 6000 g : 500 g = 12</span> – 500 g passen <b>12-mal</b> in 6 kg.</div>
+
+  <h2>2 · Rechentrainer</h2>
+  ${wBox(`<div class="lp-chips" data-cat><button type="button" data-v="L">📏 Längen</button><button type="button" data-v="G">⚖️ Gewichte</button><button type="button" data-v="*">gemischt</button></div>
+   <div class="ph-qhead"><span data-sc>0 richtig</span><span data-st></span></div><div class="lp-item" data-q></div><p class="vk-hint" data-hint style="text-align:center"></p>
+   <form class="row" data-f autocomplete="off" style="justify-content:center"><input class="lp-in" data-in inputmode="decimal" style="width:170px" aria-label="Antwort"><b data-unit></b><button class="btn primary">Prüfen</button><button type="button" class="btn" data-tip>💡 Tipp</button></form><div class="fb" data-fb style="text-align:center"></div>`, box=>{
+    let cat="*", cur, sc=0, st=0, lock=false;
+    const gen=()=>{ const c = cat==="*" ? (Math.random()<.5?"L":"G") : cat, U=GR[c];
+      const i = c==="L" ? lpRnd(4) : lpRnd(3), sm=U[i], bg=U[i+1], k=bg[1]/sm[1], op=lpRnd(4);
+      const smStep = k===10 ? 1 : 50;
+      if(op===0){ const a=2+lpRnd(14), b=smStep*(1+lpRnd(k===10?25:30)); const r=a*k+b, big=Math.random()<.5;
+        return {q:`${a} ${bg[0]} + ${b} ${sm[0]}`, a:big?r/k:r, u:big?bg[0]:sm[0], h:`Gib das Ergebnis in ${big?"der größeren":"der kleineren"} Einheit an.`, tip:`${a} ${bg[0]} = ${a*k} ${sm[0]}. Dann ${a*k} + ${b}.`}; }
+      if(op===1){ const a=3+lpRnd(14), b=smStep*(1+lpRnd(k===10?25:30)); const r=a*k-b, big=Math.random()<.5;
+        return {q:`${a} ${bg[0]} − ${b} ${sm[0]}`, a:big?r/k:r, u:big?bg[0]:sm[0], h:`Gib das Ergebnis in ${big?"der größeren":"der kleineren"} Einheit an.`, tip:`${a} ${bg[0]} = ${a*k} ${sm[0]}. Dann ${a*k} − ${b}.`}; }
+      if(op===2){ const a=1+lpRnd(5), b=k===10?1+lpRnd(9):smStep*(1+lpRnd(19)), n=2+lpRnd(8), m=a*k+b;
+        return {q:`${n} · ${a} ${bg[0]} ${b} ${sm[0]}`, a:n*m, u:sm[0], h:"Gib das Ergebnis in der kleineren Einheit an.", tip:`${a} ${bg[0]} ${b} ${sm[0]} = ${m} ${sm[0]}. Dann ${n} · ${m}.`}; }
+      const n=[2,4,5,10,20,25,50][lpRnd(7)]; let a=1+lpRnd(9); while((a*k)%n) a++;
+      return {q:`${a} ${bg[0]} : ${n}`, a:a*k/n, u:sm[0], h:"Gib das Ergebnis in der kleineren Einheit an.", tip:`${a} ${bg[0]} = ${a*k} ${sm[0]}. Dann ${a*k} : ${n}.`}; };
+    const next=()=>{ cur=gen(); lock=false; $("[data-q]",box).textContent=cur.q+" = ?"; $("[data-hint]",box).textContent=cur.h; $("[data-unit]",box).textContent=cur.u; const i=$("[data-in]",box); i.value=""; $("[data-fb]",box).textContent=""; };
+    const setCat=()=>{ box.querySelectorAll("[data-cat] button").forEach(b=>b.classList.toggle("on",b.dataset.v===cat)); next(); };
+    $("[data-cat]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ cat=b.dataset.v; setCat(); } });
+    $("[data-f]",box).addEventListener("submit",e=>{ e.preventDefault(); if(lock) return; const v=GR.num($("[data-in]",box).value); if(isNaN(v)) return; const fb=$("[data-fb]",box);
+      if(GR.eq(v,cur.a)){ lock=true; sc++; st++; fb.className="fb ok"; fb.textContent=st>=5?`Richtig! 🔥 ${st} in Folge!`:`Richtig! ⭐ ${GR.fmt(cur.a)} ${cur.u}`; $("[data-sc]",box).textContent=sc+" richtig"; $("[data-st]",box).textContent=st>1?"🔥 "+st:""; setTimeout(next,1300); }
+      else { st=0; $("[data-st]",box).textContent=""; fb.className="fb no"; fb.innerHTML=`Noch nicht. 💡 ${cur.tip}`; } });
+    $("[data-tip]",box).onclick=()=>{ const fb=$("[data-fb]",box); fb.className="fb"; fb.textContent="💡 "+cur.tip; };
+    setCat();
+  })}
+
+  <h2>3 · Paare finden</h2>
+  <p>Auf je zwei Kärtchen steht <b>dasselbe</b> Ergebnis. Rechne im Kopf oder auf einem Zettel – und tippe zwei Kärtchen an, die zusammengehören.</p>
+  ${wBox(`<div class="lp-chips" data-cat><button type="button" data-v="L">📏 Längen</button><button type="button" data-v="G">⚖️ Gewichte</button></div><div class="gr-cards" data-c></div><div class="fb" data-fb></div>`, box=>{
+    const SETS={L:[["A","1 km 150 m − 980 m",170000,"170 m"],["B","350 mm · 11",3850,"3,85 m"],["C","220 mm + 28 cm",500,"50 cm"],["D","60 dm − 21 dm 5 cm",3850,"3,85 m"],["E","111 m 8 dm + 882 dm",200000,"200 m"],["F","2 m 2 dm − 17 dm",500,"50 cm"],["G","115 m + 550 dm",170000,"170 m"],["H","40 · 50 dm",200000,"200 m"]],
+      G:[["A","300 g · 11",3300000,"3,3 kg"],["B","1 t 200 kg + 900 kg",2100e6,"2,1 t"],["C","1 kg − 970 g",30000,"30 g"],["D","4 g − 400 mg",3600,"3,6 g"],["E","5 kg − 1 kg 700 g",3300000,"3,3 kg"],["F","1200 mg + 2 g 400 mg",3600,"3,6 g"],["G","6000 · 5 mg",30000,"30 g"],["H","70 · 30 kg",2100e6,"2,1 t"]]};
+    let cat="L", cards=[], first=null, done=0, tries=0;
+    const draw=()=>{ box.querySelectorAll("[data-cat] button").forEach(b=>b.classList.toggle("on",b.dataset.v===cat)); cards=SETS[cat].map(c=>({c,m:false})); first=null; done=0; tries=0;
+      $("[data-c]",box).innerHTML=cards.map((x,i)=>`<button type="button" data-i="${i}"><b>${x.c[0]}</b> ${x.c[1]}<small></small></button>`).join(""); $("[data-fb]",box).textContent=""; };
+    $("[data-cat]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ cat=b.dataset.v; draw(); } });
+    $("[data-c]",box).addEventListener("click",e=>{ const b=e.target.closest("button[data-i]"); if(!b) return; const i=+b.dataset.i, x=cards[i]; if(x.m) return; const fb=$("[data-fb]",box);
+      if(first===null){ first=i; b.classList.add("sel"); return; }
+      if(first===i){ first=null; b.classList.remove("sel"); return; }
+      const a=cards[first], bb=$(`[data-i="${first}"]`,box); tries++;
+      if(a.c[2]===x.c[2]){ a.m=x.m=true; [bb,b].forEach(z=>{ z.classList.remove("sel"); z.classList.add("ok"); z.querySelector("small").textContent="= "+x.c[3]; }); done++; fb.className="fb ok";
+        fb.textContent = done===4 ? `🏆 Alle Paare gefunden – mit ${tries} Versuchen!` : `Richtig! ${a.c[0]} und ${x.c[0]} ergeben beide ${x.c[3]}.`; }
+      else { fb.className="fb no"; fb.textContent="Das passt nicht zusammen. Rechne beide Kärtchen in die gleiche Einheit um!"; b.classList.add("bad"); bb.classList.add("bad"); const f=bb; setTimeout(()=>{ b.classList.remove("bad"); f.classList.remove("bad","sel"); },700); }
+      first=null; });
+    draw();
+  })}
+
+  <h2>4 · Der Größe nach ordnen</h2>
+  <p>Tippe die Kärtchen <b>vom kleinsten zum größten</b> an.</p>
+  ${wBox(`<div class="lp-chips" data-set></div><div class="gr-order" data-c></div><div class="gr-res" data-r></div><div class="fb" data-fb></div>`, box=>{
+    const S=[["📏 a",[["44 dm",4400],["4,50 m",4500],["4 m 4 cm",4040],["4,05 m",4050]],"m"],["📏 b",[["60 mm",60],["6 dm",600],["6 cm 5 mm",65],["6,6 cm",66]],"mm"],["📏 c",[["3 km 30 m",3030000],["3,3 km",3300000],["3003 m",3003000],["3 km 3 dm",3000300]],"m"],["📏 d",[["101 m",101000],["0,1 km",100000],["1100 dm",110000],["100,10 m",100100]],"m"],
+      ["⚖️ a",[["980 kg",980],["0,9 t",900],["1 t 9 kg",1009],["1090 kg",1090]],"kg"],["⚖️ b",[["3,7 kg",3700],["3 kg 70 g",3070],["3007 g",3007],["3,6 kg",3600]],"g"],["⚖️ c",[["6505 mg",6505],["6 g 50 mg",6050],["7 g",7000],["60 000 mg",60000]],"mg"],["⚖️ d",[["480 080 mg",480080],["0,4 kg",400000],["408 g",408000],["400 g 8 mg",400008]],"mg"]];
+    let s=0, got=[], items=[];
+    const draw=()=>{ $("[data-set]",box).innerHTML=S.map((x,i)=>`<button type="button" data-i="${i}" class="${i===s?"on":""}">${x[0]}</button>`).join(""); items=lpMix(S[s][1]); got=[];
+      $("[data-c]",box).innerHTML=items.map((x,i)=>`<button type="button" data-k="${i}">${x[0]}</button>`).join(""); $("[data-r]",box).innerHTML=""; $("[data-fb]",box).textContent=""; };
+    $("[data-set]",box).addEventListener("click",e=>{ const b=e.target.closest("button"); if(b){ s=+b.dataset.i; draw(); } });
+    $("[data-c]",box).addEventListener("click",e=>{ const b=e.target.closest("button[data-k]"); if(!b||b.disabled) return; const x=items[+b.dataset.k];
+      const rest=items.filter(y=>!got.includes(y)), min=Math.min(...rest.map(y=>y[1])), fb=$("[data-fb]",box);
+      if(x[1]===min){ got.push(x); b.disabled=true; b.classList.add("ok"); $("[data-r]",box).innerHTML=got.map(y=>`<span>${y[0]}</span>`).join(" &lt; ");
+        if(got.length===4){ const u=S[s][2], f={mm:1,m:1000,mg:1,g:1,kg:1}[u]; fb.className="fb ok"; fb.innerHTML=`🏆 Richtig geordnet! In ${u}: `+got.map(y=>GR.fmt(y[1]/f)+" "+u).join(" &lt; "); }
+        else { fb.className="fb ok"; fb.textContent="Richtig! Weiter so."; } }
+      else { fb.className="fb no"; fb.textContent="Das ist noch nicht das kleinste. Rechne alle in die gleiche Einheit um!"; b.classList.add("bad"); setTimeout(()=>b.classList.remove("bad"),600); } });
+    draw();
+  })}
+
+  <h2>5 · Finde den Fehler!</h2>
+  <p>Hier hat jemand falsch gerechnet. Was ist der Fehler?</p>
+  ${wBox(``, box=>{
+    const F=[["55 cm + 60 dm = 115 dm",["Die Einheiten sind verschieden – man darf nicht einfach 55 + 60 rechnen.","Man hätte malnehmen müssen.","Das Ergebnis müsste in km sein."],"55 cm = 5,5 dm → 5,5 dm + 60 dm = <b>65,5 dm</b>"],
+      ["200 m + 0,5 km = 250 m",["0,5 km sind 500 m, nicht 50 m.","Man darf Meter und Kilometer nie addieren.","Das Ergebnis muss in km sein."],"0,5 km = 500 m → 200 m + 500 m = <b>700 m</b>"],
+      ["30 000 000 mm = 3 km",["Es sind 30 km – 1 km hat 1 000 000 mm.","Es sind 300 km.","Millimeter kann man nicht in km umrechnen."],"30 000 000 mm = 30 000 m = <b>30 km</b>"],
+      ["1 km : 50 = 1000 : 50 = 20 km",["Man hat in m gerechnet – das Ergebnis ist 20 m, nicht 20 km.","1 km sind 100 m.","Man darf Längen nicht teilen."],"1 km : 50 = 1000 m : 50 = <b>20 m</b>"],
+      ["13 kg − 2,5 kg = 10 kg 50 g",["10,5 kg sind 10 kg 500 g, nicht 50 g.","Man muss 13 + 2,5 rechnen.","Das Ergebnis ist 11,5 kg."],"13 kg − 2,5 kg = 10,5 kg = <b>10 kg 500 g</b>"],
+      ["3800 g = 38 kg",["Man muss durch 1000 teilen, nicht durch 100.","Man muss mal 1000 rechnen.","Gramm kann man nicht in kg umrechnen."],"3800 g : 1000 = <b>3,8 kg</b>"],
+      ["26 t = 26 000 000 mg",["Es fehlen drei Nullen: t → kg → g → mg sind dreimal · 1000.","Es sind zu viele Nullen.","t kann man nicht in mg umrechnen."],"26 t = 26 000 kg = 26 000 000 g = <b>26 000 000 000 mg</b>"],
+      ["90 kg : 15 kg = 90 : 15 = 6 kg",["Gewicht : Gewicht ergibt eine Zahl, kein Gewicht. 15 kg passen 6-mal in 90 kg.","Das Ergebnis ist 60 kg.","Man darf Gewichte nicht teilen."],"90 kg : 15 kg = <b>6</b> (ohne Einheit – 15 kg passen 6-mal hinein)"]];
+    let i=0, lock=false, right=0, opts=[];
+    const show=()=>{ const f=F[i]; lock=false; opts=lpMix(f[1].map((t,k)=>({t,ok:k===0})));
+      box.innerHTML=`<div class="ph-qhead"><span>Aufgabe ${i+1} von ${F.length}</span><span>${right} richtig</span></div><div class="gr-wrong">${f[0]}</div>${opts.map((o,k)=>`<button type="button" class="ph-opt" data-k="${k}">${o.t}</button>`).join("")}<div class="fb" data-fb></div>`; };
+    box.addEventListener("click",e=>{
+      if(e.target.closest("[data-next]")){ i++; if(i<F.length) show(); else box.innerHTML=`<div class="big">🕵️ Fehler-Detektiv: ${right} von ${F.length}!</div><button type="button" class="btn primary" data-again>Noch einmal</button>`; return; }
+      if(e.target.closest("[data-again]")){ i=0; right=0; return show(); }
+      const b=e.target.closest(".ph-opt"); if(!b||lock) return; lock=true; const ok=opts[+b.dataset.k].ok; if(ok) right++; else b.classList.add("no");
+      box.querySelectorAll(".ph-opt").forEach((x,k)=>{ if(opts[k].ok) x.classList.add("ok"); x.disabled=true; });
+      const fb=$("[data-fb]",box); fb.className="fb "+(ok?"ok":"no"); fb.innerHTML=`${ok?"Richtig erkannt! ⭐":"Nicht ganz."} <span style="color:var(--ink);font-weight:400">So ist es richtig: ${F[i][2]}</span><div style="margin-top:10px"><button type="button" class="btn primary" data-next>Weiter</button></div>`; });
+    show();
+  }, "card")}
+
+  <h2>6 · Sachaufgaben</h2>
+  <p>Lies genau, überlege, was du rechnen musst – und tippe dein Ergebnis ein. Wenn du nicht weiterkommst, hilft der Tipp.</p>
+  ${wBox(``, box=>{
+    const A=[
+     ["🏃","Christoph läuft beim Crosslauf fünfmal die 1 km und 40 m lange Runde. Wie lang ist die Strecke?",5200,"m","1 km 40 m = 1040 m.","5 · 1040 m = <b>5200 m</b> = 5,2 km"],
+     ["🏟️","Wie viele Sportplatzrunden (400 m) müsste Christoph für dieselbe Strecke (5200 m) laufen?",13,"Runden","Wie oft passen 400 m in 5200 m?","5200 m : 400 m = <b>13 Runden</b>"],
+     ["🚃","Auf einen Waggon passen acht Autos von 4 m 50 cm Länge hintereinander. Wie lang ist der Waggon mindestens?",36,"m","4 m 50 cm = 450 cm = 4,5 m.","8 · 4,5 m = <b>36 m</b>"],
+     ["🍝","In der Mensa essen 50 Kinder. Man rechnet 120 g Nudeln pro Person. Wie viele Kilogramm Nudeln braucht man?",6,"kg","Rechne erst 50 · 120 g.","50 · 120 g = 6000 g = <b>6 kg</b>"],
+     ["📦","Es sind nur 11 Pakete Nudeln mit je 500 g da. Wie viel Gramm bekommt dann jedes der 50 Kinder?",110,"g","11 · 500 g = 5500 g. Das teilst du auf 50 Kinder auf.","5500 g : 50 = <b>110 g</b>"],
+     ["🐈","Janas Katze bekommt 90 g Futter pro Tag. Wie viel Gramm frisst sie in vier Wochen (28 Tage)?",2520,"g","4 Wochen = 28 Tage. Rechne 28 · 90 g.","28 · 90 g = <b>2520 g</b> – ein 2,5-kg-Sack (2500 g) reicht also <b>nicht ganz</b>!"],
+     ["🦗","Ein Floh ist etwa 3 mm groß und kann 60 cm hoch springen. Das Wievielfache seiner Größe ist das?",200,"-fach","60 cm = 600 mm. Wie oft passen 3 mm in 600 mm?","600 mm : 3 mm = <b>200</b> – er springt 200-mal so hoch, wie er groß ist."],
+     ["🧍","Wie hoch könnte ein 1,80 m großer Mensch springen, wenn er so springen könnte wie ein Floh (200-fach)?",360,"m","Rechne 200 · 1,80 m.","200 · 1,80 m = <b>360 m</b> – höher als der Kölner Dom!"],
+     ["🧈","Ein Mensch isst etwa 6,5 kg Butter im Jahr. Wie viele 250-g-Pakete sind das?",26,"Pakete","6,5 kg = 6500 g. Wie oft passen 250 g hinein?","6500 g : 250 g = <b>26 Pakete</b>"],
+     ["🥔","Bauer Schulze hat 17 Zentner Kartoffeln geerntet. Wie viel Kilogramm sind das? (1 Ztr = 50 kg)",850,"kg","Rechne 17 · 50 kg.","17 · 50 kg = <b>850 kg</b>"]];
+    box.innerHTML=A.map((a,i)=>`<div class="gr-task card" data-i="${i}"><div class="gr-em">${a[0]}</div><div><p><b>${i+1}.</b> ${a[1]}</p>
+      <form class="row" autocomplete="off"><input class="lp-in" inputmode="decimal" style="width:130px" aria-label="Ergebnis"><b>${a[3]}</b><button class="btn primary">Prüfen</button><button type="button" class="btn" data-tip>💡 Tipp</button><button type="button" class="btn" data-sol>Lösungsweg</button></form><div class="fb"></div></div></div>`).join("");
+    box.addEventListener("submit",e=>{ e.preventDefault(); const c=e.target.closest(".gr-task"), a=A[+c.dataset.i], v=GR.num($("input",c).value), fb=$(".fb",c); if(isNaN(v)) return;
+      if(GR.eq(v,a[2])){ fb.className="fb ok"; fb.innerHTML=`Richtig! ⭐ <span style="font-weight:400;color:var(--ink)">${a[5]}</span>`; c.classList.add("solved"); }
+      else { fb.className="fb no"; fb.textContent="Noch nicht – probier den Tipp!"; } });
+    box.addEventListener("click",e=>{ const c=e.target.closest(".gr-task"); if(!c) return; const a=A[+c.dataset.i], fb=$(".fb",c);
+      if(e.target.closest("[data-tip]")){ fb.className="fb"; fb.textContent="💡 "+a[4]; }
+      if(e.target.closest("[data-sol]")){ fb.className="fb"; fb.innerHTML=`<span style="font-weight:400">${a[5]}</span>`; } });
+  })}
+
+  <h2>7 · Wahr oder falsch?</h2>
+  ${wSort(["✅ wahr","❌ falsch"],[["Wenn ich eine Länge durch eine Länge teile, ist das Ergebnis keine Länge mehr.",0,"Es kommt eine Zahl heraus: 6 m : 2 m = 3."],["Wenn ich eine Länge mit einer Zahl malnehme, ist das Ergebnis wieder eine Länge.",0,"3 · 4 m = 12 m."],["Wenn man ein Gewicht durch ein Gewicht teilt, erhält man wieder ein Gewicht.",1,"90 kg : 15 kg = 6 – ohne Einheit."],["Ersetzt man bei einer Gewichtsangabe die Einheit durch die nächstgrößere, erhält man das tausendfache Gewicht.",0,"5 g → 5 kg: Das ist 1000-mal so schwer."],["Zwischen m und km ist die Umrechnungszahl 10.",1,"1 km = 1000 m."],["Zwischen cm und dm ist die Umrechnungszahl 10.",0,"1 dm = 10 cm."]])}
+  ${lpPlan("Inhaltsfeld Arithmetik/Größen: mit Größen rechnen (Längen, Gewichte), Größenangaben umwandeln und vergleichen, Sachaufgaben lösen und Ergebnisse überprüfen.")}`)}
 ]);
 
 route();
