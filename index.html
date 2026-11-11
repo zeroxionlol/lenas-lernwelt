@@ -1027,6 +1027,426 @@ function createSkullView(stage, ov, onPick){
 
 
 /* =====================================================================
+   ERDKUNDE · Reise durch die Stadt – interaktives 3D-Stadtmodell
+   ===================================================================== */
+const STADT_Z = [
+  {k:"city", em:"🏬", name:"City", col:"#d93a34",
+   t:"Die Innenstadt. Hier stehen die <b>höchsten Häuser</b>, dicht an dicht. Es gibt Kaufhäuser, Büros, Banken, das Rathaus und oft eine Fußgängerzone. Hier <b>arbeiten und einkaufen</b> viele Menschen – aber nur wenige wohnen hier.",
+   look:"Finde das <b>Rathaus</b> mit dem Turm auf dem Marktplatz in der Mitte. Rundherum: Bürohochhäuser."},
+  {k:"wohn", em:"🏘️", name:"Wohngebiet", col:"#2a6fdb",
+   t:"Hier <b>wohnen</b> die meisten Menschen: nah an der City in Mehrfamilienhäusern, weiter draußen in Reihenhäusern und Einfamilienhäusern mit Garten. Dazu gibt es Schulen, Spielplätze und kleine Läden.",
+   look:"Finde die <b>Schule</b> mit dem Sportplatz und die Einfamilienhäuser mit roten Dächern."},
+  {k:"gewerbe", em:"🏭", name:"Gewerbegebiet", col:"#7a5bc4",
+   t:"Hier wird <b>gearbeitet</b>: Fabriken, Werkstätten, Lagerhallen, große Märkte. Es liegt meistens am Stadtrand, nah an Autobahn oder Bahn – wegen Lärm, Platz und Lastwagen.",
+   look:"Finde die <b>Fabrik mit den qualmenden Schornsteinen</b> und die Lastwagen auf der Autobahn."},
+  {k:"erholung", em:"🌳", name:"Naherholung", col:"#2e9e4f",
+   t:"Parks, Wälder, Seen und Sportplätze. Hier <b>erholen</b> sich die Menschen, ohne weit fahren zu müssen.",
+   look:"Finde den <b>See</b> im Stadtpark und das Fußballfeld."},
+  {k:"umland", em:"🚜", name:"Umland", col:"#c98a00",
+   t:"Rund um die Stadt liegen <b>Dörfer</b>, Felder und Wiesen. Die Häuser sind niedrig und stehen weit auseinander. Viele Menschen fahren von hier jeden Tag zur Arbeit in die Stadt – sie <b>pendeln</b>.",
+   look:"Finde das <b>Dorf mit der Kirche</b>, die Bauernhöfe und die Windräder."}
+];
+const STADT_Q = [
+  ["Wo arbeiten und kaufen viele Menschen ein – aber nur wenige wohnen dort?","city"],
+  ["Wo wohnen die meisten Menschen?","wohn"],
+  ["Wo stehen Fabriken und Lagerhallen nah an der Autobahn?","gewerbe"],
+  ["Wo kannst du spazieren gehen, ohne weit zu fahren?","erholung"],
+  ["Wo gibt es Felder, Bauernhöfe und kleine Dörfer?","umland"],
+  ["Wo steht das Rathaus?","city"],
+  ["Wo stehen Einfamilienhäuser mit Garten und eine Schule?","wohn"],
+  ["Woher kommen morgens viele Pendler?","umland"]
+];
+
+function stadt3DBox(){
+  return `<style>
+  .city-stage{background:linear-gradient(#a9d8f5,#e6f4fd 70%)}
+  .city-stage .hint{color:#29405e}
+  .clb{position:absolute;transform:translate(-50%,-100%);border:2px solid #1f2433;background:#fff;color:#1f2433;border-radius:999px;padding:3px 9px;
+    font-family:var(--head);font-weight:800;font-size:.85rem;white-space:nowrap;cursor:pointer;pointer-events:auto;transition:opacity .2s,background .15s;box-shadow:0 2px 0 rgba(0,0,0,.18)}
+  .clb.sel{background:#ffd83d;box-shadow:0 0 0 5px rgba(255,216,61,.4)}
+  .clb.dim{opacity:.55}
+  @media(max-width:560px){.clb{font-size:.72rem;padding:2px 6px}}
+  .city-note{margin-top:8px;font-weight:700;font-size:.95rem}
+  </style>
+  <div class="lab">
+    <div>
+      <div class="stage city-stage" data-stage><canvas></canvas><div class="overlay" data-ov></div><div class="hint">↻ ziehen = drehen · Mausrad / zwei Finger = zoomen · tippen = Viertel wählen</div></div>
+      <div class="row stagebar">
+        <button class="btn" data-tour aria-pressed="false">▶ Reise starten</button>
+        <button class="btn" data-time aria-pressed="false">🌅 Morgens</button>
+        <button class="btn" data-reset>Ansicht zurücksetzen</button>
+      </div>
+      <div class="city-note" data-note></div>
+    </div>
+    <div>
+      <div class="row" style="margin-bottom:10px"><button class="btn on" data-m="learn">Entdecken</button><button class="btn" data-m="quiz">Quiz</button></div>
+      <div data-quiz hidden></div>
+      <ul class="parts" data-parts></ul>
+      <div class="card info" data-info aria-live="polite"></div>
+    </div>
+  </div>`;
+}
+
+function stadt3DInit(box){
+  const stage=$("[data-stage]",box), ov=$("[data-ov]",box), partsEl=$("[data-parts]",box), infoEl=$("[data-info]",box),
+        quizEl=$("[data-quiz]",box), noteEl=$("[data-note]",box), tourBtn=$("[data-tour]",box), timeBtn=$("[data-time]",box);
+  let sel=null, mode="learn", view=null, quiz=null, tour=0, tourI=0, evening=false;
+
+  function drawList(){
+    partsEl.innerHTML=STADT_Z.map(z=>`<li><button type="button" data-k="${z.k}" class="${sel===z.k?"sel":""}"><span class="n" style="border-color:${z.col}">${z.em}</span>${z.name}</button></li>`).join("");
+  }
+  function drawInfo(){
+    const z=STADT_Z.find(x=>x.k===sel);
+    if(mode==="quiz"){ infoEl.hidden=true; return; } infoEl.hidden=false;
+    infoEl.innerHTML = z ? `<h3>${z.em} ${z.name}</h3><p>${z.t}</p><dl><dt>🔍 Entdecke im Modell</dt><dd>${z.look}</dd></dl>`
+      : `<h3>🗺️ Willkommen in Lernstadt!</h3><p>Tippe auf einen Teil der Stadt – im Modell, auf ein Schild oder in der Liste. Oder starte die <b>Reise</b>: Sie führt dich vom Zentrum bis aufs Land.</p>`;
+  }
+  function drawNote(){
+    noteEl.innerHTML = evening ? "🌇 <b>Abends:</b> Die Pendler fahren aus der Stadt zurück nach Hause ins Umland."
+                               : "🌅 <b>Morgens:</b> Viele Pendler fahren aus dem Umland in die Stadt – zur Arbeit, zur Schule, zum Einkaufen.";
+    timeBtn.textContent = evening ? "🌇 Abends" : "🌅 Morgens";
+  }
+  function drawQuiz(){
+    quizEl.hidden = mode!=="quiz"; if(mode!=="quiz") return;
+    if(quiz.done){ quizEl.innerHTML=`<div class="quizbox ok">Super, Stadtführerin! 🎉 ${quiz.score} von ${quiz.order.length} beim ersten Versuch richtig.<div style="margin-top:8px"><button class="btn" data-again>Nochmal</button></div></div>`;
+      $("[data-again]",quizEl).onclick=startQuiz; return; }
+    const q=STADT_Q[quiz.order[quiz.i]];
+    quizEl.innerHTML=`<div class="quizbox ${quiz.cls||""}">${quiz.msg?quiz.msg+"<br>":""}Frage ${quiz.i+1} von ${quiz.order.length}: ${q[0]}<br><small>Tippe auf das richtige Viertel.</small></div>`;
+  }
+  function startQuiz(){ const o=STADT_Q.map((_,i)=>i); for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]];}
+    quiz={order:o,i:0,score:0,miss:false,done:false,msg:"",cls:""}; select(null,false); drawQuiz(); }
+
+  function select(k, turn){
+    sel=k; if(view) view.setSelected(k, turn); drawList(); drawInfo();
+  }
+  function pick(k, turn){
+    if(!k) return;
+    if(mode==="quiz" && quiz && !quiz.done){
+      const q=STADT_Q[quiz.order[quiz.i]], z=STADT_Z.find(x=>x.k===k), right=STADT_Z.find(x=>x.k===q[1]);
+      if(k===q[1]){ if(!quiz.miss) quiz.score++; quiz.i++; quiz.miss=false; quiz.msg=`✅ Richtig – ${right.em} ${right.name}!`; quiz.cls="ok";
+        select(k, turn); if(quiz.i>=quiz.order.length) quiz.done=true; }
+      else { quiz.miss=true; quiz.msg=`❌ Das ist ${z.em} ${z.name}. Versuch es nochmal!`; quiz.cls="no"; select(k, turn); }
+      drawQuiz(); return;
+    }
+    select(k, turn);
+  }
+  function stopTour(){ if(tour){ clearInterval(tour); tour=0; } tourBtn.textContent="▶ Reise starten"; tourBtn.classList.remove("on"); tourBtn.setAttribute("aria-pressed","false"); }
+  function startTour(){
+    if(mode!=="learn") setMode("learn");
+    tourI=0; pick(STADT_Z[0].k,true);
+    tour=setInterval(()=>{ tourI++; if(tourI>=STADT_Z.length){ stopTour(); select(null,true); return; } pick(STADT_Z[tourI].k,true); }, 7000);
+    tourBtn.textContent="⏸ Reise anhalten"; tourBtn.classList.add("on"); tourBtn.setAttribute("aria-pressed","true");
+  }
+  function setMode(m){ mode=m; box.querySelectorAll("[data-m]").forEach(b=>b.classList.toggle("on",b.dataset.m===m));
+    if(m==="quiz"){ stopTour(); startQuiz(); } else { select(sel,false); drawQuiz(); } drawInfo(); }
+
+  partsEl.addEventListener("click",e=>{ const b=e.target.closest("button[data-k]"); if(b){ stopTour(); pick(b.dataset.k,true); } });
+  box.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+  tourBtn.onclick=()=>tour?stopTour():startTour();
+  timeBtn.onclick=()=>{ evening=!evening; timeBtn.classList.toggle("on",evening); timeBtn.setAttribute("aria-pressed",evening); drawNote(); if(view) view.setEvening(evening); };
+  $("[data-reset]",box).onclick=()=>{ stopTour(); if(view) view.reset(); select(null,false); };
+  drawList(); drawInfo(); drawNote();
+
+  try { view = createCityView(stage, ov, k=>{ stopTour(); pick(k,false); }, ()=>stopTour()); }
+  catch(err){ console.error(err); stage.innerHTML=`<div style="padding:24px;font-weight:700">Die 3D-Stadt konnte auf diesem Gerät leider nicht gestartet werden. Die Liste und die Infos funktionieren trotzdem.</div>`; }
+  if(view && matchMedia("(prefers-reduced-motion:reduce)").matches) view.setSpin(false);
+  return ()=>{ stopTour(); if(view) view.dispose(); };
+}
+
+/* ---------- 3D-Stadtmodell ---------- */
+function createCityView(stage, ov, onPick, onUserMove){
+  const R=30, DEG=Math.PI/180;
+  const canvas=$("canvas",stage);
+  const renderer=new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  const lin=c=>new THREE.Color(c).convertSRGBToLinear();
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(38, 4/3, 0.5, 400);
+  const hemi=new THREE.HemisphereLight(0xeaf6ff, 0x6b7f4a, 0.75); scene.add(hemi);
+  const sun=new THREE.DirectionalLight(0xffffff, 0.8); sun.position.set(-22,40,18); scene.add(sun);
+  sun.castShadow=true; sun.shadow.mapSize.set(2048,2048);
+  Object.assign(sun.shadow.camera,{left:-34,right:34,top:34,bottom:-34,near:1,far:120}); sun.shadow.bias=-0.0006;
+
+  /* --- Wo liegt welches Viertel? --- */
+  const ang=(x,z)=>{ let a=Math.atan2(z,x)/DEG; return a<0?a+360:a; };
+  function districtAt(x,z){
+    const r=Math.hypot(x,z), a=ang(x,z);
+    if(r<6) return "city";
+    if(x>13.4 && x<22.6 && Math.abs(z)<9.5) return "gewerbe";
+    if(a>=135 && a<=215 && r<18.5) return "erholung";
+    if(r<13.4) return "wohn";
+    return r<=R ? "umland" : null;
+  }
+  const ROADS=[0,90,270,320], RAIL=225, AB=23.6;
+  function nearRoad(x,z,pad=0){
+    const r=Math.hypot(x,z), a=ang(x,z);
+    if(Math.abs(r-6.2)<0.75+pad || Math.abs(r-13.4)<0.75+pad) return true;
+    for(const d of [...ROADS,RAIL]){ const da=d*DEG, along=x*Math.cos(da)+z*Math.sin(da), perp=Math.abs(-x*Math.sin(da)+z*Math.cos(da));
+      if(along>0 && perp<0.8+pad) return true; }
+    if(Math.abs(x-AB)<1.3+pad) return true;
+    return false;
+  }
+
+  /* --- Zufall, aber jedes Mal gleich --- */
+  let seed=7; const rnd=()=>{ seed=(seed*16807)%2147483647; return (seed-1)/2147483646; };
+  const pickc=a=>a[Math.floor(rnd()*a.length)];
+
+  /* --- Boden als gemalte Karte --- */
+  const S=2048, px=v=>(v/R*0.5+0.5)*S, pu=v=>v/R*0.5*S;
+  const base=document.createElement("canvas"); base.width=base.height=S; const g=base.getContext("2d");
+  g.fillStyle="#a6d27f"; g.fillRect(0,0,S,S);
+  // Felder
+  const FC=["#e9d36a","#a7cf6a","#cdb27c","#86c25a","#d8e48a","#b9d77a"];
+  for(let i=-R;i<R;i+=3.2) for(let j=-R;j<R;j+=2.6){ g.fillStyle=pickc(FC); g.fillRect(px(i)+2,px(j)+2,pu(3.2)-4,pu(2.6)-4); }
+  // Wohngebiet
+  g.fillStyle="#cfe2b5"; g.beginPath(); g.arc(px(0),px(0),pu(13.4),0,Math.PI*2); g.fill();
+  // Naherholung
+  g.fillStyle="#79c063"; g.beginPath(); g.arc(px(0),px(0),pu(18.5),135*DEG,215*DEG); g.arc(px(0),px(0),pu(6),215*DEG,135*DEG,true); g.closePath(); g.fill();
+  // Gewerbe
+  g.fillStyle="#c3c7cf"; g.fillRect(px(13.4),px(-9.5),pu(9.2),pu(19));
+  // City
+  g.fillStyle="#ddd5c6"; g.beginPath(); g.arc(px(0),px(0),pu(6),0,Math.PI*2); g.fill();
+  g.strokeStyle="#c7bead"; g.lineWidth=pu(0.35);
+  for(let i=-6;i<=6;i+=1.6){ g.beginPath(); g.moveTo(px(i),px(-6)); g.lineTo(px(i),px(6)); g.stroke(); g.beginPath(); g.moveTo(px(-6),px(i)); g.lineTo(px(6),px(i)); g.stroke(); }
+  g.fillStyle="#f1e3c4"; g.beginPath(); g.arc(px(0),px(0),pu(2),0,Math.PI*2); g.fill(); g.fillRect(px(-5.4),px(-0.45),pu(3.6),pu(0.9)); // Markt + Fußgängerzone
+  // See + Fußballfeld im Park, Sportplatz an der Schule
+  g.fillStyle="#5aa8e0"; g.beginPath(); g.ellipse(px(-12.2),px(1.2),pu(3.2),pu(2.2),0.3,0,Math.PI*2); g.fill();
+  g.strokeStyle="#cfe8f8"; g.lineWidth=pu(0.25); g.stroke();
+  const field=(cx,cz,w,h)=>{ g.fillStyle="#4fae4a"; g.fillRect(px(cx-w/2),px(cz-h/2),pu(w),pu(h)); g.strokeStyle="#fff"; g.lineWidth=pu(0.08);
+    g.strokeRect(px(cx-w/2)+3,px(cz-h/2)+3,pu(w)-6,pu(h)-6); g.beginPath(); g.moveTo(px(cx),px(cz-h/2)); g.lineTo(px(cx),px(cz+h/2)); g.stroke();
+    g.beginPath(); g.arc(px(cx),px(cz),pu(Math.min(w,h)*0.15),0,Math.PI*2); g.stroke(); };
+  field(-10.3,-9.2,3.4,2.2); field(4.4,10.8,2.6,1.7);
+  // Straßen
+  const road=(path,w,col)=>{ g.strokeStyle=col; g.lineWidth=pu(w); g.lineCap="round"; g.beginPath(); path(); g.stroke(); };
+  const ring=r=>()=>g.arc(px(0),px(0),pu(r),0,Math.PI*2);
+  const ray=(d,r0,r1)=>()=>{ const c=Math.cos(d*DEG), s=Math.sin(d*DEG); g.moveTo(px(c*r0),px(s*r0)); g.lineTo(px(c*r1),px(s*r1)); };
+  const allRoads=()=>{ ring(6.2)(); g.moveTo(px(13.4),px(0)); ring(13.4)(); ROADS.forEach(d=>ray(d,6.2,d===0?AB:R)()); };
+  road(allRoads,1.05,"#5f646d"); road(allRoads,0.06,"#f4f4f4");
+  road(()=>{ g.moveTo(px(AB),px(-R)); g.lineTo(px(AB),px(R)); },1.9,"#555a63");
+  road(()=>{ g.moveTo(px(AB),px(-R)); g.lineTo(px(AB),px(R)); },0.12,"#e7c74a");
+  // Bahnlinie
+  road(ray(RAIL,6.4,R),0.55,"#8a6f55");
+  { const c=Math.cos(RAIL*DEG), s=Math.sin(RAIL*DEG); g.strokeStyle="#5a4635"; g.lineWidth=pu(0.08);
+    for(let r=6.6;r<R;r+=0.45){ const x=c*r,z=s*r; g.beginPath(); g.moveTo(px(x-s*0.4),px(z+c*0.4)); g.lineTo(px(x+s*0.4),px(z-c*0.4)); g.stroke(); } }
+  // Masken für die Hervorhebung
+  const MS=512, masks={};
+  for(const z of STADT_Z){ const m=document.createElement("canvas"); m.width=m.height=MS; masks[z.k]=m; }
+  { const ctx={}, img={}; for(const k in masks){ ctx[k]=masks[k].getContext("2d"); img[k]=ctx[k].createImageData(MS,MS); }
+    for(let j=0;j<MS;j++) for(let i=0;i<MS;i++){ const x=((i+.5)/MS*2-1)*R, z=((j+.5)/MS*2-1)*R, k=districtAt(x,z); if(k){ const d=img[k].data, o=(j*MS+i)*4; d[o]=d[o+1]=d[o+2]=255; d[o+3]=255; } }
+    for(const k in masks) ctx[k].putImageData(img[k],0,0); }
+  const groundCv=document.createElement("canvas"); groundCv.width=groundCv.height=S; const gg=groundCv.getContext("2d");
+  const dimCv=document.createElement("canvas"); dimCv.width=dimCv.height=MS; const dg=dimCv.getContext("2d");
+  const groundTex=new THREE.CanvasTexture(groundCv); groundTex.encoding=THREE.sRGBEncoding; groundTex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+  function paintGround(k){
+    gg.globalCompositeOperation="source-over"; gg.drawImage(base,0,0);
+    if(k){ dg.globalCompositeOperation="source-over"; dg.clearRect(0,0,MS,MS); dg.fillStyle="rgba(25,35,55,.5)"; dg.fillRect(0,0,MS,MS);
+      dg.globalCompositeOperation="destination-out"; dg.drawImage(masks[k],0,0); gg.imageSmoothingEnabled=true; gg.drawImage(dimCv,0,0,S,S); }
+    groundTex.needsUpdate=true;
+  }
+  paintGround(null);
+  const ground=new THREE.Mesh(new THREE.CircleGeometry(R,96), new THREE.MeshStandardMaterial({map:groundTex, roughness:1}));
+  ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
+  const skirt=new THREE.Mesh(new THREE.CylinderGeometry(R,R*0.97,2.4,96,1,true), new THREE.MeshStandardMaterial({color:lin("#8a6a48"),roughness:1,side:THREE.DoubleSide}));
+  skirt.position.y=-1.2; scene.add(skirt);
+  const bottom=new THREE.Mesh(new THREE.CircleGeometry(R*0.97,64), new THREE.MeshStandardMaterial({color:lin("#6e5238")})); bottom.rotation.x=Math.PI/2; bottom.position.y=-2.4; scene.add(bottom);
+
+  /* --- Baukasten: alles wird pro Viertel gesammelt und als Instanzen gebaut --- */
+  const winCv=document.createElement("canvas"); winCv.width=64; winCv.height=128; { const w=winCv.getContext("2d"); w.fillStyle="#fff"; w.fillRect(0,0,64,128);
+    w.fillStyle="#6f87a6"; for(let y=6;y<128;y+=16) for(let x=6;x<64;x+=15) w.fillRect(x,y,9,9); }
+  const winTex=new THREE.CanvasTexture(winCv); winTex.encoding=THREE.sRGBEncoding;
+  const roofGeo=(()=>{ const s=new THREE.Shape([new THREE.Vector2(-.5,0),new THREE.Vector2(.5,0),new THREE.Vector2(0,1)]); const g2=new THREE.ExtrudeGeometry(s,{depth:1,bevelEnabled:false}); g2.translate(0,0,-.5); return g2; })();
+  const GEO={ box:new THREE.BoxGeometry(1,1,1).translate(0,.5,0), roof:roofGeo, cyl:new THREE.CylinderGeometry(.5,.5,1,14).translate(0,.5,0),
+    cone:new THREE.ConeGeometry(.5,1,8).translate(0,.5,0), ico:new THREE.IcosahedronGeometry(.5,0).translate(0,.5,0), pyr:new THREE.ConeGeometry(.72,1,4).rotateY(Math.PI/4).translate(0,.5,0) };
+  const MATS={};
+  for(const z of STADT_Z) MATS[z.k]={ solid:new THREE.MeshStandardMaterial({color:0xffffff,roughness:.85,flatShading:true}),
+    win:new THREE.MeshStandardMaterial({color:0xffffff,roughness:.6,map:winTex}) };
+  const parts={};
+  function put(k,geo,o){ const m=o.win?"win":"solid", key=k+"|"+geo+"|"+m; (parts[key]=parts[key]||{k,geo,m,list:[]}).list.push(o); }
+  const B={
+    box:(k,x,z,w,h,d,c,o={})=>put(k,"box",{x,y:o.y||0,z,w,h,d,c,ry:o.ry||0,win:o.win}),
+    roof:(k,x,z,w,h,d,c,o={})=>put(k,"roof",{x,y:o.y||0,z,w,h,d,c,ry:o.ry||0}),
+    cyl:(k,x,z,r,h,c,o={})=>put(k,"cyl",{x,y:o.y||0,z,w:r*2,h,d:r*2,c,ry:0}),
+    cone:(k,x,z,r,h,c,o={})=>put(k,"cone",{x,y:o.y||0,z,w:r*2,h,d:r*2,c,ry:0}),
+    ico:(k,x,z,r,h,c,o={})=>put(k,"ico",{x,y:o.y||0,z,w:r*2,h,d:r*2,c,ry:rnd()*6}),
+    pyr:(k,x,z,w,h,c,o={})=>put(k,"pyr",{x,y:o.y||0,z,w,h,d:w,c,ry:o.ry||0}),
+  };
+  const house=(k,x,z,w,h,d,wall,roof,ry=0,rh=0.5)=>{ B.box(k,x,z,w,h,d,wall,{ry}); B.roof(k,x,z,w*1.08,rh,d*1.08,roof,{y:h,ry}); };
+  const tree=(k,x,z,s=1)=>{ B.cyl(k,x,z,0.09*s,0.45*s,"#7a5233"); B.ico(k,x,z,0.5*s,0.85*s,pickc(["#3f9a56","#4fae5a","#36864a","#5cb85c"]),{y:0.3*s}); };
+  const fir=(k,x,z,s=1)=>{ B.cyl(k,x,z,0.08*s,0.3*s,"#6b4a2e"); B.cone(k,x,z,0.42*s,1.3*s,pickc(["#2f7a45","#3a8a50","#28693c"]),{y:0.25*s}); };
+  const ok=(x,z,k,pad=0.2)=>districtAt(x,z)===k && !nearRoad(x,z,pad);
+
+  // City: Hochhäuser, Rathaus, Kaufhaus
+  const GLASS=["#8fb3d9","#a9bdd6","#c9d3e0","#7f9bc2","#e2dccf","#b7c9de","#d9cdb8"];
+  for(let i=-5.6;i<=5.6;i+=1.6) for(let j=-5.6;j<=5.6;j+=1.6){
+    const x=i, z=j, r=Math.hypot(x,z); if(r>5.5 || r<2.4 || (Math.abs(z)<0.8 && x<-1.5)) continue;
+    const h=2.2+(1-r/6)*7.5*(0.55+rnd()*0.7); B.box("city",x,z,1.15,h,1.15,pickc(GLASS),{win:true});
+    if(rnd()<0.35) B.box("city",x,z,0.5,0.4,0.5,"#9aa3ad",{y:h});
+  }
+  B.box("city",0,-0.3,2.0,1.4,1.3,"#e8c99a"); B.roof("city",0,-0.3,2.1,0.7,1.4,"#a64b36",{y:1.4});
+  B.box("city",0,0.55,0.55,3.0,0.55,"#e8c99a"); B.pyr("city",0,0.55,0.6,1.0,"#3e7d6a",{y:3.0});
+  B.box("city",0.25,0.84,0.18,0.18,0.02,"#ffffff",{y:2.55});
+  for(let a=0;a<360;a+=60) tree("city",Math.cos(a*DEG)*1.7,Math.sin(a*DEG)*1.7,0.55);
+
+  // Wohngebiet: Mehrfamilienhäuser innen, Einfamilien- und Reihenhäuser außen, Schule
+  const PASTEL=["#f2d7a6","#f6c1a0","#e5e0c8","#cfe0f0","#f3e6b5","#e9c8c8","#d6e8c8"], ROOF=["#c2543d","#a64b36","#8c3d2e","#7b5a4a","#5d6b7a"];
+  for(let r=7.2;r<=9.6;r+=1.25) for(let a=0;a<360;a+=360/(r*2.2*Math.PI/1.9)){
+    const x=Math.cos(a*DEG)*r, z=Math.sin(a*DEG)*r; if(!ok(x,z,"wohn",0.5) || Math.hypot(x-2.2,z-9.1)<1.9) continue;
+    B.box("wohn",x,z,1.5,1.2+rnd()*1.1,0.85,pickc(PASTEL),{ry:-a*DEG+Math.PI/2,win:true});
+  }
+  for(let r=10.4;r<=12.8;r+=1.1) for(let a=0;a<360;a+=360/(r*2*Math.PI/1.15)){
+    const aa=a+rnd()*6, x=Math.cos(aa*DEG)*r, z=Math.sin(aa*DEG)*r;
+    if(Math.hypot(x-4.4,z-10.8)<2.4 || Math.hypot(x-2.6,z-9.2)<2) continue;
+    if(!ok(x,z,"wohn",0.35)) continue;
+    if(rnd()<0.18){ const ry=-aa*DEG+Math.PI/2; for(let n=-1;n<=1;n++){ const ox=Math.cos(aa*DEG+Math.PI/2)*n*0.5, oz=Math.sin(aa*DEG+Math.PI/2)*n*0.5;
+        house("wohn",x+ox,z+oz,0.5,0.6,0.7,pickc(PASTEL),"#8c3d2e",ry,0.35); } continue; }
+    house("wohn",x,z,0.62,0.5,0.62,pickc(PASTEL),pickc(ROOF),-aa*DEG,0.38);
+    if(rnd()<0.6){ const tx=x+(rnd()-.5)*0.9, tz=z+(rnd()-.5)*0.9; if(ok(tx,tz,"wohn",0.1)) tree("wohn",tx,tz,0.55); }
+  }
+  B.box("wohn",2.6,9.4,2.6,1.1,0.9,"#f3b25b",{win:true,ry:-0.25}); B.box("wohn",1.6,8.7,0.9,1.1,1.6,"#f3b25b",{win:true,ry:-0.25});
+
+  // Gewerbegebiet: Hallen, Fabrik mit Schornsteinen
+  const HALL=["#a3adba","#8698ae","#bfc5cd","#7489a1","#b3aa97"];
+  for(let x=14.8;x<=21;x+=3.0) for(let z=-8;z<=8;z+=3.1){ if(Math.abs(z)<1.1 || (x<17 && z<-4)) continue;
+    const w=2.3+rnd()*0.4, d=2.0+rnd()*0.4; B.box("gewerbe",x,z,w,0.8+rnd()*0.8,d,pickc(HALL)); }
+  B.box("gewerbe",15.6,-6.4,2.6,1.6,2.4,"#a6653d"); B.box("gewerbe",15.6,-6.4,0.6,0.25,2.4,"#7a4a2b",{y:1.6});
+  const chimneys=[[14.9,-7.2],[16.2,-7.2]];
+  chimneys.forEach(([x,z])=>{ B.cyl("gewerbe",x,z,0.22,4.6,"#c9493b"); B.cyl("gewerbe",x,z,0.23,0.35,"#f4f4f4",{y:3.6}); });
+
+  // Naherholung: Stadtpark mit Bäumen
+  for(let i=0;i<260;i++){ const r=6.8+rnd()*11.5, a=(137+rnd()*76)*DEG, x=Math.cos(a)*r, z=Math.sin(a)*r;
+    if(!ok(x,z,"erholung",0.15)) continue;
+    if(((x+12.2)/3.6)**2+((z-1.2)/2.6)**2<1.25) continue; if(Math.abs(x+10.3)<2.2 && Math.abs(z+9.2)<1.6) continue;
+    if(r>14.5) fir("erholung",x,z,0.8+rnd()*0.5); else if(rnd()<0.75) tree("erholung",x,z,0.7+rnd()*0.5); }
+  B.box("erholung",-14.2,3.6,0.7,0.5,0.6,"#e9d3a8"); B.roof("erholung",-14.2,3.6,0.8,0.35,0.7,"#a64b36",{y:0.5});
+
+  // Umland: Felder, Bauernhöfe, Dorf mit Kirche, Windräder
+  const farms=[[17,-20],[-24,14],[10,24],[26,-10],[-18,22],[2,-26],[20,17]];
+  farms.forEach(([x,z])=>{ if(districtAt(x,z)!=="umland") return; house("umland",x,z,1.1,0.7,0.8,"#f2e1c1","#a64b36",0.4,0.5);
+    house("umland",x+1.3,z+0.9,1.4,0.9,1.0,"#b0402f","#5d3a2a",0.4,0.6); B.cyl("umland",x-0.9,z+1.1,0.3,1.6,"#cfd6dc"); B.cone("umland",x-0.9,z+1.1,0.31,0.4,"#8d99a6",{y:1.6});
+    for(let n=0;n<3;n++) tree("umland",x+(rnd()-.5)*3,z-1.2-rnd(),0.7); });
+  const VX=-7.2, VZ=-21.6;
+  for(let i=0;i<14;i++){ const x=VX+(rnd()-.5)*7, z=VZ+(rnd()-.5)*5; if(!ok(x,z,"umland",0.3)||Math.hypot(x-VX,z-VZ)<1.2) continue; house("umland",x,z,0.65,0.5,0.6,pickc(PASTEL),pickc(ROOF),rnd()*3,0.4); }
+  B.box("umland",VX,VZ,0.8,0.8,1.5,"#f1ece0"); B.roof("umland",VX,VZ,0.85,0.5,1.55,"#8c3d2e",{y:0.8,ry:Math.PI/2*0});
+  B.box("umland",VX,VZ-1.0,0.5,2.0,0.5,"#f1ece0"); B.pyr("umland",VX,VZ-1.0,0.5,1.0,"#5d6b7a",{y:2.0});
+  for(let i=0;i<90;i++){ const a=(290+rnd()*40)*DEG, r=21+rnd()*7.5, x=Math.cos(a)*r, z=Math.sin(a)*r; if(ok(x,z,"umland",0.2)) fir("umland",x,z,0.8+rnd()*0.5); }
+  for(let i=0;i<60;i++){ const a=rnd()*Math.PI*2, r=15+rnd()*14, x=Math.cos(a)*r, z=Math.sin(a)*r; if(ok(x,z,"umland",0.3)) tree("umland",x,z,0.6+rnd()*0.4); }
+  const turbines=[[-4,26],[-9,25],[-14,23]].map(([x,z])=>{ B.cyl("umland",x,z,0.12,5,"#f4f4f4");
+    const hub=new THREE.Group(); hub.position.set(x,5,z+0.18); scene.add(hub); hub.userData.k="umland";
+    for(let b=0;b<3;b++){ const bl=new THREE.Mesh(new THREE.BoxGeometry(0.16,2.2,0.05).translate(0,1.1,0), MATS.umland.solid); bl.rotation.z=b*Math.PI*2/3; bl.castShadow=true; hub.add(bl); }
+    hub.add(new THREE.Mesh(new THREE.SphereGeometry(0.18,10,8),MATS.umland.solid)); return hub; });
+
+  // Instanzen bauen
+  const meshes=[]; const dummy=new THREE.Object3D(), col=new THREE.Color();
+  for(const key in parts){ const p=parts[key]; const im=new THREE.InstancedMesh(GEO[p.geo], MATS[p.k][p.m], p.list.length);
+    p.list.forEach((o,i)=>{ dummy.position.set(o.x,o.y,o.z); dummy.rotation.set(0,o.ry,0); dummy.scale.set(o.w,o.h,o.d); dummy.updateMatrix(); im.setMatrixAt(i,dummy.matrix); im.setColorAt(i,col.set(o.c).convertSRGBToLinear()); });
+    im.instanceMatrix.needsUpdate=true; if(im.instanceColor) im.instanceColor.needsUpdate=true; im.castShadow=true; im.receiveShadow=true; scene.add(im); meshes.push(im); }
+
+  /* --- Bewegung: Rauch, Autos, Laster, Zug --- */
+  const smokeMat=new THREE.MeshStandardMaterial({color:"#e8ecf0",transparent:true,opacity:.7,roughness:1});
+  const smokeGeo=new THREE.SphereGeometry(0.35,10,8); const smoke=[];
+  chimneys.forEach(([x,z],ci)=>{ for(let n=0;n<7;n++){ const m=new THREE.Mesh(smokeGeo,smokeMat.clone()); m.userData={x,z,t:n/7+ci*0.07}; scene.add(m); smoke.push(m); } });
+  const CARC=["#d93a34","#2a6fdb","#f7bd00","#f4f4f4","#2e9e4f","#1f2433","#f58220"];
+  const carGeo=new THREE.BoxGeometry(0.62,0.28,0.32).translate(0,.14,0), cabGeo=new THREE.BoxGeometry(0.32,0.2,0.28).translate(-0.04,.38,0);
+  function vehicle(c,truck){ const gp=new THREE.Group();
+    const body=new THREE.Mesh(truck?new THREE.BoxGeometry(1.2,0.5,0.42).translate(-0.15,0.25,0):carGeo, new THREE.MeshStandardMaterial({color:lin(c),roughness:.5}));
+    const cab=new THREE.Mesh(truck?new THREE.BoxGeometry(0.34,0.42,0.42).translate(0.6,0.21,0):cabGeo, new THREE.MeshStandardMaterial({color:lin(truck?"#2a6fdb":"#cfe3f5"),roughness:.3}));
+    body.castShadow=cab.castShadow=true; gp.add(body,cab); scene.add(gp); return gp; }
+  const cars=[];
+  [90,270,320,0].forEach((d,ri)=>{ const n=d===0?4:6; for(let i=0;i<n;i++) cars.push({g:vehicle(pickc(CARC)), d:d*DEG, r0:6.3, r1:d===0?AB-1:R-0.6, u:rnd(), sp:0.05+rnd()*0.03, inb:i%3!==0}); });
+  const trucks=[]; for(let i=0;i<6;i++) trucks.push({g:vehicle(pickc(["#f4f4f4","#f7bd00","#d93a34"]),true), u:rnd(), dir:i%2?1:-1, sp:0.035+rnd()*0.02});
+  const train=new THREE.Group(); scene.add(train);
+  for(let n=0;n<3;n++){ const w=new THREE.Mesh(new THREE.BoxGeometry(1.5,0.55,0.5).translate(0,0.32,0), new THREE.MeshStandardMaterial({color:lin(n?"#f4f4f4":"#d93a34"),roughness:.5}));
+    w.position.x=-n*1.6; w.castShadow=true; train.add(w);
+    const stripe=new THREE.Mesh(new THREE.BoxGeometry(1.52,0.1,0.52).translate(0,0.4,0), new THREE.MeshStandardMaterial({color:lin("#d93a34")})); stripe.position.x=-n*1.6; train.add(stripe); }
+  { const c=Math.cos(RAIL*DEG), s=Math.sin(RAIL*DEG), x=c*7.3+s*0.9, z=s*7.3-c*0.9;
+    const st=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.9,0.8).translate(0,.45,0), new THREE.MeshStandardMaterial({color:lin("#e8c99a"),flatShading:true}));
+    st.position.set(x,0,z); st.rotation.y=-RAIL*DEG; st.castShadow=true; scene.add(st); }
+  let trainT=0;
+
+  /* --- Hervorheben --- */
+  const DIM=new THREE.Color(0.32,0.36,0.44), WHITE=new THREE.Color(1,1,1);
+  let selected=null, evening=false;
+  function refresh(){
+    for(const k in MATS){ const c=(!selected||selected===k)?WHITE:DIM; MATS[k].solid.color.copy(c); MATS[k].win.color.copy(c);
+      const glow=selected===k; MATS[k].solid.emissive.set(glow?"#3a2a00":"#000000"); MATS[k].win.emissive.set(glow?"#3a2a00":"#000000"); }
+    paintGround(selected);
+    labels.forEach(l=>{ l.btn.classList.toggle("sel",l.k===selected); l.btn.classList.toggle("dim",!!selected&&l.k!==selected); });
+  }
+
+  /* --- Schilder --- */
+  const ANCH={city:[0,8.8,0,24], wohn:[Math.cos(60*DEG)*10.5,2.6,Math.sin(60*DEG)*10.5,30], gewerbe:[18,3.2,1.5,28], erholung:[-12.2,2.6,4.2,30], umland:[-10,6.5,24,36]};
+  const labels=STADT_Z.map(z=>{ const btn=document.createElement("button"); btn.type="button"; btn.className="clb"; btn.textContent=z.em+" "+z.name;
+    btn.addEventListener("click",e=>{ e.stopPropagation(); onPick(z.k); }); btn.addEventListener("pointerdown",e=>e.stopPropagation());
+    ov.appendChild(btn); const a=ANCH[z.k]; return {k:z.k,btn,pos:new THREE.Vector3(a[0],a[1],a[2])}; });
+
+  /* --- Kamera & Steuerung --- */
+  const START={yaw:0.55,pitch:0.72,zoom:1};
+  let yaw=START.yaw, pitch=START.pitch, zoom=1, spin=true, raf=0, last=0, W=0, H=0, yawGoal=null;
+  const target=new THREE.Vector3(), tGoal=new THREE.Vector3(); let dist=74, dGoal=74;
+  const pts=new Map(); let pinch=0, downAt=null, moved=0;
+  stage.addEventListener("pointerdown",e=>{ stage.setPointerCapture(e.pointerId); pts.set(e.pointerId,[e.clientX,e.clientY]);
+    if(pts.size===1){ downAt=[e.clientX,e.clientY]; moved=0; }
+    if(pts.size===2){ const [a,b]=[...pts.values()]; pinch=Math.hypot(a[0]-b[0],a[1]-b[1]); moved=99; } });
+  stage.addEventListener("pointermove",e=>{ const p=pts.get(e.pointerId); if(!p) return;
+    const dx=e.clientX-p[0], dy=e.clientY-p[1];
+    if(pts.size===1){ moved+=Math.abs(dx)+Math.abs(dy); if(moved>6){ if(spin) setSpin(false); yawGoal=null; onUserMove&&onUserMove();
+        yaw-=dx*0.008; pitch=Math.max(0.18,Math.min(1.45,pitch+dy*0.006)); } }
+    pts.set(e.pointerId,[e.clientX,e.clientY]);
+    if(pts.size===2){ const [a,b]=[...pts.values()]; const d=Math.hypot(a[0]-b[0],a[1]-b[1]); if(pinch) zoom=Math.max(0.55,Math.min(3.2,zoom*d/pinch)); pinch=d; } });
+  const caster=new THREE.Raycaster(), ndc=new THREE.Vector2();
+  const up=e=>{ const was=pts.has(e.pointerId); pts.delete(e.pointerId); pinch=0;
+    if(was && e.type==="pointerup" && pts.size===0 && moved<=6 && downAt){
+      const r=stage.getBoundingClientRect(); ndc.set((e.clientX-r.left)/r.width*2-1, -((e.clientY-r.top)/r.height*2-1));
+      caster.setFromCamera(ndc,camera); const hit=caster.intersectObjects([ground,...meshes],false)[0];
+      if(hit){ const k=districtAt(hit.point.x,hit.point.z); if(k){ if(spin) setSpin(false); onPick(k); } } }
+    if(pts.size===0) downAt=null; };
+  stage.addEventListener("pointerup",up); stage.addEventListener("pointercancel",up);
+  stage.addEventListener("wheel",e=>{ e.preventDefault(); zoom=Math.max(0.55,Math.min(3.2,zoom*Math.exp(-e.deltaY*0.0012))); },{passive:false});
+  function setSpin(v){ spin=v; }
+
+  function resize(){ const r=stage.getBoundingClientRect(); W=Math.max(r.width,10); H=Math.max(r.height,10); renderer.setSize(W,H,false); camera.aspect=W/H; camera.updateProjectionMatrix(); }
+  const ro=new ResizeObserver(resize); ro.observe(stage); resize();
+  const v=new THREE.Vector3();
+  const SUN_DAY=new THREE.Color("#ffffff"), SUN_EVE=new THREE.Color("#ffb36b");
+  function frame(t){ raf=requestAnimationFrame(frame); const dt=Math.min((t-last)/1000||0,0.05); last=t;
+    if(spin) yaw+=dt*0.12;
+    if(yawGoal!==null){ let d=yawGoal-yaw; d=Math.atan2(Math.sin(d),Math.cos(d)); yaw+=d*Math.min(1,dt*2.2); if(Math.abs(d)<0.003) yawGoal=null; }
+    target.lerp(tGoal,Math.min(1,dt*2.5)); dist+=(dGoal-dist)*Math.min(1,dt*2.5);
+    const dd=dist/zoom/Math.min(1,camera.aspect/1.2);
+    camera.position.set(target.x+Math.sin(yaw)*Math.cos(pitch)*dd, target.y+Math.sin(pitch)*dd, target.z+Math.cos(yaw)*Math.cos(pitch)*dd); camera.lookAt(target);
+    // Bewegung
+    smoke.forEach(m=>{ const u=m.userData; u.t=(u.t+dt*0.18)%1; m.position.set(u.x+u.t*2.2,4.7+u.t*3.5,u.z+u.t*0.8); const s=0.5+u.t*2; m.scale.setScalar(s); m.material.opacity=0.75*(1-u.t); });
+    turbines.forEach((h,i)=>h.rotation.z+=dt*(1.4+i*0.2));
+    cars.forEach(c=>{ c.u+=dt*c.sp; if(c.u>1){ c.u-=1; c.inb = evening ? rnd()<0.2 : rnd()<0.8; }
+      const r = c.inb ? c.r1+(c.r0-c.r1)*c.u : c.r0+(c.r1-c.r0)*c.u, lane=c.inb?0.24:-0.24;
+      const cx=Math.cos(c.d), sz=Math.sin(c.d); c.g.position.set(cx*r - sz*lane, 0, sz*r + cx*lane); c.g.rotation.y = -c.d + (c.inb?Math.PI:0); });
+    trucks.forEach(tr=>{ tr.u=(tr.u+dt*tr.sp)%1; const zz=(tr.u*2-1)*19.5*tr.dir; tr.g.position.set(AB+0.45*tr.dir,0,zz); tr.g.rotation.y=tr.dir>0?-Math.PI/2:Math.PI/2; });
+    trainT=(trainT+dt*0.05)%2; { const ph=trainT<1?trainT:2-trainT, e=ph<0.15?0:ph>0.85?1:(ph-0.15)/0.7, ee=e*e*(3-2*e);
+      const r=R+3-(R+3-8.3)*ee, c=Math.cos(RAIL*DEG), s=Math.sin(RAIL*DEG); train.position.set(c*r,0,s*r); train.rotation.y=-RAIL*DEG+Math.PI;
+      train.visible = r<R+0.5; }
+    renderer.render(scene,camera);
+    for(const l of labels){ v.copy(l.pos).project(camera); l.btn.style.left=((v.x*0.5+0.5)*W)+"px"; l.btn.style.top=((-v.y*0.5+0.5)*H)+"px"; l.btn.style.display=v.z>1?"none":""; }
+  }
+  raf=requestAnimationFrame(frame); refresh();
+
+  return {
+    setSelected(k, turn){ selected=k; refresh();
+      if(k){ const a=ANCH[k]; tGoal.set(a[0]*0.85,0,a[2]*0.85); dGoal=a[3]; if(turn){ const ad=Math.atan2(a[2],a[0]); yawGoal=k==="city"?yaw:Math.atan2(Math.cos(ad),Math.sin(ad)); } }
+      else { tGoal.set(0,0,0); dGoal=74; } },
+    setSpin, getSpin:()=>spin,
+    setEvening(on){ evening=on; cars.forEach(c=>c.inb = on ? rnd()<0.2 : rnd()<0.8);
+      sun.color.copy(on?SUN_EVE:SUN_DAY); sun.position.set(on?32:-22, on?14:40, on?-6:18); hemi.intensity=on?0.55:0.75;
+      stage.style.background=on?"linear-gradient(#f6b98a,#fde6cf 70%)":""; },
+    reset(){ yaw=START.yaw; pitch=START.pitch; zoom=1; yawGoal=null; tGoal.set(0,0,0); dGoal=74; },
+    dispose(){ cancelAnimationFrame(raf); ro.disconnect(); renderer.dispose(); groundTex.dispose(); winTex.dispose();
+      scene.traverse(o=>{ if(o.geometry) o.geometry.dispose(); if(o.material&&o.material.dispose) o.material.dispose(); }); }
+  };
+}
+
+
+/* =====================================================================
    LEHRPLAN-THEMEN · nach den Kernlehrplänen NRW (Gymnasium, Klasse 5/6)
    Baukasten: lpAdd() hängt Themen an ein Fach, lpBuild() baut eine Seite.
    ===================================================================== */
@@ -2027,28 +2447,8 @@ lpAdd("erdkunde",
   <p class="lead">Manche Menschen wohnen im Hochhaus, andere auf dem Bauernhof. Stadt und Land sind sehr verschieden – und sie brauchen einander.</p>
 
   <h2>1 · Reise durch die Stadt</h2>
-  <p>Eine Stadt besteht aus verschiedenen <b>Vierteln</b>. Tippe auf einen Teil der Stadt.</p>
-  ${wBox(`<svg viewBox="0 0 760 230" style="width:100%;display:block;border-radius:14px;background:#dff0fb" role="img" aria-label="Querschnitt durch eine Stadt vom Zentrum bis ins Umland"></svg><div class="ph-grid" data-parts></div><div class="ph-panel" data-info aria-live="polite"></div>`, box=>{
-    const Z=[["city","🏬 City","Die Innenstadt. Hier stehen die <b>höchsten Häuser</b>, dicht an dicht. Es gibt Kaufhäuser, Büros, Banken, das Rathaus und oft eine Fußgängerzone. Hier <b>arbeiten und einkaufen</b> viele Menschen – aber nur wenige wohnen hier.",0,150],
-      ["wohn","🏘️ Wohngebiet","Hier <b>wohnen</b> die meisten Menschen: in Mehrfamilienhäusern, Reihenhäusern oder Einfamilienhäusern. Dazu gibt es Schulen, Spielplätze und kleine Läden.",150,180],
-      ["gewerbe","🏭 Gewerbegebiet","Hier wird <b>gearbeitet</b>: Fabriken, Werkstätten, Lagerhallen, große Märkte. Es liegt meistens am Stadtrand, nah an Autobahn oder Bahn – wegen Lärm und Lastwagen.",330,150],
-      ["erholung","🌳 Naherholung","Parks, Wälder, Seen und Sportplätze. Hier <b>erholen</b> sich die Menschen, ohne weit fahren zu müssen.",480,120],
-      ["umland","🚜 Umland","Rund um die Stadt liegen <b>Dörfer</b>, Felder und Wiesen. Die Häuser sind niedrig und stehen weit auseinander. Viele Menschen fahren von hier zur Arbeit in die Stadt.",600,160]];
-    let sel="city"; const svg=$("svg",box), parts=$("[data-parts]",box), info=$("[data-info]",box);
-    const draw=()=>{ let s=`<rect x="0" y="190" width="760" height="40" fill="#b9d98a"/>`;
-      Z.forEach(z=>{ s+=`<rect x="${z[3]}" y="0" width="${z[4]}" height="230" fill="${sel===z[0]?"#fff":"transparent"}" opacity="${sel===z[0]?.75:1}" data-k="${z[0]}" style="cursor:pointer"/>`; });
-      s+=`<g pointer-events="none"><g fill="#6b7a99">${[[12,60,26],[42,30,30],[76,75,24],[104,50,28]].map(b=>`<rect x="${b[0]}" y="${b[1]}" width="${b[2]}" height="${190-b[1]}"/>`).join("")}</g>
-        <g fill="#fff">${[[18,70],[18,95],[18,120],[50,42],[50,70],[50,98],[50,126],[82,88],[82,112],[110,62],[110,90],[110,118]].map(w=>`<rect x="${w[0]}" y="${w[1]}" width="6" height="9"/><rect x="${w[0]+10}" y="${w[1]}" width="6" height="9"/>`).join("")}</g>
-        ${[165,205,245,285].map((x,i)=>`<rect x="${x}" y="${i%2?140:128}" width="32" height="${i%2?50:62}" fill="#e9b872"/><path d="M${x-4} ${i%2?140:128}l20 -18l20 18z" fill="#c2543d"/><rect x="${x+12}" y="170" width="8" height="20" fill="#7a4a2b"/>`).join("")}
-        <rect x="345" y="140" width="70" height="50" fill="#9aa5bb"/><path d="M345 140l17 -14v14l18 -14v14l18 -14v14l17 -14v14z" fill="#7d8aa3"/><rect x="430" y="95" width="14" height="95" fill="#7d8aa3"/><circle cx="441" cy="80" r="9" fill="#cfd6e2"/><circle cx="452" cy="66" r="12" fill="#dde3ec"/>
-        ${[500,535,570].map(x=>`<rect x="${x+8}" y="160" width="6" height="30" fill="#7a4a2b"/><circle cx="${x+11}" cy="148" r="20" fill="#3f9a56"/>`).join("")}
-        <rect x="640" y="150" width="46" height="40" fill="#c2543d"/><path d="M634 150l29 -22l29 22z" fill="#7a4a2b"/><rect x="705" y="168" width="34" height="22" fill="#e9b872"/><path d="M701 168l21 -14l21 14z" fill="#c2543d"/>
-        <g stroke="#e7c74a" stroke-width="3">${[610,622,696,750].map(x=>`<line x1="${x}" y1="190" x2="${x}" y2="176"/>`).join("")}</g></g>`;
-      Z.forEach(z=>{ if(sel===z[0]) s+=`<rect x="${z[3]+2}" y="2" width="${z[4]-4}" height="226" fill="none" stroke="#d93a34" stroke-width="4" rx="10" pointer-events="none"/>`; });
-      svg.innerHTML=s; parts.innerHTML=Z.map(z=>`<button type="button" data-k="${z[0]}" class="${z[0]===sel?"sel":""}">${z[1]}</button>`).join("");
-      const z=Z.find(x=>x[0]===sel); info.innerHTML=`<h3>${z[1]}</h3><p>${z[2]}</p>`; };
-    box.addEventListener("click",e=>{ const k=e.target.closest("[data-k]"); if(k){ sel=k.dataset.k; draw(); } }); draw();
-  })}
+  <p>Eine Stadt besteht aus verschiedenen <b>Vierteln</b>. Flieg über unsere Modellstadt: Dreh sie, zoome hinein und tippe auf ein Viertel. Mit <b>„Reise starten“</b> geht es vom Zentrum bis aufs Land.</p>
+  ${wBox(stadt3DBox(), stadt3DInit)}
   <div class="note"><b>Merke:</b> Vom Zentrum zum Rand werden die Häuser <b>niedriger</b> und stehen <b>weiter auseinander</b>.</div>
 
   <h2>2 · Was Menschen zum Leben brauchen</h2>
