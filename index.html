@@ -2308,6 +2308,7 @@ lpAdd("deutsch",
   <h2>2 · Der Aufbau einer Geschichte</h2>
   <p>Fast jede spannende Geschichte ist wie ein <b>Berg</b> aufgebaut:</p>
   ${wAnim(AN.spannung)}
+  <div class="note"><b>⛰️ In 3D erkunden:</b> Im <a href="#/deutsch/maerchenberg"><b>Märchenberg</b></a> wanderst du Station für Station durch den Aufbau eines Märchens – mit Beispielen aus Hänsel und Gretel und Sterntaler.</div>
   <div class="note"><b>Tipps für deine eigene Geschichte:</b> Benutze <b>wörtliche Rede</b> („Hilfe!“, rief sie.), <b>treffende Verben</b> (flüstern, schleichen, stürmen statt immer nur sagen und gehen) und <b>Adjektive</b> (der finstere Wald). Verrate den Höhepunkt nicht zu früh!</div>
 
   <h2>3 · Was ist eine Fabel?</h2>
@@ -5721,6 +5722,298 @@ AN.sprung = (()=>{
    {c:"<b>3. Flug und 4. Landung:</b> Arme und Beine nach vorn – und mit beiden Füßen in den Sand. Nicht nach hinten fallen!",d:3800,go:at(594,196,0,"🧎")},
    {c:"Gemessen wird vom <b>Brett</b> bis zum <b>Abdruck, der am nächsten am Brett</b> ist. Wer nach hinten greift, verschenkt Weite!",d:4200,go:at(594,196,0,"🧍")}]};
 })();
+
+
+/* ============================ DEUTSCH · Der Märchenberg in 3D ============================ */
+const MB_ST = [
+  {n:1,title:"Einleitung",sub:"Am Fuß des Berges",c:"#2b8cf0",x:-7.0,
+   lead:"Hier beginnt die Geschichte. Wir lernen die Hauptfigur kennen und erfahren, wo und wann alles spielt.",
+   fragen:["Wer ist die Hauptfigur?","Wo spielt das Märchen (Wald, Schloss, Dorf)?","Wann? Meist ganz unbestimmt: „vor langer Zeit“"],
+   merk:["Typischer Anfang: „Es war einmal …“","Die Figuren sind oft arm, jung oder das jüngste Kind"]},
+  {n:2,title:"Problem / Aufgabe",sub:"Der Aufstieg beginnt",c:"#e0a800",x:-4.5,
+   lead:"Etwas geht schief, oder die Hauptfigur bekommt eine schwierige Aufgabe. Jetzt muss sie aufbrechen.",
+   fragen:["Was ist das Problem?","Welche Aufgabe muss gelöst werden?","Warum muss die Figur losziehen?"],
+   merk:["Oft eine Not: Hunger, Armut, ein Fluch, eine Verbannung","Die Figur verlässt ihr Zuhause"]},
+  {n:3,title:"Prüfungen & Hindernisse",sub:"Es wird steiler",c:"#ef6c1a",x:-1.6,
+   lead:"Auf dem Weg nach oben muss die Hauptfigur Hindernisse überwinden. Die Spannung steigt immer weiter.",
+   fragen:["Welche Gefahren gibt es?","Wer hilft der Figur (Tiere, Zauberwesen)?","Gibt es Zaubergegenstände?"],
+   merk:["Oft gibt es drei Prüfungen, die immer schwerer werden","Magische Zahlen: 3, 7, 12","Gute Helfer und böse Gegenspieler"]},
+  {n:4,title:"Höhepunkt",sub:"Der Gipfel",c:"#e11d48",x:1.5,
+   lead:"Der spannendste Moment! Jetzt entscheidet sich, ob Gut oder Böse gewinnt.",
+   fragen:["Was ist der gefährlichste Moment?","Wie kämpft die Figur gegen das Böse?"],
+   merk:["Kampf zwischen Gut und Böse","Die Hauptfigur zeigt Mut oder List","Danach geht es bergab: Die Spannung sinkt"]},
+  {n:5,title:"Lösung",sub:"Der Abstieg",c:"#8b5cf6",x:4.0,
+   lead:"Das Problem wird gelöst. Das Böse wird bestraft, das Gute belohnt.",
+   fragen:["Wie wird das Problem gelöst?","Was passiert mit dem Bösen?"],
+   merk:["Das Böse wird bestraft","Die Hauptfigur bekommt eine Belohnung (Schatz, Hochzeit, Freiheit)"]},
+  {n:6,title:"Schluss",sub:"Glücklich im Tal",c:"#16a34a",x:6.5,
+   lead:"Die Geschichte endet – im Märchen fast immer glücklich.",
+   fragen:["Wie geht es der Hauptfigur am Ende?","Was hat sich im Vergleich zum Anfang verändert?"],
+   merk:["Glückliches Ende","Typischer Schluss: „Und wenn sie nicht gestorben sind, dann leben sie noch heute.“"]}
+];
+const MB_BSP = {
+  hg:{name:"Hänsel und Gretel", t:[
+    "Am Rand eines großen Waldes lebt ein armer Holzhacker mit seinen Kindern Hänsel und Gretel.",
+    "Die Familie hat nichts mehr zu essen. Die Kinder werden tief im Wald zurückgelassen.",
+    "Die Kinder verirren sich, finden ein Haus aus Lebkuchen – und geraten in die Fänge einer Hexe.",
+    "Die Hexe will Hänsel braten. Gretel ist schlau und stößt die Hexe in den Ofen.",
+    "Gretel befreit Hänsel. Im Hexenhaus finden sie Perlen und Edelsteine.",
+    "Die Kinder finden heim zum Vater. Die Not hat ein Ende, und sie leben glücklich zusammen."]},
+  st:{name:"Sterntaler", t:[
+    "Ein kleines Mädchen hat weder Vater noch Mutter. Es ist so arm, dass es nur noch seine Kleider und ein Stück Brot besitzt. Aber es ist gut und fromm.",
+    "Von aller Welt verlassen, geht das Mädchen allein hinaus ins Feld und vertraut darauf, dass es nicht im Stich gelassen wird.",
+    "Unterwegs trifft es Arme, die es um Hilfe bitten: Einem Mann gibt es sein Brot, einem frierenden Kind seine Mütze, anderen Kindern sein Leibchen und sein Röckchen.",
+    "Im dunklen Wald bittet ein Kind um das Hemdlein. Das Mädchen schenkt auch sein letztes Hemd her und steht nun mit gar nichts mehr da.",
+    "Da fallen die Sterne vom Himmel und werden zu blanken Talern. Das Mädchen hat auf einmal ein neues Hemdlein aus feinstem Leinen an.",
+    "Es sammelt die Taler in sein Hemdlein und ist reich für sein ganzes Leben."]}
+};
+const MB_QUIZ = {
+  rk:{name:"Rotkäppchen", q:[
+    ["Es war einmal ein kleines Mädchen, das von allen nur Rotkäppchen genannt wurde.",1],
+    ["Die Großmutter ist krank. Rotkäppchen soll ihr Kuchen und Wein durch den Wald bringen.",2],
+    ["Im Wald trifft Rotkäppchen den Wolf. Er lockt es vom Weg ab, damit es Blumen pflückt.",3],
+    ["Der Wolf hat die Großmutter verschluckt, und nun frisst er auch Rotkäppchen.",4],
+    ["Ein Jäger kommt vorbei, schneidet den Bauch des Wolfes auf und befreit die beiden.",5],
+    ["Alle sind froh, und Rotkäppchen nimmt sich vor, nie wieder vom Weg abzugehen.",6]]},
+  st:{name:"Sterntaler", q:[
+    ["Es war einmal ein kleines Mädchen, das hatte weder Vater noch Mutter und war bitterarm.",1],
+    ["Ganz allein und von allen verlassen, zieht das Mädchen hinaus aufs Feld.",2],
+    ["Es verschenkt sein Brot, seine Mütze und sein Leibchen an Menschen, die frieren und hungern.",3],
+    ["Im dunklen Wald gibt das Mädchen sogar sein letztes Hemd her und hat nun gar nichts mehr.",4],
+    ["Plötzlich fallen die Sterne als glänzende Taler vom Himmel, und es trägt ein neues Hemd.",5],
+    ["Das Mädchen sammelt die Taler auf und ist für den Rest seines Lebens reich.",6]]}
+};
+
+function renderMaerchenberg(el){
+  el.innerHTML = `
+  <style>
+    .mb-stage{background:linear-gradient(#bfe0f7,#e4f2fb)!important;aspect-ratio:16/10}
+    .mb-stage .hint{color:#36536e}
+    .mb-lbl{position:absolute;transform:translate(-50%,-100%);pointer-events:auto;cursor:pointer;white-space:nowrap;
+      font-family:var(--head);font-weight:700;font-size:.8rem;padding:3px 9px;border-radius:99px;background:#fff;border:2px solid var(--mc);
+      box-shadow:0 2px 5px rgba(0,0,0,.15);color:#1f2433;transition:transform .15s}
+    .mb-lbl b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--mc);color:#fff;margin-right:5px;font-size:.7rem}
+    .mb-lbl:hover,.mb-lbl.sel{background:var(--mc);color:#fff;transform:translate(-50%,-100%) scale(1.1)}
+    .mb-lbl:hover b,.mb-lbl.sel b{background:#fff;color:var(--mc)}
+    .mb-steps{display:flex;gap:4px;margin:6px 0 12px}.mb-steps span{flex:1;height:6px;border-radius:3px;background:var(--line)}
+    .mb-panel h3{margin:.2em 0}.mb-panel ul{margin:.3em 0;padding-left:1.2em}
+    .mb-kick{font-family:var(--head);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mc,var(--c))}
+    .mb-seg{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 8px}
+    .mb-seg .btn{padding:4px 10px;font-size:.85rem}
+    .mb-bsp{border-left:6px solid var(--mc);background:#fff;border-radius:10px;padding:10px 12px;margin-top:10px;border-top:2px solid var(--line);border-right:2px solid var(--line);border-bottom:2px solid var(--line)}
+    .mb-choices{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .mb-choices button{border:2px solid var(--mc);background:#fff;border-radius:10px;padding:7px;font-family:var(--head);font-weight:700;cursor:pointer;font-size:.85rem}
+    .mb-choices button:hover{background:var(--mc);color:#fff}
+    .mb-panel textarea{width:100%;min-height:54px;border:2px solid var(--line);border-radius:10px;padding:6px 8px;font:inherit;resize:vertical}
+    .mb-panel label{display:block;font-family:var(--head);font-weight:700;margin:10px 0 3px;font-size:.9rem}
+  </style>
+  <h1>⛰️ Der Märchenberg in 3D</h1>
+  <p class="lead">Ein Märchen ist aufgebaut wie eine Wanderung über einen Berg: Erst geht es gemütlich los, dann wird es steil und spannend bis zum Gipfel – und danach geht es bergab bis zum glücklichen Ende im Tal.</p>
+  <div class="lab">
+    <div>
+      <div class="stage mb-stage" id="mbStage"><canvas></canvas><div class="overlay" id="mbOv"></div><div class="hint">↻ ziehen = drehen · Mausrad = zoomen · Fahne antippen</div></div>
+      <div class="row stagebar"><button class="btn" id="mbReset">Ansicht zurücksetzen</button></div>
+    </div>
+    <div>
+      <div class="row" style="margin-bottom:10px"><button class="btn on" data-m="learn">Wandern</button><button class="btn" data-m="quiz">Quiz</button><button class="btn" data-m="plan">Mein Märchen</button></div>
+      <div class="card mb-panel" id="mbPanel"></div>
+    </div>
+  </div>
+  <div class="note"><b>Merke:</b> Einleitung → Problem → Prüfungen → <b>Höhepunkt</b> → Lösung → Schluss. Bis zum Höhepunkt steigt die Spannung, danach fällt sie wieder ab.</div>
+  ${typeof lpPlan==="function" ? lpPlan("Inhaltsfeld Texte – Figuren und Handlung in Erzähltexten: Aufbau von Märchen erkennen und eigene Märchen planen und schreiben.") : ""}`;
+
+  const panel=$("#mbPanel",el), stage=$("#mbStage",el), ov=$("#mbOv",el);
+  let mode="learn", cur=null, view=null;
+  let bspKey="hg"; try{ bspKey=localStorage.getItem("mb-bsp")||"hg"; }catch(e){} if(!MB_BSP[bspKey]) bspKey="hg";
+  let quizKey="rk", quiz=null;
+  const LS="mb-plan"; const loadPlan=()=>{ try{ return JSON.parse(localStorage.getItem(LS))||{}; }catch(e){ return {}; } };
+  const savePlan=p=>{ try{ localStorage.setItem(LS,JSON.stringify(p)); }catch(e){} };
+
+  function setMode(m){ mode=m; el.querySelectorAll("[data-m]").forEach(b=>b.classList.toggle("on",b.dataset.m===m));
+    cur=null; if(view){ view.select(null); view.fly(null); }
+    if(m==="learn") intro(); else if(m==="quiz") startQuiz(); else plan(); }
+  el.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+
+  function intro(){ panel.style.removeProperty("--mc");
+    panel.innerHTML=`<h3>Wie ist ein Märchen aufgebaut?</h3>
+    <p>Tippe auf eine Fahne am Berg oder starte die Wanderung. An jeder Station gibt es Beispiele aus <b>Hänsel und Gretel</b> und <b>Sterntaler</b>.</p>
+    <ul>${MB_ST.map(s=>`<li><b style="color:${s.c}">${s.n}. ${s.title}</b> – ${s.sub}</li>`).join("")}</ul>
+    <div class="row" style="margin-top:10px"><button class="btn primary" id="mbGo">Wanderung starten →</button></div>`;
+    $("#mbGo",panel).onclick=()=>station(1); }
+
+  function station(n){ const s=MB_ST[n-1]; cur=n; if(view){ view.select(n); view.fly(n); }
+    panel.style.setProperty("--mc",s.c);
+    panel.innerHTML=`<div class="mb-kick">Station ${n} von 6 · ${s.sub}</div><h3>${s.title}</h3>
+    <div class="mb-steps">${MB_ST.map(x=>`<span style="${x.n<=n?"background:"+x.c:""}"></span>`).join("")}</div>
+    <p>${s.lead}</p><b>Leitfragen</b><ul>${s.fragen.map(f=>`<li>${f}</li>`).join("")}</ul>
+    <b>Typisch für Märchen</b><ul>${s.merk.map(f=>`<li>${f}</li>`).join("")}</ul>
+    <div class="mb-bsp"><div class="mb-seg">${Object.entries(MB_BSP).map(([k,b])=>`<button class="btn ${k===bspKey?"on":""}" data-b="${k}">${b.name}</button>`).join("")}</div>
+    <b>Beispiel: ${MB_BSP[bspKey].name}</b><br>${MB_BSP[bspKey].t[n-1]}</div>
+    <div class="row" style="justify-content:space-between;margin-top:12px"><button class="btn" id="mbPrev">${n>1?"← Zurück":"Übersicht"}</button><button class="btn primary" id="mbNext">${n<6?"Weiter →":"Zum Quiz →"}</button></div>`;
+    panel.querySelectorAll("[data-b]").forEach(b=>b.onclick=()=>{ bspKey=b.dataset.b; try{ localStorage.setItem("mb-bsp",bspKey); }catch(e){} station(n); });
+    $("#mbPrev",panel).onclick=()=> n>1?station(n-1):setMode("learn");
+    $("#mbNext",panel).onclick=()=> n<6?station(n+1):setMode("quiz"); }
+
+  function startQuiz(){ const q=lpMix(MB_QUIZ[quizKey].q); quiz={q,i:0,score:0,miss:false,lock:false}; showQ(); }
+  function showQ(){ panel.style.removeProperty("--mc"); if(view) view.select(null);
+    const seg=`<div class="mb-seg">${Object.entries(MB_QUIZ).map(([k,v])=>`<button class="btn ${k===quizKey?"on":""}" data-q="${k}">${v.name}</button>`).join("")}</div>`;
+    if(quiz.i>=quiz.q.length){
+      panel.innerHTML=`${seg}<div class="quizbox ok">Geschafft! 🎉 ${quiz.score} von ${quiz.q.length} beim ersten Versuch richtig.</div>
+      <p>${quiz.score===6?"Super – du kennst den Märchenberg!":quiz.score>=4?"Gut gemacht! Schau dir die Stationen, bei denen du unsicher warst, noch einmal an.":"Wandere noch einmal über den Berg und versuch es dann erneut."}</p>
+      <div class="row"><button class="btn primary" id="mbAgain">Nochmal</button><button class="btn" id="mbOther">Anderes Märchen →</button></div>`;
+      $("#mbAgain",panel).onclick=startQuiz; $("#mbOther",panel).onclick=()=>{ quizKey=quizKey==="rk"?"st":"rk"; startQuiz(); };
+    } else {
+      const it=quiz.q[quiz.i];
+      panel.innerHTML=`${seg}<div class="mb-kick">${MB_QUIZ[quizKey].name} · Satz ${quiz.i+1} von ${quiz.q.length}</div>
+      <h3>Wohin gehört dieser Satz?</h3><div class="quizbox">„${it[0]}“</div>
+      <p style="color:var(--muted);margin:.2em 0 .6em">Tippe auf die passende Fahne am Berg oder hier:</p>
+      <div class="mb-choices">${MB_ST.map(s=>`<button style="--mc:${s.c}" data-n="${s.n}">${s.n}. ${s.title}</button>`).join("")}</div><div class="fb" id="mbFb"></div>`;
+      panel.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>answer(+b.dataset.n));
+    }
+    panel.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{ quizKey=b.dataset.q; startQuiz(); });
+  }
+  function answer(n){ if(!quiz||quiz.lock||quiz.i>=quiz.q.length) return; const it=quiz.q[quiz.i], fb=$("#mbFb",panel);
+    if(view) view.select(n);
+    if(n===it[1]){ quiz.lock=true; if(!quiz.miss) quiz.score++; if(view) view.fly(n);
+      fb.className="fb ok"; fb.textContent=`Richtig! ⭐ Das gehört zu „${MB_ST[n-1].title}“.`;
+      setTimeout(()=>{ if(mode!=="quiz") return; quiz.i++; quiz.miss=false; quiz.lock=false; if(view) view.fly(null); showQ(); },1500);
+    } else { quiz.miss=true; fb.className="fb no"; fb.textContent="Noch nicht – überleg mal: "+MB_ST[it[1]-1].fragen[0]; } }
+
+  function plan(){ const p=loadPlan(); panel.style.removeProperty("--mc");
+    panel.innerHTML=`<h3>Plane dein eigenes Märchen ✍️</h3><p style="margin:.2em 0">Was du schreibst, bleibt auf diesem Gerät gespeichert.</p>
+    <label>Titel</label><textarea data-k="titel" style="min-height:36px">${esc(p.titel||"")}</textarea>
+    ${MB_ST.map(s=>`<label style="color:${s.c}">${s.n}. ${s.title}</label><textarea data-k="${s.n}" placeholder="${esc(s.fragen.join(" "))}">${esc(p[s.n]||"")}</textarea>`).join("")}
+    <div class="row" style="margin-top:10px"><button class="btn primary" id="mbCopy">Plan kopieren</button><button class="btn" id="mbClear">Leeren</button></div><div class="fb ok" id="mbCfb"></div>`;
+    panel.querySelectorAll("textarea").forEach(t=>{
+      t.oninput=()=>{ const q=loadPlan(); q[t.dataset.k]=t.value; savePlan(q); };
+      if(/^\d$/.test(t.dataset.k)) t.onfocus=()=>{ if(view){ view.select(+t.dataset.k); view.fly(+t.dataset.k); } };
+    });
+    $("#mbClear",panel).onclick=()=>{ savePlan({}); plan(); };
+    $("#mbCopy",panel).onclick=async()=>{ const q=loadPlan();
+      const txt=(q.titel?q.titel+"\n\n":"")+MB_ST.map(s=>`${s.n}. ${s.title}: ${q[s.n]||"–"}`).join("\n");
+      try{ await navigator.clipboard.writeText(txt); $("#mbCfb",panel).textContent="Kopiert! Du kannst den Plan jetzt einfügen."; }
+      catch(e){ $("#mbCfb",panel).textContent="Kopieren ging nicht – markiere den Text und kopiere ihn selbst."; } };
+  }
+
+  function onPick(n){ if(mode==="quiz") answer(n); else if(mode==="plan"){ const t=panel.querySelector(`textarea[data-k="${n}"]`); if(t) t.focus(); } else station(n); }
+
+  try{ view=createMaerchenbergView(stage, ov, onPick); }
+  catch(err){ console.error(err); stage.innerHTML=`<div style="padding:24px">Die 3D-Ansicht konnte auf diesem Gerät leider nicht gestartet werden. Die Stationen rechts funktionieren trotzdem.</div>`; }
+  $("#mbReset",el).onclick=()=>{ if(view) view.fly(null); };
+  setMode("learn");
+  return ()=>{ if(view) view.dispose(); };
+}
+
+/* ---------- 3D-Modell des Märchenbergs (nach dem Blender-Modell) ---------- */
+function createMaerchenbergView(stage, ov, onPick){
+  const canvas=$("canvas",stage);
+  const renderer=new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  const scene=new THREE.Scene(); scene.fog=new THREE.Fog(0xd6ebf8,22,48);
+  const camera=new THREE.PerspectiveCamera(40,16/10,0.1,200);
+  scene.add(new THREE.HemisphereLight(0xffffff,0x7aa35a,0.9));
+  const sun=new THREE.DirectionalLight(0xfff4dd,1.1); sun.position.set(-8,15,10); sun.castShadow=true;
+  sun.shadow.mapSize.set(2048,2048); sun.shadow.bias=-0.0008; sun.shadow.normalBias=0.04;
+  Object.assign(sun.shadow.camera,{left:-14,right:14,top:14,bottom:-14}); scene.add(sun);
+
+  // Höhenprofil (wie im Blender-Modell)
+  const CX=[-10,-7,-5.5,-4.5,-3.2,-1.5,-0.2,1.5,2.8,4,5.3,6.5,10], CZ=[0,0.35,0.9,1.6,2.1,3.1,3.7,5.3,3.6,2.5,1.2,0.45,0];
+  const interp=x=>{ if(x<=CX[0]) return CZ[0]; for(let i=1;i<CX.length;i++) if(x<=CX[i]){ const t=(x-CX[i-1])/(CX[i]-CX[i-1]); return CZ[i-1]+t*(CZ[i]-CZ[i-1]); } return 0; };
+  const NS=801, xs=[], raw=[]; for(let i=0;i<NS;i++){ const x=-10+20*i/(NS-1); xs.push(x); raw.push(interp(x)); }
+  const sm=raw.map((_,i)=>{ let s=0; for(let k=-12;k<=12;k++) s+=raw[Math.min(NS-1,Math.max(0,i+k))]; return s/25; });
+  const H=x=>{ const f=(x+10)/20*(NS-1); const i=Math.max(0,Math.min(NS-2,Math.floor(f))); const t=f-i; return sm[i]*(1-t)+sm[i+1]*t; };
+  const fall=z=>Math.exp(-((z/2.6)**2));
+  const ground=(x,z)=>{ const f=fall(z), n=0.08*Math.sin(x*2.3-z*1.7)+0.05*Math.sin(x*5.1+z*3.3); return Math.max(0,H(x)*f+n*f*Math.min(1,H(x))); };
+
+  const lin=c=>new THREE.Color(c).convertSRGBToLinear();
+  const std=(c,r=0.8)=>new THREE.MeshStandardMaterial({color:lin(c),roughness:r,metalness:0});
+  const root=new THREE.Group(); scene.add(root); const disposables=[];
+  const add=(geo,mat,x,y,z)=>{ const m=new THREE.Mesh(geo,mat); m.position.set(x,y,z); m.castShadow=true; m.receiveShadow=true; root.add(m); disposables.push(geo); return m; };
+
+  // Berg
+  const nx=160, nz=60, pos=[], col=[], idx=[], c=new THREE.Color();
+  for(let j=0;j<=nz;j++) for(let i=0;i<=nx;i++){ const x=-10+20*i/nx, z=-4+8*j/nz, y=ground(x,z); pos.push(x,y,z);
+    c.set(y>4.3?"#f2f5ff":y>3.0?"#8c8580":y>1.2?"#5a8c40":"#73b34d").convertSRGBToLinear(); col.push(c.r,c.g,c.b); }
+  for(let j=0;j<nz;j++) for(let i=0;i<nx;i++){ const a=j*(nx+1)+i, b=a+1, d=a+nx+1, e=d+1; idx.push(a,d,b, b,d,e); }
+  const bg=new THREE.BufferGeometry(); bg.setAttribute("position",new THREE.Float32BufferAttribute(pos,3)); bg.setAttribute("color",new THREE.Float32BufferAttribute(col,3));
+  bg.setIndex(idx); bg.computeVertexNormals();
+  const bergMat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.95}); add(bg,bergMat,0,0,0);
+  const floor=add(new THREE.PlaneGeometry(120,120),std("#86b85a"),0,-0.01,0); floor.rotation.x=-Math.PI/2;
+
+  // Weg über den Kamm
+  const ZP=0.55, pts=[]; for(let i=0;i<140;i++){ const x=-8.5+17*i/139; pts.push(new THREE.Vector3(x,H(x)*fall(ZP)+0.06,ZP)); }
+  add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),300,0.07,6,false),std("#d9a65a"),0,0,0);
+
+  // Stationen
+  const flags={}, bases={}, groups={}, pole=std("#5a3a1e"), pickables=[];
+  MB_ST.forEach(s=>{ const y=H(s.x)*fall(ZP), g=new THREE.Group(); g.position.set(s.x,y,ZP); root.add(g); groups[s.n]=g;
+    const m=new THREE.MeshStandardMaterial({color:lin(s.c),roughness:0.5,emissive:lin(s.c),emissiveIntensity:0.2});
+    const mk=(geo,mat,px,py,pz)=>{ const o=new THREE.Mesh(geo,mat); o.position.set(px,py,pz); o.castShadow=true; o.userData.station=s.n; g.add(o); pickables.push(o); disposables.push(geo); return o; };
+    mk(new THREE.CylinderGeometry(0.05,0.05,1.6,10),pole,0,0.8,0);
+    flags[s.n]=mk(new THREE.BoxGeometry(0.6,0.38,0.04),m,0.35,1.35,0);
+    const b=mk(new THREE.SphereGeometry(0.28,24,12),m,0,0.05,0); b.scale.y=0.45; bases[s.n]=b; });
+
+  // Haus, Burg, Bäume
+  const wand=std("#f2e4bd"), dach=std("#b2362a"), stein=std("#b8b8bd"), baum=std("#2c6b3a"), stamm=std("#5a3a1e");
+  add(new THREE.BoxGeometry(0.7,0.7,0.7),wand,-8.6,0.35,-0.6);
+  const hd=add(new THREE.ConeGeometry(0.62,0.5,4),dach,-8.6,0.95,-0.6); hd.rotation.y=Math.PI/4;
+  [[0,0,.45,1.0],[-.6,-.5,.22,1.5],[.6,-.5,.22,1.5],[-.6,.5,.22,1.5],[.6,.5,.22,1.5]].forEach(([dx,dz,r,h])=>{
+    add(new THREE.CylinderGeometry(r,r,h,20),stein,8.3+dx,h/2,-0.8+dz); add(new THREE.ConeGeometry(r*1.3,0.55,20),dach,8.3+dx,h+0.27,-0.8+dz); });
+  let seed=7; const rnd=()=>{ seed=(seed*16807)%2147483647; return seed/2147483647; };
+  for(let t=0;t<45;t++){ const x=-9.5+19*rnd(), z=(rnd()<.5?-1:1)*(1.6+2.2*rnd()), y=ground(x,z); if(y>2.8) continue; const s=0.6+0.4*rnd();
+    add(new THREE.CylinderGeometry(0.06*s,0.06*s,0.3*s,8),stamm,x,y+0.15*s,z); add(new THREE.ConeGeometry(0.32*s,0.9*s,10),baum,x,y+0.7*s,z); }
+
+  // Beschriftungen
+  const labels={};
+  MB_ST.forEach(s=>{ const b=document.createElement("button"); b.type="button"; b.className="mb-lbl"; b.style.setProperty("--mc",s.c);
+    b.innerHTML=`<b>${s.n}</b>${s.title}`; b.onclick=()=>onPick(s.n); ov.appendChild(b); labels[s.n]=b; });
+
+  // Kamera-Steuerung
+  const HOME={tgt:new THREE.Vector3(0,2.4,0), th:0, ph:1.2, r:16.5};
+  let tgt=HOME.tgt.clone(), th=HOME.th, ph=HOME.ph, r=HOME.r, fly=null, sel=null;
+  const placeCam=()=>{ camera.position.set(tgt.x+r*Math.sin(ph)*Math.sin(th), tgt.y+r*Math.cos(ph), tgt.z+r*Math.sin(ph)*Math.cos(th)); camera.lookAt(tgt); };
+  let drag=null; const ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
+  const down=e=>{ drag={x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY}; fly=null; canvas.setPointerCapture&&canvas.setPointerCapture(e.pointerId); };
+  const move=e=>{ if(!drag) return; th-=(e.clientX-drag.x)*0.006; ph=Math.min(1.45,Math.max(0.35,ph-(e.clientY-drag.y)*0.005)); drag.x=e.clientX; drag.y=e.clientY; };
+  const up=e=>{ if(drag&&Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<5){ const rc=canvas.getBoundingClientRect();
+      ndc.set((e.clientX-rc.left)/rc.width*2-1,-(e.clientY-rc.top)/rc.height*2+1); ray.setFromCamera(ndc,camera);
+      const hit=ray.intersectObjects(pickables,false)[0]; if(hit) onPick(hit.object.userData.station); } drag=null; };
+  const wheel=e=>{ e.preventDefault(); fly=null; r=Math.min(32,Math.max(6,r*(1+Math.sign(e.deltaY)*0.08))); };
+  canvas.addEventListener("pointerdown",down); canvas.addEventListener("pointermove",move); canvas.addEventListener("pointerup",up); canvas.addEventListener("pointercancel",()=>drag=null);
+  canvas.addEventListener("wheel",wheel,{passive:false});
+
+  const size=()=>{ const w=stage.clientWidth, h=stage.clientHeight; if(!w||!h) return; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); };
+  const ro=new ResizeObserver(size); ro.observe(stage); size();
+
+  const tmp=new THREE.Vector3(); let raf=0, time=0;
+  const loop=()=>{ raf=requestAnimationFrame(loop); time+=0.016;
+    if(fly){ fly.t=Math.min(1,fly.t+0.025); const k=fly.t<.5?2*fly.t*fly.t:1-Math.pow(-2*fly.t+2,2)/2;
+      tgt.lerpVectors(fly.t0,fly.tgt,k); th=fly.th0+(fly.th-fly.th0)*k; ph=fly.ph0+(fly.ph-fly.ph0)*k; r=fly.r0+(fly.r-fly.r0)*k; if(fly.t>=1) fly=null; }
+    placeCam();
+    for(const n in flags){ flags[n].rotation.y=Math.sin(time*3+ +n)*0.12; groups[n].scale.setScalar(+n===sel?1.25+Math.sin(time*5)*0.05:1); }
+    renderer.render(scene,camera);
+    const w=stage.clientWidth, h=stage.clientHeight;
+    MB_ST.forEach(s=>{ groups[s.n].getWorldPosition(tmp); tmp.y+=1.95; tmp.project(camera); const b=labels[s.n];
+      b.style.left=((tmp.x+1)/2*w)+"px"; b.style.top=((1-tmp.y)/2*h)+"px"; b.style.display=tmp.z<1?"":"none"; });
+  };
+  loop();
+
+  return {
+    select(n){ sel=n; for(const k in labels) labels[k].classList.toggle("sel",+k===n); },
+    fly(n){ let to;
+      if(!n) to={tgt:HOME.tgt.clone(),th:HOME.th,ph:HOME.ph,r:HOME.r};
+      else { groups[n].getWorldPosition(tmp); to={tgt:tmp.clone().add(new THREE.Vector3(0,0.8,0)),th:0.17,ph:1.2,r:9.5}; }
+      fly={t:0,t0:tgt.clone(),th0:th,ph0:ph,r0:r,...to}; },
+    dispose(){ cancelAnimationFrame(raf); ro.disconnect(); canvas.removeEventListener("wheel",wheel);
+      disposables.forEach(g=>g.dispose()); renderer.dispose(); ov.innerHTML=""; }
+  };
+}
+
+(function(){ const s=SUBJECTS.find(x=>x.id==="deutsch"); const i=s.topics.findIndex(t=>t.id==="maerchen-und-fabeln");
+  s.topics.splice(i<0?s.topics.length:i+1,0,{id:"maerchenberg", title:"Der Märchenberg in 3D", em:"⛰️",
+    desc:"Wandere über den Märchenberg: Von „Es war einmal“ bis zum glücklichen Ende – mit Quiz und Schreibplan.", render:renderMaerchenberg}); })();
 
 route();
 </script>
