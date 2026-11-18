@@ -2308,7 +2308,7 @@ lpAdd("deutsch",
   <h2>2 · Der Aufbau einer Geschichte</h2>
   <p>Fast jede spannende Geschichte ist wie ein <b>Berg</b> aufgebaut:</p>
   ${wAnim(AN.spannung)}
-  <div class="note"><b>⛰️ In 3D erkunden:</b> Im <a href="#/deutsch/maerchenberg"><b>Märchenberg</b></a> wanderst du Station für Station durch den Aufbau eines Märchens – mit Beispielen aus Hänsel und Gretel und Sterntaler.</div>
+  <div class="note"><b>⛰️ In 3D erkunden:</b> Im <a href="#/deutsch/maerchenberg"><b>Märchenberg</b></a> wanderst du vom Anfang über drei Aufgaben bis zum glücklichen Ende auf dem Gipfel. <b>Für die Deutscharbeit</b> übst du alles unter <a href="#/deutsch/maerchen-fit"><b>Märchen – fit für die Deutscharbeit</b></a>.</div>
   <div class="note"><b>Tipps für deine eigene Geschichte:</b> Benutze <b>wörtliche Rede</b> („Hilfe!“, rief sie.), <b>treffende Verben</b> (flüstern, schleichen, stürmen statt immer nur sagen und gehen) und <b>Adjektive</b> (der finstere Wald). Verrate den Höhepunkt nicht zu früh!</div>
 
   <h2>3 · Was ist eine Fabel?</h2>
@@ -5725,63 +5725,79 @@ AN.sprung = (()=>{
 
 
 /* ============================ DEUTSCH · Der Märchenberg in 3D ============================ */
+/* Aufbau wie im Deutschbuch: Anfang unten, drei Aufgaben auf dem Weg nach oben, Schluss (glückliches Ende) auf dem Gipfel */
+const MB_BAU = {Anfang:"#2e9e4f", Hauptteil:"#8b5cf6", Schluss:"#2563eb"};
 const MB_ST = [
-  {n:1,title:"Einleitung",sub:"Am Fuß des Berges",c:"#2b8cf0",x:-7.0,
-   lead:"Hier beginnt die Geschichte. Wir lernen die Hauptfigur kennen und erfahren, wo und wann alles spielt.",
-   fragen:["Wer ist die Hauptfigur?","Wo spielt das Märchen (Wald, Schloss, Dorf)?","Wann? Meist ganz unbestimmt: „vor langer Zeit“"],
-   merk:["Typischer Anfang: „Es war einmal …“","Die Figuren sind oft arm, jung oder das jüngste Kind"]},
-  {n:2,title:"Problem / Aufgabe",sub:"Der Aufstieg beginnt",c:"#e0a800",x:-4.5,
-   lead:"Etwas geht schief, oder die Hauptfigur bekommt eine schwierige Aufgabe. Jetzt muss sie aufbrechen.",
-   fragen:["Was ist das Problem?","Welche Aufgabe muss gelöst werden?","Warum muss die Figur losziehen?"],
-   merk:["Oft eine Not: Hunger, Armut, ein Fluch, eine Verbannung","Die Figur verlässt ihr Zuhause"]},
-  {n:3,title:"Prüfungen & Hindernisse",sub:"Es wird steiler",c:"#ef6c1a",x:-1.6,
-   lead:"Auf dem Weg nach oben muss die Hauptfigur Hindernisse überwinden. Die Spannung steigt immer weiter.",
-   fragen:["Welche Gefahren gibt es?","Wer hilft der Figur (Tiere, Zauberwesen)?","Gibt es Zaubergegenstände?"],
-   merk:["Oft gibt es drei Prüfungen, die immer schwerer werden","Magische Zahlen: 3, 7, 12","Gute Helfer und böse Gegenspieler"]},
-  {n:4,title:"Höhepunkt",sub:"Der Gipfel",c:"#e11d48",x:1.5,
-   lead:"Der spannendste Moment! Jetzt entscheidet sich, ob Gut oder Böse gewinnt.",
-   fragen:["Was ist der gefährlichste Moment?","Wie kämpft die Figur gegen das Böse?"],
-   merk:["Kampf zwischen Gut und Böse","Die Hauptfigur zeigt Mut oder List","Danach geht es bergab: Die Spannung sinkt"]},
-  {n:5,title:"Lösung",sub:"Der Abstieg",c:"#8b5cf6",x:4.0,
-   lead:"Das Problem wird gelöst. Das Böse wird bestraft, das Gute belohnt.",
-   fragen:["Wie wird das Problem gelöst?","Was passiert mit dem Bösen?"],
-   merk:["Das Böse wird bestraft","Die Hauptfigur bekommt eine Belohnung (Schatz, Hochzeit, Freiheit)"]},
-  {n:6,title:"Schluss",sub:"Glücklich im Tal",c:"#16a34a",x:6.5,
-   lead:"Die Geschichte endet – im Märchen fast immer glücklich.",
-   fragen:["Wie geht es der Hauptfigur am Ende?","Was hat sich im Vergleich zum Anfang verändert?"],
-   merk:["Glückliches Ende","Typischer Schluss: „Und wenn sie nicht gestorben sind, dann leben sie noch heute.“"]}
+  {n:1,title:"Anfang",bau:"Anfang",sub:"Schwierige Situation",c:"#2e9e4f",
+   lead:"Hier beginnt der Weg. Wir lernen die Hauptfigur kennen – und erfahren, in welcher schwierigen Lage sie steckt.",
+   fragen:["Wer ist die Hauptfigur?","In welcher Not steckt sie (arm, verspottet, allein)?","Wo und wann spielt es? Meist ungenau: „vor langer Zeit“, „in einem Schloss“"],
+   merk:["Typischer Anfang: „Es war einmal …“","Die Hauptfigur ist oft arm, klein, verspottet oder das jüngste Kind"]},
+  {n:2,title:"Das Problem",bau:"Hauptteil",sub:"Der Aufbruch",c:"#a855f7",
+   lead:"Jetzt muss etwas gelöst werden. Die Hauptfigur macht sich auf den Weg.",
+   fragen:["Was muss gelöst werden?","Warum zieht die Figur los?"],
+   merk:["Oft: ein Fluch, eine Not, jemand ist verschwunden","Die Figur verlässt ihr Zuhause"]},
+  {n:3,title:"1. Aufgabe",bau:"Hauptteil",sub:"Die erste Prüfung",c:"#8b5cf6",
+   lead:"Die erste Prüfung auf dem Weg nach oben.",
+   fragen:["Welche Aufgabe muss die Figur lösen?","Wer oder was hilft ihr dabei?"],
+   merk:["Helfer: sprechende Tiere, Zwerge, Feen","Zaubergegenstände: Ring, Schlüssel, Schwert"]},
+  {n:4,title:"2. Aufgabe",bau:"Hauptteil",sub:"Es wird schwerer",c:"#7c3aed",
+   lead:"Die zweite Prüfung ist schwerer als die erste. Die Spannung steigt.",
+   fragen:["Was ist diesmal schwieriger?","Hilft wieder jemand?"],
+   merk:["Die Aufgaben werden von Mal zu Mal schwerer"]},
+  {n:5,title:"3. Aufgabe",bau:"Hauptteil",sub:"Die schwerste Prüfung",c:"#6d28d9",
+   lead:"Die dritte Aufgabe ist die schwerste. Jetzt zeigt sich, ob die Hauptfigur es schafft.",
+   fragen:["Was ist die schwerste Prüfung?","Wie schafft es die Figur – mit Mut, List oder Hilfe?"],
+   merk:["Magische Zahl 3: drei Aufgaben, drei Brüder, drei Wünsche","Gut kämpft gegen Böse"]},
+  {n:6,title:"Schluss",bau:"Schluss",sub:"Glückliches Ende – der Gipfel",c:"#2563eb",
+   lead:"Geschafft! Oben auf dem Gipfel wartet das glückliche Ende.",
+   fragen:["Wie wird die Hauptfigur belohnt?","Was passiert mit dem Bösen?"],
+   merk:["Das Gute wird belohnt, das Böse bestraft","Typischer Schluss: „Und wenn sie nicht gestorben sind, dann leben sie noch heute.“"]}
 ];
 const MB_BSP = {
-  hg:{name:"Hänsel und Gretel", t:[
-    "Am Rand eines großen Waldes lebt ein armer Holzhacker mit seinen Kindern Hänsel und Gretel.",
-    "Die Familie hat nichts mehr zu essen. Die Kinder werden tief im Wald zurückgelassen.",
-    "Die Kinder verirren sich, finden ein Haus aus Lebkuchen – und geraten in die Fänge einer Hexe.",
-    "Die Hexe will Hänsel braten. Gretel ist schlau und stößt die Hexe in den Ofen.",
-    "Gretel befreit Hänsel. Im Hexenhaus finden sie Perlen und Edelsteine.",
-    "Die Kinder finden heim zum Vater. Die Not hat ein Ende, und sie leben glücklich zusammen."]},
+  bk:{name:"Die Bienenkönigin", t:[
+    "Die älteren Brüder verspotten den jüngsten, den Dummling. Unterwegs beschützt er Ameisen, Enten und Bienen vor ihnen.",
+    "Die Brüder kommen in ein verzaubertes Schloss. Auf einer Tafel stehen drei Aufgaben – wer scheitert, wird zu Stein.",
+    "Die 1000 Perlen der Königstochter im Moos finden: Der Ameisenkönig hilft mit 5000 Ameisen.",
+    "Den Schlüssel zur Schlafkammer aus dem See holen: Die geretteten Enten tauchen danach.",
+    "Die jüngste von drei gleich aussehenden Königstöchtern erkennen: Die Bienenkönigin setzt sich auf den Mund, der Honig gegessen hat.",
+    "Der Zauber ist vorbei, die Steine werden wieder zu Menschen. Der Dummling heiratet die jüngste Tochter und wird König."]},
   st:{name:"Sterntaler", t:[
-    "Ein kleines Mädchen hat weder Vater noch Mutter. Es ist so arm, dass es nur noch seine Kleider und ein Stück Brot besitzt. Aber es ist gut und fromm.",
-    "Von aller Welt verlassen, geht das Mädchen allein hinaus ins Feld und vertraut darauf, dass es nicht im Stich gelassen wird.",
-    "Unterwegs trifft es Arme, die es um Hilfe bitten: Einem Mann gibt es sein Brot, einem frierenden Kind seine Mütze, anderen Kindern sein Leibchen und sein Röckchen.",
-    "Im dunklen Wald bittet ein Kind um das Hemdlein. Das Mädchen schenkt auch sein letztes Hemd her und steht nun mit gar nichts mehr da.",
-    "Da fallen die Sterne vom Himmel und werden zu blanken Talern. Das Mädchen hat auf einmal ein neues Hemdlein aus feinstem Leinen an.",
-    "Es sammelt die Taler in sein Hemdlein und ist reich für sein ganzes Leben."]}
+    "Ein kleines Mädchen hat weder Vater noch Mutter und ist so arm, dass es nur noch seine Kleider und ein Stückchen Brot besitzt. Es ist aber gut und fromm.",
+    "Von aller Welt verlassen, geht es allein hinaus ins Feld.",
+    "Ein armer Mann hat Hunger – das Mädchen schenkt ihm sein ganzes Brot.",
+    "Einem frierenden Kind gibt es seine Mütze, anderen Kindern sein Leibchen und sein Röcklein.",
+    "Im dunklen Wald bittet noch ein Kind um ein Hemd. Das Mädchen gibt sogar sein letztes Hemd her.",
+    "Die Sterne fallen als blanke Taler vom Himmel, und es trägt ein neues Hemd aus feinstem Leinen. Es ist reich für sein Lebtag."]},
+  hg:{name:"Hänsel und Gretel", t:[
+    "Ein armer Holzhacker lebt mit seinen Kindern Hänsel und Gretel am Waldrand. Es herrscht eine große Hungersnot.",
+    "Die Kinder werden tief im Wald zurückgelassen und müssen den Weg nach Hause finden.",
+    "Hänsel streut Kieselsteine – im Mondschein finden die Kinder den Weg zurück.",
+    "Beim zweiten Mal fressen die Vögel die Brotkrumen. Die Kinder verirren sich und finden ein Lebkuchenhaus – dort wohnt eine Hexe.",
+    "Die Hexe sperrt Hänsel ein und will ihn braten. Gretel ist schlau und stößt die Hexe in den Ofen.",
+    "Die Kinder finden Perlen und Edelsteine und kehren heim zum Vater. Die Not hat ein Ende."]}
 };
 const MB_QUIZ = {
-  rk:{name:"Rotkäppchen", q:[
-    ["Es war einmal ein kleines Mädchen, das von allen nur Rotkäppchen genannt wurde.",1],
-    ["Die Großmutter ist krank. Rotkäppchen soll ihr Kuchen und Wein durch den Wald bringen.",2],
-    ["Im Wald trifft Rotkäppchen den Wolf. Er lockt es vom Weg ab, damit es Blumen pflückt.",3],
-    ["Der Wolf hat die Großmutter verschluckt, und nun frisst er auch Rotkäppchen.",4],
-    ["Ein Jäger kommt vorbei, schneidet den Bauch des Wolfes auf und befreit die beiden.",5],
-    ["Alle sind froh, und Rotkäppchen nimmt sich vor, nie wieder vom Weg abzugehen.",6]]},
+  bk:{name:"Die Bienenkönigin", q:[
+    ["Zwei Königssöhne lachen über ihren kleinen Bruder, den Dummling.",1],
+    ["Im Schloss steht auf einer steinernen Tafel, wie man es erlösen kann.",2],
+    ["Die Ameisen sammeln die tausend Perlen aus dem Moos.",3],
+    ["Die Enten holen den Schlüssel aus dem See.",4],
+    ["Die Bienenkönigin zeigt, welche Königstochter den Honig gegessen hat.",5],
+    ["Alle sind erlöst, und der Dummling wird König.",6]]},
   st:{name:"Sterntaler", q:[
     ["Es war einmal ein kleines Mädchen, das hatte weder Vater noch Mutter und war bitterarm.",1],
     ["Ganz allein und von allen verlassen, zieht das Mädchen hinaus aufs Feld.",2],
-    ["Es verschenkt sein Brot, seine Mütze und sein Leibchen an Menschen, die frieren und hungern.",3],
-    ["Im dunklen Wald gibt das Mädchen sogar sein letztes Hemd her und hat nun gar nichts mehr.",4],
-    ["Plötzlich fallen die Sterne als glänzende Taler vom Himmel, und es trägt ein neues Hemd.",5],
-    ["Das Mädchen sammelt die Taler auf und ist für den Rest seines Lebens reich.",6]]}
+    ["Einem hungrigen Mann schenkt es sein letztes Stückchen Brot.",3],
+    ["Frierenden Kindern gibt es seine Mütze, sein Leibchen und sein Röcklein.",4],
+    ["Im dunklen Wald gibt es sogar sein letztes Hemd her.",5],
+    ["Die Sterne fallen als Taler vom Himmel – nun ist es reich für sein Lebtag.",6]]},
+  hg:{name:"Hänsel und Gretel", q:[
+    ["Ein armer Holzhacker kann seine Kinder kaum noch ernähren.",1],
+    ["Die Kinder werden im Wald zurückgelassen.",2],
+    ["Mit Kieselsteinen finden sie den Weg nach Hause.",3],
+    ["Die Brotkrumen sind weg – die Kinder kommen zum Lebkuchenhaus der Hexe.",4],
+    ["Gretel überlistet die Hexe und befreit Hänsel.",5],
+    ["Mit den Schätzen der Hexe kehren sie glücklich zum Vater zurück.",6]]}
 };
 
 function renderMaerchenberg(el){
@@ -5798,6 +5814,7 @@ function renderMaerchenberg(el){
     .mb-steps{display:flex;gap:4px;margin:6px 0 12px}.mb-steps span{flex:1;height:6px;border-radius:3px;background:var(--line)}
     .mb-panel h3{margin:.2em 0}.mb-panel ul{margin:.3em 0;padding-left:1.2em}
     .mb-kick{font-family:var(--head);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mc,var(--c))}
+    .mb-bau{display:inline-block;font-family:var(--head);font-weight:700;font-size:.75rem;color:#fff;border-radius:99px;padding:1px 9px;margin-left:6px;vertical-align:middle}
     .mb-seg{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 8px}
     .mb-seg .btn{padding:4px 10px;font-size:.85rem}
     .mb-bsp{border-left:6px solid var(--mc);background:#fff;border-radius:10px;padding:10px 12px;margin-top:10px;border-top:2px solid var(--line);border-right:2px solid var(--line);border-bottom:2px solid var(--line)}
@@ -5806,9 +5823,12 @@ function renderMaerchenberg(el){
     .mb-choices button:hover{background:var(--mc);color:#fff}
     .mb-panel textarea{width:100%;min-height:54px;border:2px solid var(--line);border-radius:10px;padding:6px 8px;font:inherit;resize:vertical}
     .mb-panel label{display:block;font-family:var(--head);font-weight:700;margin:10px 0 3px;font-size:.9rem}
+    .mb-legend{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0;font-weight:700}
+    .mb-legend span::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--mc);margin-right:6px;vertical-align:-2px}
   </style>
   <h1>⛰️ Der Märchenberg in 3D</h1>
-  <p class="lead">Ein Märchen ist aufgebaut wie eine Wanderung über einen Berg: Erst geht es gemütlich los, dann wird es steil und spannend bis zum Gipfel – und danach geht es bergab bis zum glücklichen Ende im Tal.</p>
+  <p class="lead">Ein Märchen ist wie eine Wanderung auf einen Berg: Unten beginnt die Hauptfigur in einer schwierigen Lage. Auf dem Weg nach oben muss sie drei Aufgaben lösen – und auf dem Gipfel wartet das glückliche Ende.</p>
+  <div class="mb-legend"><span style="--mc:${MB_BAU.Anfang}">Anfang</span><span style="--mc:${MB_BAU.Hauptteil}">Hauptteil</span><span style="--mc:${MB_BAU.Schluss}">Schluss</span></div>
   <div class="lab">
     <div>
       <div class="stage mb-stage" id="mbStage"><canvas></canvas><div class="overlay" id="mbOv"></div><div class="hint">↻ ziehen = drehen · Mausrad = zoomen · Fahne antippen</div></div>
@@ -5819,49 +5839,52 @@ function renderMaerchenberg(el){
       <div class="card mb-panel" id="mbPanel"></div>
     </div>
   </div>
-  <div class="note"><b>Merke:</b> Einleitung → Problem → Prüfungen → <b>Höhepunkt</b> → Lösung → Schluss. Bis zum Höhepunkt steigt die Spannung, danach fällt sie wieder ab.</div>
+  <div class="note"><b>Merke:</b> Ein Märchen hat drei Bausteine: <b style="color:${MB_BAU.Anfang}">Anfang</b> (schwierige Situation) → <b style="color:${MB_BAU.Hauptteil}">Hauptteil</b> (Problem und meist drei Aufgaben) → <b style="color:${MB_BAU.Schluss}">Schluss</b> (glückliches Ende). Genau so steht es in deinem Deutschbuch.</div>
+  <div class="note"><b>🏰 Mehr üben:</b> Alles für die Deutscharbeit findest du unter <a href="#/deutsch/maerchen-fit"><b>Märchen – fit für die Deutscharbeit</b></a>.</div>
   ${typeof lpPlan==="function" ? lpPlan("Inhaltsfeld Texte – Figuren und Handlung in Erzähltexten: Aufbau von Märchen erkennen und eigene Märchen planen und schreiben.") : ""}`;
 
   const panel=$("#mbPanel",el), stage=$("#mbStage",el), ov=$("#mbOv",el);
-  let mode="learn", cur=null, view=null;
-  let bspKey="hg"; try{ bspKey=localStorage.getItem("mb-bsp")||"hg"; }catch(e){} if(!MB_BSP[bspKey]) bspKey="hg";
-  let quizKey="rk", quiz=null;
+  let mode="learn", view=null;
+  let bspKey="bk"; try{ bspKey=localStorage.getItem("mb-bsp2")||"bk"; }catch(e){} if(!MB_BSP[bspKey]) bspKey="bk";
+  let quizKey="bk", quiz=null;
   const LS="mb-plan"; const loadPlan=()=>{ try{ return JSON.parse(localStorage.getItem(LS))||{}; }catch(e){ return {}; } };
   const savePlan=p=>{ try{ localStorage.setItem(LS,JSON.stringify(p)); }catch(e){} };
+  const bau=s=>`<span class="mb-bau" style="background:${MB_BAU[s.bau]}">${s.bau}</span>`;
 
   function setMode(m){ mode=m; el.querySelectorAll("[data-m]").forEach(b=>b.classList.toggle("on",b.dataset.m===m));
-    cur=null; if(view){ view.select(null); view.fly(null); }
+    if(view){ view.select(null); view.fly(null); }
     if(m==="learn") intro(); else if(m==="quiz") startQuiz(); else plan(); }
   el.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
 
   function intro(){ panel.style.removeProperty("--mc");
     panel.innerHTML=`<h3>Wie ist ein Märchen aufgebaut?</h3>
-    <p>Tippe auf eine Fahne am Berg oder starte die Wanderung. An jeder Station gibt es Beispiele aus <b>Hänsel und Gretel</b> und <b>Sterntaler</b>.</p>
+    <p>Tippe auf eine Fahne am Berg oder starte die Wanderung. An jeder Station gibt es Beispiele aus <b>Die Bienenkönigin</b>, <b>Sterntaler</b> und <b>Hänsel und Gretel</b>.</p>
     <ul>${MB_ST.map(s=>`<li><b style="color:${s.c}">${s.n}. ${s.title}</b> – ${s.sub}</li>`).join("")}</ul>
     <div class="row" style="margin-top:10px"><button class="btn primary" id="mbGo">Wanderung starten →</button></div>`;
     $("#mbGo",panel).onclick=()=>station(1); }
 
-  function station(n){ const s=MB_ST[n-1]; cur=n; if(view){ view.select(n); view.fly(n); }
+  function station(n){ const s=MB_ST[n-1]; if(view){ view.select(n); view.fly(n); }
     panel.style.setProperty("--mc",s.c);
-    panel.innerHTML=`<div class="mb-kick">Station ${n} von 6 · ${s.sub}</div><h3>${s.title}</h3>
+    panel.innerHTML=`<div class="mb-kick">Station ${n} von 6 · ${s.sub}</div><h3>${s.title}${bau(s)}</h3>
     <div class="mb-steps">${MB_ST.map(x=>`<span style="${x.n<=n?"background:"+x.c:""}"></span>`).join("")}</div>
     <p>${s.lead}</p><b>Leitfragen</b><ul>${s.fragen.map(f=>`<li>${f}</li>`).join("")}</ul>
     <b>Typisch für Märchen</b><ul>${s.merk.map(f=>`<li>${f}</li>`).join("")}</ul>
     <div class="mb-bsp"><div class="mb-seg">${Object.entries(MB_BSP).map(([k,b])=>`<button class="btn ${k===bspKey?"on":""}" data-b="${k}">${b.name}</button>`).join("")}</div>
     <b>Beispiel: ${MB_BSP[bspKey].name}</b><br>${MB_BSP[bspKey].t[n-1]}</div>
     <div class="row" style="justify-content:space-between;margin-top:12px"><button class="btn" id="mbPrev">${n>1?"← Zurück":"Übersicht"}</button><button class="btn primary" id="mbNext">${n<6?"Weiter →":"Zum Quiz →"}</button></div>`;
-    panel.querySelectorAll("[data-b]").forEach(b=>b.onclick=()=>{ bspKey=b.dataset.b; try{ localStorage.setItem("mb-bsp",bspKey); }catch(e){} station(n); });
+    panel.querySelectorAll("[data-b]").forEach(b=>b.onclick=()=>{ bspKey=b.dataset.b; try{ localStorage.setItem("mb-bsp2",bspKey); }catch(e){} station(n); });
     $("#mbPrev",panel).onclick=()=> n>1?station(n-1):setMode("learn");
     $("#mbNext",panel).onclick=()=> n<6?station(n+1):setMode("quiz"); }
 
-  function startQuiz(){ const q=lpMix(MB_QUIZ[quizKey].q); quiz={q,i:0,score:0,miss:false,lock:false}; showQ(); }
+  function startQuiz(){ quiz={q:lpMix(MB_QUIZ[quizKey].q),i:0,score:0,miss:false,lock:false}; showQ(); }
   function showQ(){ panel.style.removeProperty("--mc"); if(view) view.select(null);
     const seg=`<div class="mb-seg">${Object.entries(MB_QUIZ).map(([k,v])=>`<button class="btn ${k===quizKey?"on":""}" data-q="${k}">${v.name}</button>`).join("")}</div>`;
     if(quiz.i>=quiz.q.length){
       panel.innerHTML=`${seg}<div class="quizbox ok">Geschafft! 🎉 ${quiz.score} von ${quiz.q.length} beim ersten Versuch richtig.</div>
       <p>${quiz.score===6?"Super – du kennst den Märchenberg!":quiz.score>=4?"Gut gemacht! Schau dir die Stationen, bei denen du unsicher warst, noch einmal an.":"Wandere noch einmal über den Berg und versuch es dann erneut."}</p>
       <div class="row"><button class="btn primary" id="mbAgain">Nochmal</button><button class="btn" id="mbOther">Anderes Märchen →</button></div>`;
-      $("#mbAgain",panel).onclick=startQuiz; $("#mbOther",panel).onclick=()=>{ quizKey=quizKey==="rk"?"st":"rk"; startQuiz(); };
+      $("#mbAgain",panel).onclick=startQuiz;
+      $("#mbOther",panel).onclick=()=>{ const ks=Object.keys(MB_QUIZ); quizKey=ks[(ks.indexOf(quizKey)+1)%ks.length]; startQuiz(); };
     } else {
       const it=quiz.q[quiz.i];
       panel.innerHTML=`${seg}<div class="mb-kick">${MB_QUIZ[quizKey].name} · Satz ${quiz.i+1} von ${quiz.q.length}</div>
@@ -5875,7 +5898,7 @@ function renderMaerchenberg(el){
   function answer(n){ if(!quiz||quiz.lock||quiz.i>=quiz.q.length) return; const it=quiz.q[quiz.i], fb=$("#mbFb",panel);
     if(view) view.select(n);
     if(n===it[1]){ quiz.lock=true; if(!quiz.miss) quiz.score++; if(view) view.fly(n);
-      fb.className="fb ok"; fb.textContent=`Richtig! ⭐ Das gehört zu „${MB_ST[n-1].title}“.`;
+      fb.className="fb ok"; fb.textContent=`Richtig! ⭐ Das gehört zu „${MB_ST[n-1].title}“ (${MB_ST[n-1].bau}).`;
       setTimeout(()=>{ if(mode!=="quiz") return; quiz.i++; quiz.miss=false; quiz.lock=false; if(view) view.fly(null); showQ(); },1500);
     } else { quiz.miss=true; fb.className="fb no"; fb.textContent="Noch nicht – überleg mal: "+MB_ST[it[1]-1].fragen[0]; } }
 
@@ -5904,65 +5927,68 @@ function renderMaerchenberg(el){
   return ()=>{ if(view) view.dispose(); };
 }
 
-/* ---------- 3D-Modell des Märchenbergs (nach dem Blender-Modell) ---------- */
+/* ---------- 3D-Modell: ein Berg mit Serpentinenweg vom Anfang bis zum Gipfel ---------- */
 function createMaerchenbergView(stage, ov, onPick){
   const canvas=$("canvas",stage);
   const renderer=new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
   renderer.outputEncoding=THREE.sRGBEncoding;
   renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  const scene=new THREE.Scene(); scene.fog=new THREE.Fog(0xd6ebf8,22,48);
+  const scene=new THREE.Scene(); scene.fog=new THREE.Fog(0xd6ebf8,24,52);
   const camera=new THREE.PerspectiveCamera(40,16/10,0.1,200);
   scene.add(new THREE.HemisphereLight(0xffffff,0x7aa35a,0.9));
   const sun=new THREE.DirectionalLight(0xfff4dd,1.1); sun.position.set(-8,15,10); sun.castShadow=true;
   sun.shadow.mapSize.set(2048,2048); sun.shadow.bias=-0.0008; sun.shadow.normalBias=0.04;
   Object.assign(sun.shadow.camera,{left:-14,right:14,top:14,bottom:-14}); scene.add(sun);
 
-  // Höhenprofil (wie im Blender-Modell)
-  const CX=[-10,-7,-5.5,-4.5,-3.2,-1.5,-0.2,1.5,2.8,4,5.3,6.5,10], CZ=[0,0.35,0.9,1.6,2.1,3.1,3.7,5.3,3.6,2.5,1.2,0.45,0];
-  const interp=x=>{ if(x<=CX[0]) return CZ[0]; for(let i=1;i<CX.length;i++) if(x<=CX[i]){ const t=(x-CX[i-1])/(CX[i]-CX[i-1]); return CZ[i-1]+t*(CZ[i]-CZ[i-1]); } return 0; };
-  const NS=801, xs=[], raw=[]; for(let i=0;i<NS;i++){ const x=-10+20*i/(NS-1); xs.push(x); raw.push(interp(x)); }
-  const sm=raw.map((_,i)=>{ let s=0; for(let k=-12;k<=12;k++) s+=raw[Math.min(NS-1,Math.max(0,i+k))]; return s/25; });
-  const H=x=>{ const f=(x+10)/20*(NS-1); const i=Math.max(0,Math.min(NS-2,Math.floor(f))); const t=f-i; return sm[i]*(1-t)+sm[i+1]*t; };
-  const fall=z=>Math.exp(-((z/2.6)**2));
-  const ground=(x,z)=>{ const f=fall(z), n=0.08*Math.sin(x*2.3-z*1.7)+0.05*Math.sin(x*5.1+z*3.3); return Math.max(0,H(x)*f+n*f*Math.min(1,H(x))); };
+  const ground=(x,z)=>{ const d=Math.hypot(x,z*1.1);
+    const base=5.8*Math.exp(-Math.pow(d/3.5,1.7)) + 1.5*Math.exp(-((x-7.2)**2+(z+2.2)**2)/3.2);
+    const n=0.15*Math.sin(x*1.7+z*1.3)+0.1*Math.sin(x*3.1-z*2.2);
+    return Math.max(0, base+n*Math.min(1,base)); };
+  const pathAt=t=>{ const r=6.8*Math.pow(1-t,0.95), ph=1.15*Math.sin(3*Math.PI*t)*(1-0.3*t);
+    const x=r*Math.sin(ph), z=r*Math.cos(ph); return new THREE.Vector3(x, ground(x,z), z); };
 
   const lin=c=>new THREE.Color(c).convertSRGBToLinear();
   const std=(c,r=0.8)=>new THREE.MeshStandardMaterial({color:lin(c),roughness:r,metalness:0});
   const root=new THREE.Group(); scene.add(root); const disposables=[];
   const add=(geo,mat,x,y,z)=>{ const m=new THREE.Mesh(geo,mat); m.position.set(x,y,z); m.castShadow=true; m.receiveShadow=true; root.add(m); disposables.push(geo); return m; };
 
-  // Berg
-  const nx=160, nz=60, pos=[], col=[], idx=[], c=new THREE.Color();
-  for(let j=0;j<=nz;j++) for(let i=0;i<=nx;i++){ const x=-10+20*i/nx, z=-4+8*j/nz, y=ground(x,z); pos.push(x,y,z);
-    c.set(y>4.3?"#f2f5ff":y>3.0?"#8c8580":y>1.2?"#5a8c40":"#73b34d").convertSRGBToLinear(); col.push(c.r,c.g,c.b); }
-  for(let j=0;j<nz;j++) for(let i=0;i<nx;i++){ const a=j*(nx+1)+i, b=a+1, d=a+nx+1, e=d+1; idx.push(a,d,b, b,d,e); }
+  // Gelände
+  const N=140, S=24, pos=[], col=[], idx=[], c=new THREE.Color();
+  for(let j=0;j<=N;j++) for(let i=0;i<=N;i++){ const x=-S/2+S*i/N, z=-S/2+S*j/N, y=ground(x,z); pos.push(x,y,z);
+    c.set(y>4.5?"#f2f5ff":y>3.1?"#8c8580":y>1.3?"#5a8c40":"#73b34d").convertSRGBToLinear(); col.push(c.r,c.g,c.b); }
+  for(let j=0;j<N;j++) for(let i=0;i<N;i++){ const a=j*(N+1)+i, b=a+1, d=a+N+1, e=d+1; idx.push(a,d,b, b,d,e); }
   const bg=new THREE.BufferGeometry(); bg.setAttribute("position",new THREE.Float32BufferAttribute(pos,3)); bg.setAttribute("color",new THREE.Float32BufferAttribute(col,3));
   bg.setIndex(idx); bg.computeVertexNormals();
-  const bergMat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.95}); add(bg,bergMat,0,0,0);
-  const floor=add(new THREE.PlaneGeometry(120,120),std("#86b85a"),0,-0.01,0); floor.rotation.x=-Math.PI/2;
+  add(bg,new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.95}),0,0,0);
+  const floor=add(new THREE.PlaneGeometry(140,140),std("#86b85a"),0,-0.01,0); floor.rotation.x=-Math.PI/2;
 
-  // Weg über den Kamm
-  const ZP=0.55, pts=[]; for(let i=0;i<140;i++){ const x=-8.5+17*i/139; pts.push(new THREE.Vector3(x,H(x)*fall(ZP)+0.06,ZP)); }
-  add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),300,0.07,6,false),std("#d9a65a"),0,0,0);
+  // Weg in Serpentinen
+  const pts=[]; for(let i=0;i<=320;i++){ const p=pathAt(i/320); p.y+=0.07; pts.push(p); }
+  add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),640,0.08,6,false),std("#d9a65a"),0,0,0);
+  const nearPath=(x,z)=>pts.some(p=>Math.hypot(p.x-x,p.z-z)<1.0);
 
   // Stationen
-  const flags={}, bases={}, groups={}, pole=std("#5a3a1e"), pickables=[];
-  MB_ST.forEach(s=>{ const y=H(s.x)*fall(ZP), g=new THREE.Group(); g.position.set(s.x,y,ZP); root.add(g); groups[s.n]=g;
+  const T=[0.02,0.21,0.4,0.58,0.77,1.0];
+  const flags={}, groups={}, pole=std("#5a3a1e"), pickables=[];
+  MB_ST.forEach((s,k)=>{ const p=pathAt(T[k]), g=new THREE.Group(); g.position.copy(p); root.add(g); groups[s.n]=g;
     const m=new THREE.MeshStandardMaterial({color:lin(s.c),roughness:0.5,emissive:lin(s.c),emissiveIntensity:0.2});
+    const big=s.n===6?1.35:1;
     const mk=(geo,mat,px,py,pz)=>{ const o=new THREE.Mesh(geo,mat); o.position.set(px,py,pz); o.castShadow=true; o.userData.station=s.n; g.add(o); pickables.push(o); disposables.push(geo); return o; };
-    mk(new THREE.CylinderGeometry(0.05,0.05,1.6,10),pole,0,0.8,0);
-    flags[s.n]=mk(new THREE.BoxGeometry(0.6,0.38,0.04),m,0.35,1.35,0);
-    const b=mk(new THREE.SphereGeometry(0.28,24,12),m,0,0.05,0); b.scale.y=0.45; bases[s.n]=b; });
+    mk(new THREE.CylinderGeometry(0.05,0.05,1.6*big,10),pole,0,0.8*big,0);
+    flags[s.n]=mk(new THREE.BoxGeometry(0.6*big,0.38*big,0.04),m,0.32*big,1.38*big,0);
+    const b=mk(new THREE.SphereGeometry(0.28,24,12),m,0,0.05,0); b.scale.y=0.45; });
 
-  // Haus, Burg, Bäume
+  // Haus am Anfang, verwunschenes Schloss, Bäume
   const wand=std("#f2e4bd"), dach=std("#b2362a"), stein=std("#b8b8bd"), baum=std("#2c6b3a"), stamm=std("#5a3a1e");
-  add(new THREE.BoxGeometry(0.7,0.7,0.7),wand,-8.6,0.35,-0.6);
-  const hd=add(new THREE.ConeGeometry(0.62,0.5,4),dach,-8.6,0.95,-0.6); hd.rotation.y=Math.PI/4;
-  [[0,0,.45,1.0],[-.6,-.5,.22,1.5],[.6,-.5,.22,1.5],[-.6,.5,.22,1.5],[.6,.5,.22,1.5]].forEach(([dx,dz,r,h])=>{
-    add(new THREE.CylinderGeometry(r,r,h,20),stein,8.3+dx,h/2,-0.8+dz); add(new THREE.ConeGeometry(r*1.3,0.55,20),dach,8.3+dx,h+0.27,-0.8+dz); });
+  const p0=pathAt(0); const hx=p0.x-1.3, hz=p0.z+0.6, hy=ground(hx,hz);
+  add(new THREE.BoxGeometry(0.7,0.7,0.7),wand,hx,hy+0.35,hz);
+  const hd=add(new THREE.ConeGeometry(0.62,0.5,4),dach,hx,hy+0.95,hz); hd.rotation.y=Math.PI/4;
+  const cy=ground(7.2,-2.2);
+  [[0,0,.45,1.1],[-.6,-.5,.22,1.6],[.6,-.5,.22,1.6],[-.6,.5,.22,1.6],[.6,.5,.22,1.6]].forEach(([dx,dz,r,h])=>{
+    add(new THREE.CylinderGeometry(r,r,h,20),stein,7.2+dx,cy+h/2,-2.2+dz); add(new THREE.ConeGeometry(r*1.3,0.55,20),std("#6d28d9"),7.2+dx,cy+h+0.27,-2.2+dz); });
   let seed=7; const rnd=()=>{ seed=(seed*16807)%2147483647; return seed/2147483647; };
-  for(let t=0;t<45;t++){ const x=-9.5+19*rnd(), z=(rnd()<.5?-1:1)*(1.6+2.2*rnd()), y=ground(x,z); if(y>2.8) continue; const s=0.6+0.4*rnd();
+  for(let t=0;t<90;t++){ const x=-10+20*rnd(), z=-8+16*rnd(), y=ground(x,z); if(y>3.0||nearPath(x,z)||Math.hypot(x-7.2,z+2.2)<1.6||Math.hypot(x-hx,z-hz)<1) continue; const s=0.6+0.4*rnd();
     add(new THREE.CylinderGeometry(0.06*s,0.06*s,0.3*s,8),stamm,x,y+0.15*s,z); add(new THREE.ConeGeometry(0.32*s,0.9*s,10),baum,x,y+0.7*s,z); }
 
   // Beschriftungen
@@ -5970,8 +5996,8 @@ function createMaerchenbergView(stage, ov, onPick){
   MB_ST.forEach(s=>{ const b=document.createElement("button"); b.type="button"; b.className="mb-lbl"; b.style.setProperty("--mc",s.c);
     b.innerHTML=`<b>${s.n}</b>${s.title}`; b.onclick=()=>onPick(s.n); ov.appendChild(b); labels[s.n]=b; });
 
-  // Kamera-Steuerung
-  const HOME={tgt:new THREE.Vector3(0,2.4,0), th:0, ph:1.2, r:16.5};
+  // Kamera
+  const HOME={tgt:new THREE.Vector3(0,2.6,1.2), th:0, ph:1.05, r:20};
   let tgt=HOME.tgt.clone(), th=HOME.th, ph=HOME.ph, r=HOME.r, fly=null, sel=null;
   const placeCam=()=>{ camera.position.set(tgt.x+r*Math.sin(ph)*Math.sin(th), tgt.y+r*Math.cos(ph), tgt.z+r*Math.sin(ph)*Math.cos(th)); camera.lookAt(tgt); };
   let drag=null; const ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
@@ -5980,10 +6006,9 @@ function createMaerchenbergView(stage, ov, onPick){
   const up=e=>{ if(drag&&Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)<5){ const rc=canvas.getBoundingClientRect();
       ndc.set((e.clientX-rc.left)/rc.width*2-1,-(e.clientY-rc.top)/rc.height*2+1); ray.setFromCamera(ndc,camera);
       const hit=ray.intersectObjects(pickables,false)[0]; if(hit) onPick(hit.object.userData.station); } drag=null; };
-  const wheel=e=>{ e.preventDefault(); fly=null; r=Math.min(32,Math.max(6,r*(1+Math.sign(e.deltaY)*0.08))); };
+  const wheel=e=>{ e.preventDefault(); fly=null; r=Math.min(34,Math.max(6,r*(1+Math.sign(e.deltaY)*0.08))); };
   canvas.addEventListener("pointerdown",down); canvas.addEventListener("pointermove",move); canvas.addEventListener("pointerup",up); canvas.addEventListener("pointercancel",()=>drag=null);
   canvas.addEventListener("wheel",wheel,{passive:false});
-
   const size=()=>{ const w=stage.clientWidth, h=stage.clientHeight; if(!w||!h) return; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); };
   const ro=new ResizeObserver(size); ro.observe(stage); size();
 
@@ -5995,16 +6020,15 @@ function createMaerchenbergView(stage, ov, onPick){
     for(const n in flags){ flags[n].rotation.y=Math.sin(time*3+ +n)*0.12; groups[n].scale.setScalar(+n===sel?1.25+Math.sin(time*5)*0.05:1); }
     renderer.render(scene,camera);
     const w=stage.clientWidth, h=stage.clientHeight;
-    MB_ST.forEach(s=>{ groups[s.n].getWorldPosition(tmp); tmp.y+=1.95; tmp.project(camera); const b=labels[s.n];
+    MB_ST.forEach(s=>{ groups[s.n].getWorldPosition(tmp); tmp.y+=(s.n===6?2.5:1.95); tmp.project(camera); const b=labels[s.n];
       b.style.left=((tmp.x+1)/2*w)+"px"; b.style.top=((1-tmp.y)/2*h)+"px"; b.style.display=tmp.z<1?"":"none"; });
   };
   loop();
-
   return {
     select(n){ sel=n; for(const k in labels) labels[k].classList.toggle("sel",+k===n); },
     fly(n){ let to;
       if(!n) to={tgt:HOME.tgt.clone(),th:HOME.th,ph:HOME.ph,r:HOME.r};
-      else { groups[n].getWorldPosition(tmp); to={tgt:tmp.clone().add(new THREE.Vector3(0,0.8,0)),th:0.17,ph:1.2,r:9.5}; }
+      else { groups[n].getWorldPosition(tmp); to={tgt:tmp.clone().add(new THREE.Vector3(0,0.8,0)),th:Math.atan2(tmp.x,tmp.z)*0.6,ph:1.15,r:9}; }
       fly={t:0,t0:tgt.clone(),th0:th,ph0:ph,r0:r,...to}; },
     dispose(){ cancelAnimationFrame(raf); ro.disconnect(); canvas.removeEventListener("wheel",wheel);
       disposables.forEach(g=>g.dispose()); renderer.dispose(); ov.innerHTML=""; }
@@ -6013,7 +6037,766 @@ function createMaerchenbergView(stage, ov, onPick){
 
 (function(){ const s=SUBJECTS.find(x=>x.id==="deutsch"); const i=s.topics.findIndex(t=>t.id==="maerchen-und-fabeln");
   s.topics.splice(i<0?s.topics.length:i+1,0,{id:"maerchenberg", title:"Der Märchenberg in 3D", em:"⛰️",
-    desc:"Wandere über den Märchenberg: Von „Es war einmal“ bis zum glücklichen Ende – mit Quiz und Schreibplan.", render:renderMaerchenberg}); })();
+    desc:"Wandere auf den Märchenberg: vom Anfang über drei Aufgaben bis zum glücklichen Ende auf dem Gipfel.", render:renderMaerchenberg}); })();
+
+/* =====================================================================
+   DEUTSCH · Märchen – fit für die Deutscharbeit (Kapitel 7 im Deutschbuch)
+   Texte der Brüder Grimm sind gemeinfrei; alle anderen Texte sind eigene Fassungen.
+   ===================================================================== */
+const mfGet=(k,d)=>{ try{ const v=localStorage.getItem("mf-"+k); return v==null?d:JSON.parse(v); }catch(e){ return d; } };
+const mfSet=(k,v)=>{ try{ localStorage.setItem("mf-"+k,JSON.stringify(v)); }catch(e){} };
+const mfWrap=(text,w)=>{ const out=[]; let line=""; text.split(/\s+/).forEach(word=>{ if(line && (line+" "+word).length>w){ out.push(line); line=word; } else line=line?line+" "+word:word; }); if(line) out.push(line); return out; };
+
+/* ---------------- Texte ---------------- */
+const MF_STERNTALER = [
+  ["Es war einmal","formel"],
+  ["ein kleines Mädchen, dem waren Vater und Mutter gestorben, und es war so arm, dass es kein Kämmerchen mehr hatte, darin zu wohnen, und kein Bettchen mehr, darin zu schlafen, und endlich gar nichts mehr als die Kleider auf dem Leib und ein Stückchen Brot in der Hand, das ihm ein mitleidiges Herz geschenkt hatte.","not"],
+  ["Es war aber gut und fromm.","gut"],
+  ["Und weil es so von aller Welt verlassen war, ging es im Vertrauen auf den lieben Gott hinaus ins Feld.","not"],
+  ["Da begegnete ihm ein armer Mann, der sprach: „Ach, gib mir etwas zu essen, ich bin so hungrig.“ Es reichte ihm das ganze Stückchen Brot und sagte: „Gott segne dir's“, und ging weiter.","pruef"],
+  ["Da kam ein Kind, das jammerte und sprach: „Es friert mich so an meinem Kopfe, schenk mir etwas, womit ich ihn bedecken kann.“ Da tat es seine Mütze ab und gab sie ihm.","pruef"],
+  ["Und als es noch eine Weile gegangen war, kam wieder ein Kind und hatte kein Leibchen an und fror: Da gab es ihm seins; und noch weiter, da bat eins um ein Röcklein, das gab es auch von sich hin.","pruef"],
+  ["Endlich gelangte es in einen Wald, und es war schon dunkel geworden, da kam noch eins und bat um ein Hemdlein, und das fromme Mädchen dachte: „Es ist dunkle Nacht, da sieht dich niemand, du kannst wohl dein Hemd weggeben“, und zog das Hemd ab und gab es auch noch hin.","pruef"],
+  ["Und wie es so stand und gar nichts mehr hatte, fielen auf einmal die Sterne vom Himmel und waren lauter blanke Taler;","zauber"],
+  ["und ob es gleich sein Hemdlein weggegeben, so hatte es ein neues an, und das war vom allerfeinsten Linnen.","zauber"],
+  ["Da sammelte es sich die Taler hinein und war reich für sein Lebtag.","ende"]
+];
+const MF_MAEUSEHAUT = "Ein König hatte drei Töchter. Da wollte er wissen, welche ihn am liebsten hätte. Er ließ sie zu sich und fragte sie. Die älteste sprach, sie habe ihn lieber als das ganze Königreich. Die zweite, als alle Edelsteine und Perlen auf der Welt. Die dritte aber sagte, sie habe ihn lieber als das Salz. Der König war aufgebracht, dass sie ihre Liebe zu ihm mit einer so geringen Sache vergleiche, übergab sie einem Diener und befahl, er solle sie in den Wald führen und töten. Wie sie in den Wald gekommen waren, bat die Prinzessin den Diener um ihr Leben. Dieser war ihr treu und sagte auch, er wolle mit ihr gehen und ganz nach ihren Befehlen tun. Die Prinzessin verlangte aber nichts als ein Kleid von Mäusehaut. Und als er ihr das geholt hatte, wickelte sie sich hinein und ging fort. Sie ging geradezu an den Hof eines benachbarten Königs, gab sich für einen Mann aus und bat den König, dass er sie in seine Dienste nehme. Abends musste sie ihm die Stiefel ausziehen, die warf er ihr allemal an den Kopf. Einmal fragte er, woher sie sei. „Aus dem Lande, wo man den Leuten die Stiefel nicht um den Kopf wirft.“ Der König wurde aufmerksam. Endlich brachten ihm die anderen Diener einen Ring: Mäusehaut habe ihn verloren, der sei zu kostbar, den müsse er gestohlen haben. Der König ließ Mäusehaut vor sich kommen und fragte, woher der Ring sei. Da konnte sich Mäusehaut nicht länger verbergen. Sie wickelte sich von der Mäusehaut los, und ihre goldgelben Haare quollen hervor. Und sie trat heraus, so schön, dass der König gleich die Krone von seinem Kopf abnahm und ihr aufsetzte und sie für seine Gemahlin erklärte. Zu der Hochzeit wurde auch der Vater der Mäusehaut eingeladen, der glaubte, seine Tochter sei schon längst tot, und erkannte sie nicht wieder. Auf der Tafel aber waren alle Speisen, die ihm vorgesetzt wurden, ungesalzen, da wurde er ärgerlich und sagte: „Ich will lieber nicht leben als solche Speise essen!“ Wie er das Wort ausgesagt hatte, sprach die Königin zu ihm: „Jetzt wollt Ihr nicht leben ohne Salz, und doch habt Ihr mich einmal wollen töten lassen, weil ich sagte, ich hätte Euch lieber als Salz!“ Da erkannte er seine Tochter und küsste sie und bat sie um Verzeihung, und es war ihm lieber als sein Königreich und alle Edelsteine der Welt, dass er sie wiedergefunden hatte.";
+const MF_BIENEN = "Zwei Königssöhne gingen einmal auf Abenteuer und gerieten in ein wildes, wüstes Leben, sodass sie gar nicht wieder nach Haus kamen. Der Jüngste, welcher der Dummling hieß, ging aus und suchte seine Brüder. Aber als er sie fand, verspotteten sie ihn, dass er mit seiner Einfalt sich durch die Welt schlagen wolle, da sie zwei nicht durchkämen und wären doch viel klüger. Da zogen sie miteinander fort und kamen an einen Ameisenhaufen. Die zwei Ältesten wollten ihn aufwühlen und sehen, wie die kleinen Ameisen in der Angst herumkröchen und ihre Eier forttrügen; aber der Dummling sagte: „Lasst die Tiere in Frieden, ich leid's nicht, dass ihr sie stört.“ Da gingen sie weiter und kamen an einen See, auf dem schwammen viele, viele Enten. Die zwei Brüder wollten ein paar fangen und braten, aber der Dummling sagte wieder: „Lasst die Tiere in Frieden, ich leid's nicht, dass ihr sie tötet.“ Endlich kamen sie an ein Bienennest, darin war so viel Honig, dass er am Stamm herunterlief. Die zwei wollten Feuer unter den Baum legen und die Bienen ersticken, damit sie den Honig wegnehmen könnten. Der Dummling hielt sie aber wieder ab und sprach: „Lasst die Tiere in Frieden, ich leid's nicht, dass ihr sie verbrennt.“ Da kamen die drei Brüder in ein Schloss, wo in den Ställen lauter steinerne Pferde standen, auch war kein Mensch zu sehen, und sie gingen durch alle Säle, bis sie vor eine Türe ganz am Ende kamen, davor hingen drei Schlösser. Es war aber mitten in der Türe ein Lädlein, dadurch konnte man in die Stube sehen. Da sahen sie ein graues Männchen an einem Tische sitzen, das riefen sie an, einmal, zweimal, aber es hörte nicht. Endlich riefen sie zum dritten Mal, da stand es auf und kam heraus. Es sprach aber kein Wort, sondern fasste sie an und führte sie zu einem reich besetzten Tisch; und als sie gegessen und getrunken hatten, führte es einen jeglichen in ein eigenes Schlafgemach. Am andern Morgen kam es zu dem Ältesten, winkte ihm und brachte ihn zu einer steinernen Tafel, darauf standen die drei Aufgaben geschrieben, wodurch das Schloss erlöst werden konnte. Die erste war: In dem Wald unter dem Moos lagen die tausend Perlen der Königstochter, die mussten aufgesucht werden, und wenn vor Sonnenuntergang noch eine einzige fehlte, so ward der, welcher gesucht hatte, zu Stein. Der Älteste ging hin und suchte den ganzen Tag, als aber der Tag zu Ende war, hatte er erst hundert gefunden. Es folgte, wie auf der Tafel stand, und er ward in Stein verwandelt. Am folgenden Tag unternahm der zweite Bruder das Abenteuer. Es ging ihm aber nicht besser als dem ältesten, er fand nicht mehr als zweihundert Perlen und ward zu Stein. Endlich kam auch an den Dummling die Reihe, der suchte im Moos, es war aber so schwer, die Perlen zu finden, und ging so langsam! Da setzte er sich auf einen Stein und weinte. Und wie er so saß, kam der Ameisenkönig, dem er einmal das Leben erhalten hatte, mit fünftausend Ameisen, und es währte gar nicht lang, so hatten diese die Perlen miteinander gefunden und auf einen Haufen getragen. Die zweite Aufgabe aber war, den Schlüssel zu der Schlafkammer der Königstochter aus dem See zu holen. Wie der Dummling zum See kam, schwammen die Enten, die er einmal gerettet hatte, heran, tauchten unter und holten den Schlüssel aus der Tiefe. Die dritte Aufgabe aber war die schwerste: Aus den drei schlafenden Töchtern des Königs sollte die jüngste und die liebste herausgesucht werden. Sie glichen sich aber vollkommen und waren durch nichts verschieden, als dass die älteste ein Stück Zucker, die zweite Sirup, die jüngste einen Löffel voll Honig gegessen hatte, und es war bloß an dem Hauch zu erkennen, welche den Honig gegessen. Da kam aber die Bienenkönigin von den Bienen, die der Dummling vor dem Feuer geschützt, und versuchte den Mund von allen dreien. Zuletzt blieb sie auf dem Mund sitzen, der Honig gegessen, und so erkannte der Königssohn die rechte. Da war aller Zauber vorbei. Alles war aus dem Schlaf erlöst, und wer von Stein war, erhielt seine menschliche Gestalt wieder. Und der Dummling vermählte sich mit der jüngsten und liebsten Tochter und ward König nach ihres Vaters Tod; seine zwei Brüder aber erhielten die beiden andern Schwestern.";
+
+/* ---------------- gemeinsame Bausteine ---------------- */
+
+/* Text mit Zeilennummern; Aufgaben: Zeile antippen */
+function mfZeilen(text, tasks, opts){
+  const lines=mfWrap(text, (typeof innerWidth==="number"&&innerWidth<560)?Math.max(24,Math.floor((innerWidth-110)/9.8)):((opts&&opts.w)||54));
+  const starts=[]; let pos=0; lines.forEach(l=>{ starts.push(pos); pos+=l.length+1; });
+  const joined=lines.join(" ");
+  const lineOf=ph=>{ const i=joined.indexOf(ph); if(i<0) return -1; let k=0; while(k+1<starts.length && starts[k+1]<=i) k++; return k; };
+  const T=tasks.map(t=>({...t, ok:t.ok.map(lineOf).filter(i=>i>=0)}));
+  return wBox(`<div class="mf-zhead"><span class="mf-zq"></span></div>
+    <div class="mf-ztext">${lines.map((l,i)=>`<div class="mf-zl" data-i="${i}"><span class="mf-zn">${(i+1)%5===0?i+1:""}</span><span>${esc(l)}</span></div>`).join("")}</div>
+    <div class="fb mf-zfb" aria-live="polite"></div><div class="row mf-zbar"></div>`, box=>{
+    let k=0, right=0, lock=false; const q=$(".mf-zq",box), fb=$(".mf-zfb",box), bar=$(".mf-zbar",box), rows=[...box.querySelectorAll(".mf-zl")];
+    const show=()=>{ lock=false; rows.forEach(r=>r.classList.remove("ok","no","hint"));
+      if(k>=T.length){ q.innerHTML=`🎉 Fertig! Du hast <b>${right} von ${T.length}</b> Stellen beim ersten Versuch gefunden.`; fb.innerHTML=opts&&opts.summary?`<div class="note" style="margin:6px 0 0">${opts.summary.replace(/\{Z:([^}]+)\}/g,(m,ph)=>lineOf(ph)+1).replace(/\{END\}/g,lines.length)}</div>`:""; fb.className="fb"; bar.innerHTML=`<button class="btn primary" data-again>Noch einmal</button>`; return; }
+      q.innerHTML=`<span class="pill">Aufgabe ${k+1} von ${T.length}</span> ${T[k].q}`; fb.innerHTML=""; bar.innerHTML=`<button class="btn" data-tip>Tipp</button>`; T[k].miss=false; };
+    box.addEventListener("click",e=>{
+      if(e.target.closest("[data-again]")){ k=0; right=0; return show(); }
+      if(e.target.closest("[data-tip]")){ T[k].miss=true; fb.className="fb"; fb.innerHTML="💡 "+T[k].tip; return; }
+      if(e.target.closest("[data-next]")){ k++; return show(); }
+      const r=e.target.closest(".mf-zl"); if(!r||lock||k>=T.length) return; const i=+r.dataset.i;
+      if(T[k].ok.includes(i)){ lock=true; r.classList.add("ok"); if(!T[k].miss) right++;
+        fb.className="fb ok"; fb.innerHTML=`Richtig – Zeile ${i+1}! ⭐ <span style="color:var(--ink);font-weight:400">${T[k].expl}</span>`;
+        bar.innerHTML=`<button class="btn primary" data-next>${k+1<T.length?"Nächste Aufgabe":"Ergebnis"}</button>`; }
+      else { T[k].miss=true; r.classList.add("no"); setTimeout(()=>r.classList.remove("no"),700); fb.className="fb no"; fb.textContent="Diese Zeile passt noch nicht. Lies genau – oder hol dir einen Tipp."; }
+    });
+    show();
+  }, "card mf-zbox");
+}
+
+/* Märchenberg zum Ausfüllen (2D, wie im Buch) */
+const MF_BP = {6:[[25,90],[71,77],[29,63],[71,48],[31,34],[50,11]], 7:[[25,91],[72,81],[28,69],[71,57],[30,45],[69,33],[50,11]]};
+function mfBergBox(n, slotLabels, colors){
+  const P=MF_BP[n]; const d="M"+P.map(p=>p[0]+" "+p[1]).join(" L");
+  return `<div class="mf-berg"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <polygon points="1,99 50,2 99,99" fill="#dfe8d2" stroke="#7a8f6a" stroke-width=".6"/>
+    <polygon points="38,26 50,2 62,26 56,23 50,27 44,23" fill="#fff" opacity=".9"/>
+    <path d="${d}" fill="none" stroke="#c9a46a" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="${d}" fill="none" stroke="#fff" stroke-width=".5" stroke-dasharray="1.5 1.5"/>
+    <line x1="50" y1="2" x2="50" y2="-6" stroke="#5a3a1e" stroke-width=".7"/></svg>
+    <div class="mf-flag">🚩</div>
+    ${P.map((p,i)=>`<div class="mf-slot" data-s="${i}" style="left:${p[0]}%;top:${p[1]}%;--mc:${colors[i]}"><small>${slotLabels[i]}</small><span></span></div>`).join("")}</div>`;
+}
+function mfBerg(slotLabels, colors, cards, title){
+  const n=cards.length;
+  return wBox(`${title?`<h3 style="margin-top:0">${title}</h3>`:""}<p style="margin:.2em 0 .6em">Tippe zuerst eine Karte an und dann den passenden Platz am Berg.</p>
+    ${mfBergBox(n,slotLabels,colors)}<div class="mf-pool"></div>
+    <div class="row" style="margin-top:8px"><button class="btn primary" data-check>Prüfen</button><button class="btn" data-sol>Lösung zeigen</button><button class="btn" data-reset>Neu mischen</button></div><div class="fb" data-fb></div>`, box=>{
+    const pool=$(".mf-pool",box), slots=[...box.querySelectorAll(".mf-slot")], fb=$("[data-fb]",box);
+    let place=Array(n).fill(null), order=[], pick=null;
+    const draw=()=>{ pool.innerHTML=order.filter(c=>!place.includes(c)).map(c=>`<button class="mf-card ${pick===c?"sel":""}" data-c="${c}">${cards[c]}</button>`).join("") || `<span style="color:var(--muted)">Alle Karten liegen am Berg.</span>`;
+      slots.forEach((s,i)=>{ s.classList.remove("ok","no"); s.classList.toggle("full",place[i]!=null); $("span",s).textContent=place[i]!=null?cards[place[i]]:""; }); };
+    const reset=()=>{ place=Array(n).fill(null); order=lpMix(cards.map((_,i)=>i)); pick=null; fb.textContent=""; draw(); };
+    box.addEventListener("click",e=>{
+      const c=e.target.closest("[data-c]"); if(c){ pick=+c.dataset.c; return draw(); }
+      const s=e.target.closest(".mf-slot");
+      if(s){ const i=+s.dataset.s; if(pick!=null){ const old=place.indexOf(pick); if(old>=0) place[old]=null; place[i]=pick; pick=null; } else if(place[i]!=null){ place[i]=null; } return draw(); }
+      if(e.target.closest("[data-reset]")) return reset();
+      if(e.target.closest("[data-sol]")){ place=cards.map((_,i)=>i); pick=null; draw(); slots.forEach(s=>s.classList.add("ok")); fb.className="fb"; fb.textContent="So ist die richtige Reihenfolge."; return; }
+      if(e.target.closest("[data-check]")){ let r=0; slots.forEach((s,i)=>{ const ok=place[i]===i; if(ok) r++; s.classList.toggle("ok",ok); s.classList.toggle("no",place[i]!=null&&!ok); });
+        fb.className="fb "+(r===n?"ok":"no"); fb.textContent = r===n ? "🏆 Alles richtig – der Märchenberg stimmt!" : `${r} von ${n} Plätzen stimmen. Rot markierte Karten antippen und neu legen.`; }
+    });
+    reset();
+  }, "card");
+}
+
+/* Reihenfolge sortieren */
+function mfOrder(steps, done){
+  return wBox(`<ol class="mf-order"></ol><div class="row"><button class="btn primary" data-check>Prüfen</button><button class="btn" data-mix>Neu mischen</button></div><div class="fb" data-fb></div>`, box=>{
+    const ol=$(".mf-order",box), fb=$("[data-fb]",box); let ord=[];
+    const draw=(mark)=>{ ol.innerHTML=ord.map((s,i)=>`<li class="${mark?(s===i?"ok":"no"):""}"><span>${steps[s]}</span><span class="mf-ud"><button class="btn" data-u="${i}" aria-label="nach oben" ${i===0?"disabled":""}>▲</button><button class="btn" data-d="${i}" aria-label="nach unten" ${i===ord.length-1?"disabled":""}>▼</button></span></li>`).join(""); };
+    const mix=()=>{ do{ ord=lpMix(steps.map((_,i)=>i)); }while(ord.every((s,i)=>s===i)); fb.innerHTML=""; draw(); };
+    box.addEventListener("click",e=>{ const u=e.target.closest("[data-u]"), d=e.target.closest("[data-d]");
+      if(u){ const i=+u.dataset.u; [ord[i-1],ord[i]]=[ord[i],ord[i-1]]; fb.innerHTML=""; return draw(); }
+      if(d){ const i=+d.dataset.d; [ord[i+1],ord[i]]=[ord[i],ord[i+1]]; fb.innerHTML=""; return draw(); }
+      if(e.target.closest("[data-mix]")) return mix();
+      if(e.target.closest("[data-check]")){ const r=ord.filter((s,i)=>s===i).length; draw(true);
+        fb.className="fb "+(r===ord.length?"ok":"no"); fb.innerHTML = r===ord.length ? "🏆 Perfekt – die Reihenfolge stimmt!"+(done?`<div class="note" style="margin-top:8px">${done}</div>`:"") : `${r} von ${ord.length} Karten liegen richtig (grün). Verschiebe die roten.`; }
+    });
+    mix();
+  }, "card");
+}
+
+/* Mehrfachauswahl mit Begründung: items [Text, richtig?, Begründung] */
+function mfMulti(items, need, intro){
+  return wBox(`${intro?`<p style="margin-top:0">${intro}</p>`:""}<div class="mf-chips">${items.map((it,i)=>`<button class="mf-chip" data-i="${i}">${it[0]}</button>`).join("")}</div>
+    <div class="row" style="margin-top:8px"><button class="btn primary" data-check>Prüfen</button><button class="btn" data-reset>Zurücksetzen</button></div><div data-out></div>`, box=>{
+    const out=$("[data-out]",box);
+    box.addEventListener("click",e=>{ const c=e.target.closest(".mf-chip");
+      if(c){ if(box.classList.contains("checked")) return; c.classList.toggle("on"); return; }
+      if(e.target.closest("[data-reset]")){ box.classList.remove("checked"); box.querySelectorAll(".mf-chip").forEach(x=>x.classList.remove("on","ok","no","miss")); out.innerHTML=""; return; }
+      if(e.target.closest("[data-check]")){ box.classList.add("checked"); let r=0;
+        box.querySelectorAll(".mf-chip").forEach((x,i)=>{ const on=x.classList.contains("on"), ok=items[i][1]; if(on===ok) r++; x.classList.toggle("ok",on&&ok); x.classList.toggle("no",on&&!ok); x.classList.toggle("miss",!on&&ok); });
+        out.innerHTML=`<div class="fb ${r===items.length?"ok":"no"}">${r===items.length?"🏆 Alles richtig!":`${r} von ${items.length} richtig entschieden.`}</div>
+          <ul class="mf-why">${items.map(it=>`<li class="${it[1]?"y":"n"}"><b>${it[0]}</b> – ${it[2]}</li>`).join("")}</ul>`; }
+    });
+  }, "card");
+}
+
+/* Schreibfeld mit Speicher und Musterlösung */
+function mfWrite(key, ph, muster, rows){
+  return wBox(`<textarea class="mf-ta" rows="${rows||5}" placeholder="${esc(ph)}"></textarea>
+    <div class="row" style="margin-top:6px"><button class="btn" data-show>Musterlösung zeigen</button><span class="mf-saved"></span></div><div data-out></div>`, box=>{
+    const ta=$("textarea",box), out=$("[data-out]",box); ta.value=mfGet("w-"+key,"");
+    ta.addEventListener("input",()=>{ mfSet("w-"+key,ta.value); $(".mf-saved",box).textContent="✓ gespeichert"; });
+    $("[data-show]",box).onclick=()=>{ out.innerHTML = out.innerHTML ? "" : `<div class="note" style="margin:8px 0 0"><b>So könnte es aussehen:</b> ${muster}</div>`; };
+  });
+}
+
+/* ---------- Kapitel 1: Märchen-Suchbild ---------- */
+const MF_SUCH = [
+  {e:"🧺",x:452,y:318,m:"Rotkäppchen",t:"Im Korb bringt Rotkäppchen der kranken Großmutter Kuchen und Wein.",k:"Typisch: Die Heldin muss allein durch den gefährlichen Wald."},
+  {e:"🐺",x:560,y:262,m:"Rotkäppchen · Der Wolf und die sieben Geißlein",t:"Der böse Wolf ist ein typischer Gegenspieler.",k:"Typisch: sprechende Tiere und ein böser Gegenspieler."},
+  {e:"🪔",x:250,y:352,m:"Aladin und die Wunderlampe",t:"Ein Märchen aus „Tausendundeine Nacht“. Reibt man an der Lampe, erscheint ein Geist.",k:"Typisch: ein Zaubergegenstand, der Wünsche erfüllt."},
+  {e:"🍎",x:712,y:318,m:"Schneewittchen",t:"Die böse Königin vergiftet Schneewittchen mit einem Apfel. Es wohnt bei den sieben Zwergen.",k:"Typisch: magische Zahl 7 und eine böse Stiefmutter."},
+  {e:"🐟",x:120,y:410,m:"Der Fisch mit dem goldenen Bart",t:"Ein türkisches Märchen aus deinem Buch: Ein Fisch rettet seinen besten Freund.",k:"Typisch: Ein Zauberer verwandelt den Fisch in einen Menschen."},
+  {e:"⛵",x:92,y:258,m:"Sindbad der Seefahrer",t:"Sindbad erlebt auf seinen Seereisen viele gefährliche Abenteuer.",k:"Typisch: ein Held, der viele Prüfungen bestehen muss."},
+  {e:"🍪",x:640,y:182,m:"Hänsel und Gretel",t:"Das Haus der Hexe ist aus Brot und Kuchen gebaut.",k:"Typisch: Gut gegen Böse – die Kinder besiegen die Hexe."},
+  {e:"⭐",x:372,y:58,m:"Sterntaler",t:"Das Mädchen verschenkt alles – dann fallen die Sterne als Taler vom Himmel.",k:"Typisch: Das Gute wird belohnt."},
+  {e:"🐝",x:318,y:178,m:"Die Bienenkönigin",t:"Der Dummling rettet die Bienen – später hilft ihm die Bienenkönigin.",k:"Typisch: Helfer-Tiere und drei Aufgaben."},
+  {e:"🐸",x:560,y:410,m:"Der Froschkönig · Iwan Zarewitsch und Zarewna Frosch",t:"Ein Frosch ist in Wahrheit ein verzauberter Mensch.",k:"Typisch: Verwandlung und Erlösung von einem Fluch."},
+  {e:"🌹",x:752,y:232,m:"Dornröschen",t:"Eine Dornenhecke wächst um das Schloss, alle schlafen 100 Jahre.",k:"Typisch: Ein Fluch, der erst nach langer Zeit gebrochen wird."},
+  {e:"👠",x:392,y:426,m:"Aschenputtel",t:"Aschenputtel verliert auf dem Ball ihren Schuh. Der Prinz sucht sie damit.",k:"Typisch: böse Stiefschwestern und helfende Tauben."}
+];
+function mfSuchbild(){
+  return wBox(`<div class="mf-such"><svg viewBox="0 0 800 460" role="img" aria-label="Suchbild mit versteckten Märchen">
+    <rect width="800" height="460" fill="#cfe6f7"/>
+    <circle cx="690" cy="70" r="34" fill="#ffe28a"/>
+    <path d="M0 300 Q120 260 230 300 L230 460 L0 460Z" fill="#4f8fb8"/>
+    <path d="M0 330 Q60 315 120 335 T230 330" stroke="#a9d3ea" stroke-width="4" fill="none"/>
+    <path d="M60 300 L120 300 L110 320 L70 320Z" fill="#8a5a2b"/><path d="M92 300 L92 230 L130 290Z" fill="#f3e9c8"/>
+    <path d="M200 460 Q260 330 420 300 Q600 260 800 300 L800 460Z" fill="#7cb85a"/>
+    <path d="M330 300 Q420 150 520 120 Q600 160 660 210 L800 230 L800 300 Q600 260 420 300Z" fill="#9fcf7a"/>
+    <path d="M440 240 L470 170 L500 240Z M480 250 L510 175 L540 250Z M410 255 L440 190 L470 255Z" fill="#2c6b3a"/>
+    <path d="M610 200 L680 200 L680 165 L645 140 L610 165Z" fill="#c98b4a"/><path d="M604 167 L645 132 L686 167Z" fill="#a33b2b"/>
+    <path d="M720 300 L720 230 L740 230 L740 210 L760 210 L760 230 L780 230 L780 300Z" fill="#b8b8bd"/><path d="M735 212 L750 185 L765 212Z" fill="#7c3aed"/>
+    <ellipse cx="560" cy="418" rx="70" ry="22" fill="#4f8fb8"/>
+    <path d="M300 460 Q380 380 470 320" stroke="#e1c38f" stroke-width="16" fill="none" stroke-linecap="round"/>
+    ${MF_SUCH.map((s,i)=>`<g class="mf-hid" data-i="${i}" tabindex="0" role="button" aria-label="Versteck ${i+1}"><circle cx="${s.x}" cy="${s.y-10}" r="26" fill="transparent"/><text x="${s.x}" y="${s.y}" text-anchor="middle" font-size="30">${s.e}</text></g>`).join("")}
+  </svg></div><div class="ph-qhead" style="margin-top:6px"><span class="mf-found">0 von ${MF_SUCH.length} Märchen gefunden</span><button class="btn" data-all>Alle zeigen</button></div><div class="lp-out mf-suchout">Tippe im Bild auf Dinge, die zu einem Märchen gehören.</div>`, box=>{
+    const found=new Set(), out=$(".mf-suchout",box);
+    const pick=i=>{ const s=MF_SUCH[i]; found.add(i); box.querySelectorAll(".mf-hid")[i].classList.add("got");
+      $(".mf-found",box).textContent=`${found.size} von ${MF_SUCH.length} Märchen gefunden${found.size===MF_SUCH.length?" 🏆":""}`;
+      out.innerHTML=`<h3 style="margin:0">${s.e} ${s.m}</h3><p style="margin:.3em 0">${s.t}</p><p style="margin:0"><b>${s.k}</b></p>`; };
+    box.addEventListener("click",e=>{ const g=e.target.closest(".mf-hid"); if(g) pick(+g.dataset.i);
+      if(e.target.closest("[data-all]")){ MF_SUCH.forEach((_,i)=>{ found.add(i); box.querySelectorAll(".mf-hid")[i].classList.add("got"); }); $(".mf-found",box).textContent=`${MF_SUCH.length} von ${MF_SUCH.length} Märchen`; out.innerHTML="<ul style='margin:0'>"+MF_SUCH.map(s=>`<li>${s.e} ${s.m}</li>`).join("")+"</ul>"; } });
+    box.addEventListener("keydown",e=>{ const g=e.target.closest(".mf-hid"); if(g&&(e.key==="Enter"||e.key===" ")){ e.preventDefault(); pick(+g.dataset.i); } });
+  }, "card");
+}
+
+/* ---------- Kapitel 1: Merkmal-Detektiv (Sterntaler) ---------- */
+const MF_STIFTE = [
+  {k:"formel",n:"Märchenformel",c:"#f59e0b"},{k:"not",n:"Schwierige Situation",c:"#22a05a"},{k:"gut",n:"Gute Eigenschaft",c:"#ec4899"},
+  {k:"pruef",n:"Prüfung",c:"#8b5cf6"},{k:"zauber",n:"Wunder / Zauber",c:"#0ea5c6"},{k:"ende",n:"Glückliches Ende",c:"#2563eb"}];
+function mfDetektiv(){
+  const total={}; MF_STERNTALER.forEach(s=>total[s[1]]=(total[s[1]]||0)+1);
+  return wBox(`<div class="mf-stifte">${MF_STIFTE.map((s,i)=>`<button class="mf-stift ${i===0?"on":""}" data-k="${s.k}" style="--mc:${s.c}">🖍️ ${s.n} <small data-n="${s.k}">0/${total[s.k]}</small></button>`).join("")}</div>
+    <p class="mf-text">${MF_STERNTALER.map((s,i)=>`<span class="mf-seg" data-i="${i}">${s[0]}</span>`).join(" ")}</p>
+    <div class="fb" data-fb>Wähle oben einen Stift und tippe alle passenden Stellen im Text an.</div>
+    <div class="row"><button class="btn" data-sol>Lösung zeigen</button><button class="btn" data-reset>Von vorn</button></div>`, box=>{
+    let stift="formel"; const got=new Set(), fb=$("[data-fb]",box), col=Object.fromEntries(MF_STIFTE.map(s=>[s.k,s.c])), nam=Object.fromEntries(MF_STIFTE.map(s=>[s.k,s.n]));
+    const count=()=>{ MF_STIFTE.forEach(s=>{ const n=[...got].filter(i=>MF_STERNTALER[i][1]===s.k).length; $(`[data-n="${s.k}"]`,box).textContent=`${n}/${total[s.k]}`; });
+      if(got.size===MF_STERNTALER.length){ fb.className="fb ok"; fb.textContent="🏆 Super, Detektivin! Du hast alle Merkmale im Sterntaler gefunden."; } };
+    const mark=i=>{ const seg=box.querySelectorAll(".mf-seg")[i]; seg.style.background=col[MF_STERNTALER[i][1]]+"33"; seg.style.borderBottom="3px solid "+col[MF_STERNTALER[i][1]]; seg.classList.add("got"); };
+    box.addEventListener("click",e=>{
+      const b=e.target.closest(".mf-stift"); if(b){ stift=b.dataset.k; box.querySelectorAll(".mf-stift").forEach(x=>x.classList.toggle("on",x===b)); return; }
+      const s=e.target.closest(".mf-seg"); if(s){ const i=+s.dataset.i; if(got.has(i)) return;
+        if(MF_STERNTALER[i][1]===stift){ got.add(i); mark(i); fb.className="fb ok"; fb.textContent=`Richtig: „${nam[stift]}“! ⭐`; count(); }
+        else { s.classList.add("no"); setTimeout(()=>s.classList.remove("no"),600); fb.className="fb no"; fb.textContent=`Diese Stelle passt nicht zum Stift „${nam[stift]}“. Probier einen anderen Stift.`; } return; }
+      if(e.target.closest("[data-sol]")){ MF_STERNTALER.forEach((_,i)=>{ got.add(i); mark(i); }); count(); }
+      if(e.target.closest("[data-reset]")){ got.clear(); box.querySelectorAll(".mf-seg").forEach(x=>{ x.style.background=""; x.style.borderBottom=""; x.classList.remove("got"); }); count(); fb.className="fb"; fb.textContent="Wähle oben einen Stift und tippe alle passenden Stellen im Text an."; }
+    });
+  }, "card");
+}
+
+/* ---------- Kapitel 3: Märchen-Würfel ---------- */
+const MF_KARTEN = {
+  held:{n:"Held / Heldin",em:"🦸",c:"#e8a0a0",l:["der jüngste Sohn","eine arme Bauerstochter","ein tapferer Prinz","Schwester und Bruder","der Sohn eines armen Müllers","die schöne Prinzessin","ein kleines Waisenkind","eine mutige Hirtin"]},
+  gegner:{n:"Gegenspieler/-in",em:"🦹",c:"#9db4e0",l:["die böse Hexe","die böse Stiefmutter","ein zorniger Riese","ein gieriger Räuber","ein böser Wolf","ein finsterer Zauberer","ein feuerspeiender Drache","die neidischen Stiefschwestern"]},
+  helfer:{n:"Magischer Helfer",em:"🪄",c:"#b9d98a",l:["ein goldener Ring","eine weiße Taube","ein winziger Zauberschlüssel","hilfsbereite Zwerge","ein geheimnisvoller Umhang","ein mächtiger Zauberer","ein sprechender Fuchs","eine gute Fee"]},
+  aufgabe:{n:"Aufgabe",em:"🎯",c:"#f2b77d",l:["eine Prinzessin retten","einen Riesen besiegen","einen Fluch aufheben","ein Einhorn fangen","einen Drachen besiegen","einen verzauberten Menschen erlösen","einen gestohlenen Schatz zurückholen","drei goldene Federn finden"]}
+};
+function mfWuerfel(){
+  const ks=Object.keys(MF_KARTEN);
+  return wBox(`<div class="mf-reels">${ks.map(k=>`<div class="mf-reel" style="--mc:${MF_KARTEN[k].c}"><small>${MF_KARTEN[k].em} ${MF_KARTEN[k].n}</small><b data-r="${k}">?</b><button class="btn" data-lock="${k}">🔓 behalten</button></div>`).join("")}</div>
+    <div class="row" style="justify-content:center;margin-top:10px"><button class="btn primary" data-roll>🎲 Würfeln</button><button class="btn" data-save disabled>✍️ In meine Probe-Klassenarbeit übernehmen</button></div>
+    <div class="lp-out" data-out>Würfle eine Märchenidee! Mit „behalten“ kannst du eine Karte festhalten.</div>`, box=>{
+    const cur={}, lock={}, out=$("[data-out]",box);
+    box.addEventListener("click",e=>{
+      const l=e.target.closest("[data-lock]"); if(l){ const k=l.dataset.lock; if(!cur[k]) return; lock[k]=!lock[k]; l.textContent=lock[k]?"🔒 behalten":"🔓 behalten"; l.classList.toggle("on",lock[k]); return; }
+      if(e.target.closest("[data-roll]")){ let n=0; const iv=setInterval(()=>{ ks.forEach(k=>{ if(!lock[k]){ const L=MF_KARTEN[k].l; cur[k]=L[Math.floor(Math.random()*L.length)]; $(`[data-r="${k}"]`,box).textContent=cur[k]; } }); if(++n>8){ clearInterval(iv);
+          out.innerHTML=`<b>Deine Märchenidee:</b> Es war einmal <b>${cur.held}</b>. <b>${cur.gegner[0].toUpperCase()+cur.gegner.slice(1)}</b> machte großen Ärger. Mit Hilfe von <b>${cur.helfer}</b> musste die Hauptfigur <b>${cur.aufgabe}</b> …`; $("[data-save]",box).disabled=false; } }, 70); return; }
+      if(e.target.closest("[data-save]")){ mfSet("idee",{...cur}); out.innerHTML+=`<div class="fb ok">✓ Gespeichert! Du findest die Idee im Kapitel „Probe-Klassenarbeit“ unter „Meine Würfel-Idee“.</div>`; }
+    });
+  }, "card");
+}
+
+/* ---------- Kapitel 4: Wörter-Paare ---------- */
+const MF_WOERTER = [["lieblich","angenehm, schön"],["das Spielwerk","das Spielzeug"],["der Kleinknecht","ein junger, einfacher Knecht auf dem Hof"],["albern","dumm, kindisch"],["das Begehren","der Wunsch"],["allerorten","überall"],["die Stube","das Zimmer"],["der Lebtag","das ganze Leben"],["die Einfalt","die Dummheit, Gutgläubigkeit"],["das Lädlein","hier: das kleine Fenster"],["das Linnen","der Leinenstoff"],["der Taler","das Geldstück"],["er ward","er wurde"],["das Gemach","das Zimmer"],["ein jeglicher","jeder"],["fromm","gläubig"],["das Leibchen","das Oberteil, die Bluse"],["sich vermählen","heiraten"]];
+function mfPaare(){
+  return wBox(`<div class="ph-qhead"><span data-score>Runde 1</span><span>Tippe ein altes Wort und dann seine Bedeutung.</span></div><div class="mf-paare"><div data-l></div><div data-r></div></div><div class="fb" data-fb></div>`, box=>{
+    let round=0, set=[], left=null, done=0, miss=0; const L=$("[data-l]",box), R=$("[data-r]",box), fb=$("[data-fb]",box);
+    const deal=()=>{ round++; set=lpMix(MF_WOERTER).slice(0,6); done=0; miss=0; left=null; fb.textContent="";
+      L.innerHTML=set.map((p,i)=>`<button class="mf-p" data-a="${i}">${p[0]}</button>`).join(""); R.innerHTML=lpMix(set.map((p,i)=>i)).map(i=>`<button class="mf-p" data-b="${i}">${set[i][1]}</button>`).join("");
+      $("[data-score]",box).textContent=`Runde ${round}`; };
+    box.addEventListener("click",e=>{
+      if(e.target.closest("[data-again]")) return deal();
+      const a=e.target.closest("[data-a]"); if(a&&!a.disabled){ left=+a.dataset.a; L.querySelectorAll(".mf-p").forEach(x=>x.classList.toggle("sel",x===a)); return; }
+      const b=e.target.closest("[data-b]"); if(b&&!b.disabled){ if(left==null){ fb.className="fb"; fb.textContent="Tippe zuerst links ein altes Wort an."; return; }
+        if(+b.dataset.b===left){ const la=L.querySelector(`[data-a="${left}"]`); [la,b].forEach(x=>{ x.classList.remove("sel"); x.classList.add("ok"); x.disabled=true; }); left=null; done++; fb.className="fb ok"; fb.textContent="Passt! ⭐";
+          if(done===set.length) fb.innerHTML=`🏆 Runde geschafft${miss?` (${miss} Fehlversuche)`:" ohne Fehler"}! <button class="btn primary" data-again style="margin-left:8px">Neue Runde</button>`; }
+        else { miss++; b.classList.add("no"); setTimeout(()=>b.classList.remove("no"),600); fb.className="fb no"; fb.textContent="Das passt nicht zusammen. Lies den Satz im Kopf mit der Bedeutung – ergibt er Sinn?"; } }
+    });
+    deal();
+  }, "card");
+}
+
+/* ---------- Kapitel 5: Präteritum-Trainer ---------- */
+const MF_VERBEN = [["ist","war"],["hat","hatte"],["geht","ging"],["kommt","kam"],["sieht","sah"],["spricht","sprach"],["ruft","rief"],["gibt","gab"],["nimmt","nahm"],["findet","fand"],["reitet","ritt"],["läuft","lief"],["denkt","dachte"],["weiß","wusste"],["bringt","brachte"],["sitzt","saß"],["steht","stand"],["fällt","fiel"],["fliegt","flog"],["trifft","traf"],["hilft","half"],["schläft","schlief"],["weint","weinte"],["fragt","fragte"],["antwortet","antwortete"],["wird","wurde"],["kann","konnte"],["muss","musste"],["will","wollte"],["schreit","schrie"],["liegt","lag"],["isst","aß"],["trinkt","trank"],["beginnt","begann"],["zieht","zog"],["bittet","bat"],["lacht","lachte"],["schwimmt","schwamm"],["verschwindet","verschwand"],["erkennt","erkannte"]];
+function mfPraet(){
+  return wBox(`<div class="ph-qhead"><span data-h></span><span data-s></span></div>
+    <div class="lp-item" data-q></div><div class="row" style="justify-content:center"><input class="mf-in" data-in autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Präteritum …" aria-label="Präteritum eintippen"><button class="btn primary" data-ok>Prüfen</button></div>
+    <div class="row mf-umlaut" style="justify-content:center;margin-top:6px">${["ä","ö","ü","ß"].map(c=>`<button class="btn" data-ch="${c}">${c}</button>`).join("")}</div><div class="fb" data-fb style="text-align:center"></div>`, box=>{
+    let list=[], i=0, right=0, wait=false; const inp=$("[data-in]",box), fb=$("[data-fb]",box);
+    const start=()=>{ list=lpMix(MF_VERBEN).slice(0,10); i=0; right=0; show(); };
+    const show=()=>{ wait=false; if(i>=list.length){ $("[data-q]",box).innerHTML=`${right===10?"🏆":"🎉"} ${right} von 10 richtig`; $("[data-h]",box).textContent="Fertig!"; fb.innerHTML=`<button class="btn primary" data-again>Neue Runde</button>`; fb.className="fb"; inp.value=""; return; }
+      $("[data-h]",box).textContent=`Verb ${i+1} von 10`; $("[data-s]",box).textContent=`${right} richtig`;
+      $("[data-q]",box).innerHTML=`er / sie <b>${list[i][0]}</b> → er / sie … ?`; inp.value=""; fb.textContent=""; if(i>0) try{ inp.focus({preventScroll:true}); }catch(e){} };
+    const check=()=>{ if(wait||i>=list.length) return; const v=inp.value.trim().toLowerCase().replace(/^(er|sie|es)\s+/,""); if(!v) return; wait=true;
+      const ok=v===list[i][1]; if(ok) right++; fb.className="fb "+(ok?"ok":"no"); fb.innerHTML= ok?"Richtig! ⭐":`Nicht ganz – richtig ist: <b>${list[i][1]}</b>`;
+      setTimeout(()=>{ i++; show(); }, ok?800:2000); };
+    box.addEventListener("click",e=>{ if(e.target.closest("[data-ok]")) check(); if(e.target.closest("[data-again]")) start();
+      const c=e.target.closest("[data-ch]"); if(c){ inp.value+=c.dataset.ch; inp.focus(); } });
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); check(); } });
+    start();
+  }, "card");
+}
+
+/* ---------- Kapitel 8: Probe-Klassenarbeit ---------- */
+const MF_KA = {
+  turm:{titel:"Der Turm im Nebelwald",
+    text:"Es war einmal ein König, der hatte drei Töchter. Die beiden älteren waren stolz und stark, die jüngste aber war so klein, dass alle sie nur „Fingerhut“ nannten. Eines Tages ritten die beiden älteren Prinzessinnen in den Nebelwald, denn dort sollte ein Turm voller Gold stehen. Doch sie kamen nicht zurück. Ein alter Jäger berichtete dem König: „Im Nebelwald ist es unheimlich. Wer dem Turm zu nahe kommt, verschwindet.“ Da sprach Fingerhut: „Ich werde meine Schwestern suchen!“ Der König war besorgt, doch er gab ihr eine silberne Nadel. „Diese Nadel hat mir einst eine Fee geschenkt“, sagte er. „Sie zeigt dir den Weg, wenn du nicht weiterweißt.“ So machte sich Fingerhut am nächsten Morgen auf den Weg. Als sie den Waldrand erreichte, …",
+    fakten:{wer:"der König, seine drei Töchter (zwei stolze, starke Schwestern und die winzige Fingerhut), ein alter Jäger",problem:"Die beiden älteren Schwestern sind beim Turm im Nebelwald verschwunden. Fingerhut will sie retten.",helfer:"eine silberne Nadel von einer Fee – sie zeigt den Weg, wenn Fingerhut nicht weiterweiß",ort:"ein Königreich, der unheimliche Nebelwald mit einem Turm voller Gold; Zeit: ungenau („Es war einmal“)"},
+    anfang:"Fingerhut, die kleinste Prinzessin, bricht mit einer silbernen Zaubernadel auf, um ihre Schwestern aus dem Nebelwald zu retten.",
+    tipps:["Was ist im Turm geschehen? Wer hält die Schwestern gefangen?","Welche drei Hindernisse muss Fingerhut überwinden?","Wann und wie hilft die silberne Nadel?","Trifft Fingerhut ein sprechendes Tier oder ein Zauberwesen?","Wie wird das Böse bestraft, wie wird Fingerhut belohnt?"],
+    muster:"Als sie den Waldrand erreichte, wurde der Nebel so dicht, dass sie die eigene Hand nicht mehr sah. Ängstlich hielt Fingerhut die silberne Nadel hoch. Da begann die Nadel zu leuchten und zeigte nach Norden. Bald kam sie an einen Fluss, über den keine Brücke führte. Am Ufer saß eine alte Kröte und jammerte: „Ein Dorn steckt in meinem Fuß!“ Vorsichtig zog Fingerhut den Dorn heraus. „Wie kann ich dir danken?“, fragte die Kröte. „Halte dich an meinem Rücken fest!“ So schwamm sie mit Fingerhut über den Fluss.\n\nAm nächsten Morgen stand Fingerhut vor dem Turm. Er hatte keine Tür, nur sieben schmale Fenster ganz oben. Ob ich so klein bin, dass ich durch die Mauerritzen passe?, dachte sie. Und tatsächlich: Sie schlüpfte durch einen Spalt hinein.\n\nDrinnen saß ein grauer Zauberer an einem Tisch voller Gold. Neben ihm standen ihre Schwestern – zu Stein erstarrt. „Wer meinen Turm betritt, muss drei Fragen beantworten“, knurrte er. Furchtlos beantwortete Fingerhut die ersten zwei Fragen. Bei der dritten Frage aber wusste sie nicht weiter. Da begann die silberne Nadel zu summen und flüsterte ihr die Antwort ins Ohr. Der Zauberer schrie vor Wut auf und zerfiel zu Staub.\n\nDa war der Zauber vorbei, und die Schwestern erwachten. Gemeinsam ritten sie mit dem Gold heim zum König. Von nun an lachte niemand mehr über Fingerhut. Und wenn sie nicht gestorben sind, dann leben sie noch heute."},
+  riese:{titel:"Der Müllerssohn und der Steinriese",
+    text:"Vor langer Zeit lebte ein armer Müller mit seinen drei Söhnen. Eines Sommers floss kein Wasser mehr in den Bach, und das Mühlrad stand still. Die Leute im Dorf hatten Durst, und die Felder vertrockneten. „Ein Riese hat die Quelle oben im Gebirge mit einem Felsen verschlossen“, erzählten die Hirten. Die beiden älteren Söhne lachten nur: „Gegen einen Riesen kann niemand etwas ausrichten.“ Der jüngste Sohn, Hans, aber sprach: „Ich will es versuchen.“ Seine Mutter gab ihm ein Stück Brot und einen alten, grauen Ring. „Dreh ihn dreimal, wenn du in Not bist“, flüsterte sie. Nach sieben Tagen kam Hans an einen dunklen Berg. Da …",
+    fakten:{wer:"ein armer Müller, seine Frau, drei Söhne (die älteren lachen, der jüngste heißt Hans), Hirten, ein Riese",problem:"Ein Riese hat die Quelle verschlossen – das Dorf hat kein Wasser mehr, die Mühle steht still.",helfer:"ein alter, grauer Ring – dreimal drehen, wenn man in Not ist; ein Stück Brot",ort:"ein Dorf mit Mühle, das Gebirge mit der Quelle, ein dunkler Berg; Zeit: ungenau („Vor langer Zeit“)"},
+    anfang:"Hans, der jüngste Sohn des armen Müllers, zieht los, um die Quelle vom Riesen zu befreien. Er hat einen Zauberring und ein Stück Brot.",
+    tipps:["Wem könnte Hans unterwegs sein Brot schenken – und wer hilft ihm später?","Welche drei Aufgaben muss Hans lösen, bevor er zur Quelle kommt?","Was passiert, wenn Hans den Ring dreimal dreht?","Wie überlistet Hans den Riesen – mit Kraft oder mit Klugheit?","Wie endet das Märchen für das Dorf und für Hans?"]},
+  iwan:{titel:"Iwan Zarewitsch und Zarewna Frosch",
+    text:"Weit hinter den sieben Bergen lebte ein Zar mit seinen drei Söhnen. Eines Tages befahl er ihnen, einen Pfeil abzuschießen: Wo der Pfeil landete, sollten sie ihre Braut finden. Die Pfeile der älteren Brüder landeten bei einer reichen Bojarentochter und bei einer Kaufmannstochter. Der Pfeil des jüngsten Sohnes, Iwan Zarewitsch, aber flog bis in einen tiefen Sumpf – zu einem Frosch. Iwan musste den Frosch heiraten. Bald darauf stellte der Zar die erste Aufgabe: Die Frauen sollten ihm bis zum nächsten Morgen ein Brot backen. Nachts warf der Frosch seine Froschhaut ab und wurde zur klugen und schönen Wassilissa. Ihr Brot war das schönste von allen. Bald darauf ließ der Zar seine drei Söhne wieder kommen …",
+    fakten:{wer:"der Zar, drei Söhne (der jüngste: Iwan Zarewitsch), die Frauen der Brüder, der Frosch = Wassilissa die Allweise",problem:"Iwan musste einen Frosch heiraten. Der Zar stellt den Frauen Aufgaben. Wassilissa ist verzaubert.",helfer:"Wassilissa selbst: Sie kann zaubern, wenn sie die Froschhaut ablegt; „Der Morgen ist weiser als der Abend.“",ort:"„weit hinter den sieben Bergen“, das Reich des Zaren, ein Sumpf; Zeit: ungenau"},
+    anfang:"Iwans Pfeil landet bei einem Frosch, den er heiraten muss. Nachts wird der Frosch zur klugen Wassilissa. Die erste Aufgabe (Brot backen) hat sie schon gelöst.",
+    tipps:["Welche Aufgaben könnte der Zar den Frauen als Nächstes stellen?","Wie löst Wassilissa die Aufgaben besonders gut?","Wer oder was könnte Wassilissa von ihrem Fluch (der Froschhaut) befreien?","Wie endet das Märchen glücklich?"],
+    ideen:["einen Krug töpfern","einen Tanz aufführen","einen Teppich weben","einen Mantel nähen","Marmelade kochen","eine gute Fee","ein Zaubertrank","ein magischer Spiegel","eine sprechende Taube","ein kluger Zauberer","Iwans Kuss befreit Wassilissa von der Froschhaut"]}
+};
+const MF_KA_AUFG = [["ein ganz neues Märchen erfinden",false,"Der Anfang ist vorgegeben – du schreibst ihn weiter."],["das Märchen weiterschreiben",true,"Genau das ist die Aufgabe."],["erzählen, was vor dem Anfang passiert ist",false,"Die Vorgeschichte ist nicht gefragt."],["am Schluss das Gute siegen lassen",true,"Ein typisches Märchenmerkmal: glückliches Ende."],["märchentypische Wendungen verwenden",true,"z. B. „Eines Tages …“ oder „Und wenn sie nicht gestorben sind …“"],["den vorgegebenen Anfang noch einmal nacherzählen",false,"Der Anfang steht schon da – nicht wiederholen, sondern weitererzählen."],["von Aufgaben und Prüfungen erzählen, die die Hauptfigur bestehen muss",true,"Im Hauptteil stehen meist drei Aufgaben."]];
+const MF_HILFEN = ["Eines Tages …","Da ritt er weiter und sah …","Plötzlich stand … vor ihm.","Und wie sie so überlegte, …","Am nächsten Morgen …","Wenig später geschah es, dass …","„Wie kann ich dir helfen?“, sprach …","Furchtlos …","Glücklicherweise …","Ob ich …?, dachte …","Da war der Zauber vorbei …","Und sie lebten glücklich und zufrieden bis an ihr Lebensende.","Und wenn sie nicht gestorben sind, dann leben sie noch heute."];
+const MF_PLAN_L = ["Anfang","Das Problem","1. Aufgabe","2. Aufgabe","3. Aufgabe","Schluss"];
+const MF_PLAN_C = ["#2e9e4f","#a855f7","#8b5cf6","#7c3aed","#6d28d9","#2563eb"];
+
+function mfCheck(text){
+  const narr=text.replace(/[„"»][^„"“”»«]*[“”"«]/g," ").replace(/wenn sie nicht gestorben sind,?\s*dann leben sie noch heute/gi," ").replace(/[^.!?]*\?,\s*dachte[^.!?]*/gi," ");
+  const cnt=(re,s)=>((s||text).match(re)||[]).length;
+  const words=text.trim()?text.trim().split(/\s+/).length:0;
+  const praes=[...new Set((narr.match(/\b(ist|sind|geht|gehen|kommt|kommen|sagt|sieht|hat|haben|kann|will|läuft|nimmt|gibt|findet|reitet|fragt|antwortet|denkt|spricht|ruft|steht|sitzt|macht|weiß|lebt|fliegt|hilft)\b/gi)||[]).map(w=>w.toLowerCase()))];
+  const prae=cnt(/\b(war|waren|ging|gingen|kam|kamen|sah|sahen|sprach|rief|gab|nahm|fand|ritt|lief|dachte|stand|saß|hatte|hatten|konnte|wollte|musste|wurde|fragte|antwortete|sagte|fiel|flog|traf|half|machte|lebten|lachte|schlief|zog|bat|erkannte|verschwand|schwamm|brachte|wusste)\b/gi);
+  const wend=cnt(/(Eines Tages|Plötzlich|Am nächsten Morgen|Am andern Morgen|Furchtlos|Glücklicherweise|Wenig später|Und wie|Endlich|Bald darauf|\bDa\b|\bAls\b)/g);
+  return [
+    {s:words>=180?2:words>=90?1:0, t:`Länge: ${words} Wörter`, h:"In der Arbeit solltest du etwa 1 bis 2 Heftseiten schreiben (ungefähr 200 Wörter oder mehr)."},
+    {s:prae>=6?2:prae>=2?1:0, t:"Erzählt im Präteritum (war, ging, sprach …)", h:"Märchen stehen im Präteritum. Benutze Formen wie: war, ging, kam, sprach, rief."},
+    {s:praes.length?0:2, t:praes.length?`Achtung, Präsens gefunden: ${praes.slice(0,6).join(", ")}`:"Kein Präsens im Erzähltext gefunden", h:"Diese Verben stehen im Präsens. Außerhalb der wörtlichen Rede gehören sie ins Präteritum (ist → war, geht → ging)."},
+    {s:cnt(/[„“"»«]/g)>=2?2:0, t:"Wörtliche Rede mit Anführungszeichen", h:"Lass die Figuren sprechen: „Wie kann ich dir helfen?“, fragte die Eule."},
+    {s:/\b(sprach|rief|fragte|antwortete|flüsterte|jammerte|entgegnete|tröstete|schrie|seufzte|knurrte|murmelte|erwiderte|befahl|bat)\b/i.test(text)?2:0, t:"Abwechslungsreiche Redeverben (sprach, rief, flüsterte …)", h:"Statt immer „sagte“: sprach, rief, flüsterte, jammerte, entgegnete, tröstete."},
+    {s:/\b(drei|dritten?|dritter?|dreimal|sieben|siebte[nrs]?|zwölf|3|7|12)\b/i.test(text)?2:0, t:"Magische Zahl (3, 7 oder 12)", h:"Erzähle zum Beispiel von drei Aufgaben oder sieben Tagen."},
+    {s:/(zauber|fee\b|feen|zwerg|hexe|verzauber|verwunsch|magisch|riese|drache|sprechend|taube|fluch|erlös|wunder)/i.test(text)?2:0, t:"Zauber, Zauberwesen oder Helfer", h:"Ein Märchen braucht Wunderbares: eine Fee, einen Zaubergegenstand, ein sprechendes Tier …"},
+    {s:wend>=3?2:wend>=1?1:0, t:"Märchentypische Wendungen und Überleitungen", h:"Verknüpfe die Abschnitte: Eines Tages … – Da … – Plötzlich … – Am nächsten Morgen …"},
+    {s:/(glücklich|gestorben|Lebensende|zufrieden|vorbei|Hochzeit|vermählt|belohnt)/i.test(text)?2:0, t:"Glückliches Ende / Schlussformel", h:"Beende dein Märchen glücklich, z. B.: Und wenn sie nicht gestorben sind, dann leben sie noch heute."}
+  ];
+}
+
+function mfKlassenarbeit(){
+  return wBox(`<div class="lp-chips mf-kasel"></div><div class="mf-kasteps"></div><div class="mf-kabody"></div>`, box=>{
+    const sel=$(".mf-kasel",box), stepsEl=$(".mf-kasteps",box), body=$(".mf-kabody",box);
+    let key=mfGet("ka-key","turm"), step=0, timer=null;
+    const idee=mfGet("idee",null);
+    const KA={...MF_KA}; if(idee) KA.idee={titel:"Meine Würfel-Idee", eigen:true,
+      text:`Diesmal schreibst du ein ganzes Märchen selbst – mit Anfang! Deine Karten: Held/Heldin: ${idee.held} · Gegenspieler/-in: ${idee.gegner} · Helfer: ${idee.helfer} · Aufgabe: ${idee.aufgabe}.`,
+      anfang:`${idee.held} lebt in einer schwierigen Lage …`, tipps:["Wie heißt deine Hauptfigur, und in welcher Not steckt sie?","Was hat der Gegenspieler getan?","Wie bekommt die Hauptfigur ihren Helfer?","Welche drei Prüfungen muss sie bestehen?","Wie endet das Märchen glücklich?"]};
+    if(!KA[key]) key="turm";
+    const st=()=>mfGet("ka-"+key,{a:{},f:{},p:{},t:"",m:{}}); const save=s=>mfSet("ka-"+key,s);
+    const STEPS=["1 · Aufgabe verstehen","2 · Angaben sammeln","3 · Planen","4 · Schreiben","5 · Überarbeiten"];
+    const drawSel=()=>{ sel.innerHTML=Object.entries(KA).map(([k,v])=>`<button data-key="${k}" class="${k===key?"on":""}">${v.titel}</button>`).join(""); stepsEl.innerHTML=`<div class="mf-steps">${STEPS.map((s,i)=>`<button data-step="${i}" class="${i===step?"on":""}">${s}</button>`).join("")}</div>`; };
+    const stopTimer=()=>{ if(timer){ clearInterval(timer); timer=null; } };
+    const textBox=K=>`<details class="mf-anf" ${step<=1?"open":""}><summary><b>📜 ${K.eigen?"Deine Karten":"Der Märchenanfang"}: ${K.titel}</b></summary><p>${esc(K.text)}</p></details>`;
+
+    function render(){ stopTimer(); drawSel(); const K=KA[key], s=st();
+      if(step===0){
+        body.innerHTML=`<div class="note"><b>Aufgabenstellung:</b> ${K.eigen?"Schreibe ein eigenes Märchen mit Hilfe deiner Karten. Anfang, Hauptteil und Schluss sollen typische Märchenmerkmale haben.":`Schreibe das Märchen „${K.titel}“ zu Ende. Die weitere Handlung und der Schluss sollen typische Märchenmerkmale haben.`}</div>${textBox(K)}
+        <h3>Weißt du, was die Aufgabe von dir verlangt? Wähle die <b>vier</b> richtigen Aussagen.</h3><p style="margin:0 0 6px">Ich soll …</p>
+        <div class="mf-chips">${MF_KA_AUFG.map((a,i)=>`<button class="mf-chip ${s.a[i]?"on":""}" data-a="${i}">${String.fromCharCode(65+i)} · ${a[0]}</button>`).join("")}</div>
+        <div class="row" style="margin-top:8px"><button class="btn primary" data-acheck>Prüfen</button><button class="btn" data-go="1">Weiter zu Schritt 2 →</button></div><div data-aout></div>`;
+      }
+      if(step===1){
+        const F=[["wer","Wer kommt vor? (Figuren)"],["problem","Was ist das Problem?"],["helfer","Gibt es schon einen Helfer oder Zaubergegenstand?"],["ort","Wo und wann spielt das Märchen?"]];
+        body.innerHTML=`${textBox(K)}<p>Sammle zuerst alle <b>Angaben, die dir der Anfang schon gibt</b>. Deine Fortsetzung muss genau dazu passen!</p>
+        ${F.map(f=>`<label class="mf-lab">${f[1]}</label><textarea class="mf-ta" rows="2" data-f="${f[0]}">${esc(s.f[f[0]]||"")}</textarea>`).join("")}
+        <div class="row" style="margin-top:8px">${K.fakten?`<button class="btn" data-fsol>Mit der Lösung vergleichen</button>`:""}<button class="btn primary" data-go="2">Weiter zu Schritt 3 →</button></div><div data-fout></div>`;
+      }
+      if(step===2){
+        if(!s.p[0]) s.p[0]=K.anfang;
+        body.innerHTML=`<p>Plane die Fortsetzung in Stichworten. Der Märchenberg füllt sich, während du schreibst.</p>
+        <div class="mf-plan"><div>${MF_PLAN_L.map((l,i)=>`<label class="mf-lab" style="color:${MF_PLAN_C[i]}">${l}${i===0?" (steht schon im Text)":""}</label><textarea class="mf-ta" rows="2" data-p="${i}" placeholder="Stichworte …">${esc(s.p[i]||"")}</textarea>`).join("")}</div>
+        <div>${mfBergBox(6,MF_PLAN_L,MF_PLAN_C)}<div class="note" style="margin-top:10px"><b>Tipps zum Weiterschreiben</b><ul style="margin:.3em 0 0;padding-left:1.2em">${K.tipps.map(t=>`<li>${t}</li>`).join("")}</ul></div>
+        ${K.ideen?`<div class="note"><b>Ideen-Kiste</b> (antippen = in die nächste leere Zeile übernehmen)<div class="mf-chips" style="margin-top:6px">${K.ideen.map(x=>`<button class="mf-chip" data-idee="${esc(x)}">${x}</button>`).join("")}</div></div>`:""}</div></div>
+        <div class="row" style="margin-top:8px"><button class="btn primary" data-go="3">Weiter zu Schritt 4 →</button></div>`;
+        syncBerg();
+      }
+      if(step===3){
+        body.innerHTML=`${textBox(K)}<div class="mf-timer"><span data-tm>45:00</span><button class="btn" data-ts>▶ 45-Minuten-Uhr starten</button><button class="btn" data-tr>↺</button></div>
+        <details class="mf-anf"><summary><b>🗺️ Mein Plan</b></summary><ol>${MF_PLAN_L.map((l,i)=>`<li><b>${l}:</b> ${esc(s.p[i]||"–")}</li>`).join("")}</ol></details>
+        <p style="margin:.6em 0 .3em"><b>Formulierungshilfen</b> (antippen = an der Stelle des Cursors einfügen):</p>
+        <div class="mf-chips">${MF_HILFEN.map(h=>`<button class="mf-chip" data-ins="${esc(h)}">${h}</button>`).join("")}</div>
+        <textarea class="mf-ta mf-big" data-t rows="16" placeholder="${K.eigen?"Es war einmal …":"Schreib hier weiter …"}">${esc(s.t||"")}</textarea>
+        <div class="row" style="justify-content:space-between"><span data-wc></span><button class="btn primary" data-go="4">Fertig? Jetzt überarbeiten →</button></div>`;
+        wc();
+      }
+      if(step===4){
+        const R=mfCheck(s.t||""); const pts=R.reduce((a,r)=>a+r.s,0);
+        const MAN=["Meine Fortsetzung passt zum Anfang (Figuren, Ausgangssituation).","Die Hauptfigur besteht Abenteuer oder Prüfungen (oft drei).","Am Ende siegt das Gute, das Böse wird bestraft.","Ich mache deutlich, was die Figuren sagen und denken.","Ich habe meinen Text noch einmal auf Rechtschreibung gelesen."];
+        body.innerHTML=(s.t||"").trim().length<20?`<div class="note">Schreib zuerst in Schritt 4 deinen Text. Dann prüft die Checkliste ihn automatisch.</div>`:
+        `<div class="mf-score"><b>${pts} von ${R.length*2}</b> Punkten in der automatischen Prüfung ${pts>=R.length*2-2?"🏆":pts>=R.length?"👍":"💪"}</div>
+        <ul class="mf-check">${R.map(r=>`<li class="s${r.s}"><span>${r.s===2?"✅":r.s===1?"🟡":"❌"}</span><div><b>${r.t}</b>${r.s<2?`<br><small>${r.h}</small>`:""}</div></li>`).join("")}</ul>
+        <h3>Das prüfst du selbst</h3><div class="mf-manual">${MAN.map((m,i)=>`<label><input type="checkbox" data-m="${i}" ${s.m[i]?"checked":""}> ${m}</label>`).join("")}</div>
+        <div class="row" style="margin-top:10px"><button class="btn" data-go="3">← Text verbessern</button><button class="btn" data-copy>Text kopieren</button>${K.muster?`<button class="btn" data-mus>Musterlösung ansehen</button>`:""}</div><div class="fb" data-cfb></div><div data-mout></div>
+        <div class="note" style="margin-top:12px"><b>Hinweis:</b> Die automatische Prüfung sucht nur nach Merkmalen im Text. Ob deine Geschichte spannend ist und zum Anfang passt, beurteilt am besten jemand, der sie liest – zeig sie Mama oder Papa!</div>`;
+      }
+    }
+    function syncBerg(){ const s=st(); box.querySelectorAll(".mf-slot").forEach((sl,i)=>{ const v=(s.p[i]||"").trim(); $("span",sl).textContent=v.length>60?v.slice(0,58)+"…":v; sl.classList.toggle("full",!!v); }); }
+    function wc(){ const t=$("[data-t]",box); if(!t) return; const n=t.value.trim()?t.value.trim().split(/\s+/).length:0; $("[data-wc]",box).textContent=`${n} Wörter`; }
+
+    box.addEventListener("click",e=>{
+      const k=e.target.closest("[data-key]"); if(k){ key=k.dataset.key; mfSet("ka-key",key); step=0; return render(); }
+      const sp=e.target.closest("[data-step]"); if(sp){ step=+sp.dataset.step; render(); return; }
+      const go=e.target.closest("[data-go]"); if(go){ step=+go.dataset.go; render(); box.scrollIntoView({block:"start",behavior:"smooth"}); return; }
+      const a=e.target.closest("[data-a]"); if(a&&!box.querySelector("[data-aout] .fb")){ const s=st(); s.a[a.dataset.a]=!s.a[a.dataset.a]; save(s); a.classList.toggle("on"); return; }
+      if(e.target.closest("[data-acheck]")){ const s=st(); let r=0; box.querySelectorAll("[data-a]").forEach(x=>{ const i=+x.dataset.a, on=!!s.a[i], ok=MF_KA_AUFG[i][1]; if(on===ok) r++; x.classList.toggle("ok",on&&ok); x.classList.toggle("no",on&&!ok); x.classList.toggle("miss",!on&&ok); });
+        $("[data-aout]",box).innerHTML=`<div class="fb ${r===7?"ok":"no"}">${r===7?"🏆 Genau! Richtig sind B, D, E und G.":`${r} von 7 richtig entschieden. Richtig sind B, D, E und G.`}</div><ul class="mf-why">${MF_KA_AUFG.map((x,i)=>`<li class="${x[1]?"y":"n"}"><b>${String.fromCharCode(65+i)}</b> – ${x[2]}</li>`).join("")}</ul>`; return; }
+      if(e.target.closest("[data-fsol]")){ const K=KA[key], o=$("[data-fout]",box); o.innerHTML=o.innerHTML?"":`<div class="note"><b>Das steht im Anfang:</b><ul style="margin:.3em 0 0;padding-left:1.2em"><li><b>Figuren:</b> ${K.fakten.wer}</li><li><b>Problem:</b> ${K.fakten.problem}</li><li><b>Helfer:</b> ${K.fakten.helfer}</li><li><b>Ort und Zeit:</b> ${K.fakten.ort}</li></ul></div>`; return; }
+      const id=e.target.closest("[data-idee]"); if(id){ const s=st(); const i=[2,3,4,5,1].find(j=>!(s.p[j]||"").trim()); if(i==null) return; s.p[i]=id.dataset.idee; save(s); const ta=box.querySelector(`[data-p="${i}"]`); if(ta) ta.value=s.p[i]; syncBerg(); return; }
+      const ins=e.target.closest("[data-ins]"); if(ins){ const t=$("[data-t]",box); const v=ins.dataset.ins.replace(/…$/,"").replace(/ …/g," "); const a0=t.selectionStart??t.value.length, b0=t.selectionEnd??t.value.length;
+        const pre=t.value.slice(0,a0), add=(pre&&!/\s$/.test(pre)?" ":"")+v; t.value=pre+add+t.value.slice(b0); t.focus(); t.selectionStart=t.selectionEnd=a0+add.length; t.dispatchEvent(new Event("input",{bubbles:true})); return; }
+      if(e.target.closest("[data-ts]")){ const b=$("[data-ts]",box); if(timer){ stopTimer(); b.textContent="▶ weiter"; return; }
+        let left=mfGet("ka-left",45*60); b.textContent="⏸ Pause"; timer=setInterval(()=>{ left--; mfSet("ka-left",left); const m=$("[data-tm]",box); if(!m){ stopTimer(); return; } m.textContent=`${String(Math.floor(Math.max(0,left)/60)).padStart(2,"0")}:${String(Math.max(0,left)%60).padStart(2,"0")}`; if(left<=0){ stopTimer(); m.textContent="⏰ Zeit ist um!"; } },1000); return; }
+      if(e.target.closest("[data-tr]")){ stopTimer(); mfSet("ka-left",45*60); $("[data-tm]",box).textContent="45:00"; $("[data-ts]",box).textContent="▶ 45-Minuten-Uhr starten"; return; }
+      if(e.target.closest("[data-copy]")){ const s=st(); const K=KA[key]; const txt=(K.eigen?"":K.text+"\n\n")+(s.t||"");
+        (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>{ $("[data-cfb]",box).className="fb ok"; $("[data-cfb]",box).textContent="✓ Kopiert!"; }).catch(()=>{ $("[data-cfb]",box).textContent="Kopieren ging nicht – markiere den Text in Schritt 4 und kopiere ihn selbst."; }); return; }
+      if(e.target.closest("[data-mus]")){ const o=$("[data-mout]",box); o.innerHTML=o.innerHTML?"":`<div class="card" style="margin-top:10px"><h3 style="margin-top:0">Musterlösung: ${KA[key].titel}</h3>${KA[key].muster.split("\n\n").map(p=>`<p>${esc(p)}</p>`).join("")}<div class="note"><b>Achte darauf:</b> drei Aufgaben (Fluss, Turm ohne Tür, drei Fragen), Helfer (Kröte, Nadel), magische Zahlen (sieben, drei), wörtliche Rede, Gedanken („Ob ich …?, dachte sie“), Präteritum und die Schlussformel.</div></div>`; return; }
+    });
+    box.addEventListener("input",e=>{ const s=st(); const t=e.target;
+      if(t.dataset.f){ s.f[t.dataset.f]=t.value; save(s); }
+      if(t.dataset.p){ s.p[t.dataset.p]=t.value; save(s); syncBerg(); }
+      if(t.dataset.t!==undefined){ s.t=t.value; save(s); wc(); }
+    });
+    box.addEventListener("change",e=>{ const m=e.target.closest("[data-m]"); if(m){ const s=st(); s.m[m.dataset.m]=m.checked; save(s); } });
+    render();
+    return stopTimer;
+  });
+}
+
+/* ---------- Kapitel ---------- */
+const MF_DONE_BTN = id=>wBox(`<div class="mf-done"><button class="btn primary" data-done>✓ Kapitel geschafft</button><span></span></div>`, box=>{
+  const b=$("[data-done]",box), s=$("span",box); const upd=()=>{ const d=mfGet("done",{}); b.textContent=d[id]?"✓ Geschafft – nochmal üben?":"✓ Kapitel geschafft"; b.classList.toggle("primary",!d[id]); s.textContent=d[id]?"Super! Das Kapitel ist abgehakt.":""; };
+  b.onclick=()=>{ const d=mfGet("done",{}); d[id]=!d[id]; mfSet("done",d); upd(); const nav=document.querySelector(".mf-nav"); if(nav) nav.dispatchEvent(new Event("mf-upd")); }; upd(); });
+
+const MF_CH = [
+ {id:"start", em:"🗺️", t:"Start", html:()=>`
+  <h2>Dein Weg zur Deutscharbeit</h2>
+  <p>Hier findest du alles aus <b>Kapitel 7 „Es war einmal …“</b> deines Deutschbuchs zum Üben – mit Spielen, Rätseln und einer <b>Probe-Klassenarbeit</b>. Arbeite die Kapitel der Reihe nach durch und hake sie ab.</p>
+  <div class="mf-over" data-over></div>
+  <h2>Lernplan bis Mitte Dezember</h2>
+  <div class="lp-steps">
+   <div><span class="em">📅</span><b>Woche 1 · bis 23.11.</b>Kapitel 1 und 2: Märchen erkennen und den Aufbau verstehen.</div>
+   <div><span class="em">📅</span><b>Woche 2 · 24.–30.11.</b>Kapitel 3 und 4: Figuren und alte Wörter. Dazu den <a href="#/deutsch/maerchenberg">Märchenberg in 3D</a>.</div>
+   <div><span class="em">📅</span><b>Woche 3 · 1.–7.12.</b>Kapitel 5, 6 und 7: Werkzeugkasten, Nacherzählen, moderne Märchen.</div>
+   <div><span class="em">📅</span><b>Woche 4 · 8.–14.12.</b>Kapitel 8 zweimal mit verschiedenen Anfängen – einmal mit der 45-Minuten-Uhr. Zum Schluss Spickzettel und Abschlusstest.</div>
+  </div>
+  <div class="note"><b>Tipp:</b> Lieber jeden Tag 15 Minuten als einmal zwei Stunden. Was du hier schreibst, bleibt auf diesem Gerät gespeichert.</div>`},
+
+ {id:"erkennen", em:"🔍", t:"1 · Märchen erkennen", html:()=>`
+  <h2>1 · Märchen erkennen</h2>
+  <h3>Suchbild: Welche Märchen sind hier versteckt?</h3>
+  <p>In diesem Bild verstecken sich zwölf Dinge aus bekannten Märchen. Findest du alle?</p>
+  ${mfSuchbild()}
+  <h3>Die Merkmale von Märchen</h3>
+  <p>Tippe die Karten an. Diese vier Bereiche musst du für die Arbeit kennen:</p>
+  ${wPick([
+   {em:"🧩",name:"Aufbau",t:"<b>Anfang:</b> eine schwierige Situation oder Notlage (z. B. böse Stiefmutter, Hunger, Armut).<br><b>Hauptteil:</b> ein Problem, das die Hauptfigur lösen muss – oft mit Aufgaben, Prüfungen und Abenteuern, bei denen Zauberwesen, Tiere oder Zaubergegenstände helfen.<br><b>Schluss:</b> glückliches Ende – das Gute wird belohnt, das Böse bestraft."},
+   {em:"👑",name:"Figuren",t:"Typische Märchenfiguren: König und Königin, Prinz und Prinzessin, Feen, Hexen, Zauberer, Riesen, Zwerge und sprechende Tiere. Oft gibt es Gegensätze: gut und böse, arm und reich, fleißig und faul."},
+   {em:"🗣️",name:"Erzählweise",t:"Märchen haben <b>altertümliche Ausdrücke</b> und <b>märchenhafte Wendungen</b> („Es war einmal …“, „Es begab sich vor langer Zeit …“, „Und wenn sie nicht gestorben sind …“). Oft spielen <b>magische Zahlen</b> eine Rolle: 3, 7 und 12 – drei Wünsche, drei Aufgaben, sieben Zwerge."},
+   {em:"🏰",name:"Ort und Zeit",t:"Ort und Zeit bleiben <b>ungenau</b>: „vor langer Zeit“, „hinter den sieben Bergen“, „in einem Schloss“, „in einem tiefen Wald“."}
+  ], it=>`<h3>${it.em} ${it.name}</h3><p>${it.t}</p>`)}
+  <h3>Merkmal-Detektiv: Sterntaler</h3>
+  <p>Hier ist das Märchen „Sterntaler“ der Brüder Grimm. Markiere mit den Stiften, wo du die Merkmale findest.</p>
+  ${mfDetektiv()}
+  <h3>Welche Eigenschaften passen zu dem Mädchen?</h3>
+  ${mfMulti([["arm",true,"Es hat kein Kämmerchen und kein Bettchen mehr."],["faul",false,"Davon steht nichts im Text."],["fromm",true,"„Es war aber gut und fromm.“"],["schön",false,"Über ihr Aussehen erfahren wir nichts – du kannst es nicht mit dem Text beweisen."],["fleißig",false,"Davon steht nichts im Text."],["gut",true,"„Es war aber gut und fromm.“"],["großzügig",true,"Es verschenkt alles, was es hat – sogar das letzte Hemd."],["gütig",true,"Es ist freundlich und hilft allen, die es bitten."],["hilfsbereit",true,"Es hilft dem hungrigen Mann und den frierenden Kindern."]],6,"Tippe alle Eigenschaften an, die du <b>mit dem Text beweisen</b> kannst.")}
+  <div class="note"><b>Ist das Mädchen eine typische Märchenfigur?</b> Ja: Es ist arm und gut, es wird geprüft – und am Ende für seine Güte belohnt. Typisch ist auch der Gegensatz: Zuerst hat es gar nichts, am Ende ist es reich.</div>
+  <h2>Jetzt du! 💪</h2>
+  ${wQuiz([
+   ["Wie beginnen viele Märchen?",["„Es war einmal …“","„Gestern Abend …“","„Liebe Leserin …“","„Am 3. Mai 2024 …“"],"Die Anfangsformel „Es war einmal …“ ist typisch für Märchen."],
+   ["Welche Zahlen spielen in Märchen oft eine Rolle?",["3, 7 und 12","2, 4 und 6","10, 20 und 100","1, 5 und 9"],"Drei Wünsche, sieben Zwerge, zwölf Feen – das sind magische Zahlen."],
+   ["Wie sind Ort und Zeit im Märchen?",["ungenau – „vor langer Zeit“, „in einem Wald“","ganz genau mit Datum und Stadt","immer in der Zukunft","immer in Deutschland"],"Wo und wann ein Märchen spielt, bleibt ungenau."],
+   ["Wie endet ein Märchen meistens?",["Das Gute wird belohnt, das Böse bestraft.","Das Böse gewinnt.","Es hat gar kein Ende.","Alle streiten sich."],"Märchen haben fast immer ein glückliches Ende."],
+   ["Was ist KEIN typisches Märchenmerkmal?",["Ein Handy klingelt.","Ein Tier spricht.","Ein Zauberer verwandelt jemanden.","Es gibt drei Aufgaben."],"Handys gibt es in klassischen Märchen nicht – höchstens in modernen Märchen."],
+   ["Woran erkennt man im Sterntaler das Wunder?",["Die Sterne fallen als Taler vom Himmel.","Das Mädchen geht ins Feld.","Ein Mann hat Hunger.","Es wird dunkel."],"Sterne, die zu Geldstücken werden, gibt es nur im Märchen."]
+  ])}
+  ${MF_DONE_BTN("erkennen")}`},
+
+ {id:"aufbau", em:"🧩", t:"2 · Der Aufbau", html:()=>`
+  <h2>2 · Der Aufbau: drei Bausteine</h2>
+  <p>Die meisten Märchen bestehen aus <b>drei Handlungsbausteinen</b>. Sie passen zusammen wie ein Puzzle:</p>
+  <div class="mf-puzzle">
+   <div style="--mc:#7cbf5a"><b>Anfang</b>schwierige Situation, in der die Hauptfigur lebt</div>
+   <div style="--mc:#b39ddb"><b>Hauptteil</b>Problem, das die Hauptfigur lösen muss: Aufgaben, Prüfungen, Abenteuer</div>
+   <div style="--mc:#7fa8e8"><b>Schluss</b>glückliches Ende: Das Gute wird belohnt, das Böse häufig bestraft</div>
+  </div>
+  <div class="note"><b>⛰️ Der Märchenberg:</b> Man kann die Handlung auch als Berg zeichnen. Unten steht der Anfang, auf dem Weg nach oben die Aufgaben, und auf dem Gipfel das glückliche Ende. Im <a href="#/deutsch/maerchenberg"><b>Märchenberg in 3D</b></a> kannst du ihn erkunden.</div>
+  <h3>Zu welchem Baustein gehört das?</h3>
+  ${wSort(["Anfang","Hauptteil","Schluss"],[
+   ["Ein König hatte drei Töchter. Er wollte wissen, welche ihn am liebsten hat.",0,"Mäusehaut: So beginnt alles – die Ausgangssituation."],
+   ["Der König ist wütend und lässt seine jüngste Tochter in den Wald bringen.",1,"Mäusehaut: Jetzt beginnt das Problem."],
+   ["Mäusehaut muss dem fremden König die Stiefel ausziehen.",1,"Mäusehaut: eine Prüfung im Hauptteil."],
+   ["Der Vater erkennt seine Tochter und bittet sie um Verzeihung.",2,"Mäusehaut: glückliches Ende."],
+   ["Die Brüder verspotten den Dummling.",0,"Bienenkönigin: Der Dummling ist in einer schwierigen Lage."],
+   ["Die Ameisen sammeln die tausend Perlen.",1,"Bienenkönigin: die 1. Aufgabe."],
+   ["Die Enten holen den Schlüssel aus dem See.",1,"Bienenkönigin: die 2. Aufgabe."],
+   ["Der Dummling heiratet die jüngste Königstochter und wird König.",2,"Bienenkönigin: Das Gute wird belohnt."]
+  ])}
+  <h3>Gliedern mit Zeilenangaben: Prinzessin Mäusehaut</h3>
+  <p>In der Arbeit sollst du oft mit <b>Zeilenangaben</b> zeigen, wo ein Teil beginnt. Lies das Märchen der Brüder Grimm und tippe die richtige Zeile an.</p>
+  ${mfZeilen(MF_MAEUSEHAUT,[
+   {q:"In welcher Zeile beginnt der <b>Hauptteil</b> – also das Problem?",ok:["Der König war aufgebracht","Die dritte aber sagte"],tip:"Suche die Stelle, an der der König wütend wird.",expl:"Ab hier gibt es ein Problem: Der König ist wütend und will seine Tochter töten lassen."},
+   {q:"In welcher Zeile beginnt der <b>Schluss</b>?",ok:["Da konnte sich Mäusehaut","Sie wickelte sich von der Mäusehaut","Und sie trat heraus"],tip:"Ab wann muss sich Mäusehaut nicht mehr verstecken?",expl:"Mäusehaut zeigt, wer sie ist. Jetzt wird alles gut: Hochzeit und Versöhnung mit dem Vater."},
+   {q:"Beweise: Die Zahl <b>3</b> spielt eine Rolle.",ok:["Ein König hatte drei Töchter"],tip:"Schau ganz an den Anfang.",expl:"„Ein König hatte drei Töchter.“"},
+   {q:"Beweise: Die Hauptfigur muss im Hauptteil eine <b>harte Zeit</b> überstehen.",ok:["Abends musste sie ihm die Stiefel ausziehen"],tip:"Was muss sie am Hof des fremden Königs jeden Abend tun?",expl:"Sie muss die Stiefel ausziehen – und bekommt sie an den Kopf geworfen."},
+   {q:"Beweise: Das Märchen hat ein <b>glückliches Ende</b>.",ok:["Da erkannte er seine Tochter","bat sie um Verzeihung","dass er sie wiedergefunden hatte"],tip:"Lies die letzten Zeilen.",expl:"Der Vater erkennt seine Tochter, bittet um Verzeihung und ist glücklich."}
+  ],{summary:"<b>So schreibst du es auf:</b> 1. Anfang (Z. 1–{Z:Der König war aufgebracht}): Ein König fragt seine drei Töchter, wie lieb sie ihn haben. 2. Hauptteil (Z. {Z:Der König war aufgebracht}–{Z:Da konnte sich Mäusehaut}): Die jüngste wird verstoßen und dient als Mäusehaut beim fremden König. 3. Schluss (Z. {Z:Da konnte sich Mäusehaut}–{END}): Sie wird Königin, und ihr Vater erkennt sie wieder. <i>Die Zeilen können etwas abweichen – wichtig ist, dass du die Stelle findest.</i>"})}
+  <h3>Märchenberg zur „Bienenkönigin“</h3>
+  <details class="mf-anf"><summary><b>📜 „Die Bienenkönigin“ lesen (Brüder Grimm)</b></summary><p>${MF_BIENEN}</p></details>
+  ${mfBerg(["Anfang","Hauptteil","Hauptteil","1. Aufgabe","2. Aufgabe","3. Aufgabe","Schluss"],["#2e9e4f","#a855f7","#a855f7","#8b5cf6","#7c3aed","#6d28d9","#2563eb"],
+   ["Zwei Brüder lachen über den Dummling.","Der Dummling rettet dreimal Tiere.","Die Brüder kommen in ein verwunschenes Schloss.","Die Ameisen sammeln die 1000 Perlen.","Die Enten holen den Schlüssel aus dem See.","Die Bienenkönigin findet die richtige Tochter.","Der Zauber ist vorbei – der Dummling wird König."])}
+  <h3>Gliedern: Die Bienenkönigin</h3>
+  ${mfZeilen(MF_BIENEN,[
+   {q:"In welcher Zeile beginnt der <b>Schluss</b>?",ok:["Da war aller Zauber vorbei"],tip:"Wann ist der Zauber gebrochen?",expl:"„Da war aller Zauber vorbei.“ Jetzt wird alles gut."},
+   {q:"Wo steht, dass es <b>drei Aufgaben</b> gibt?",ok:["darauf standen die drei Aufgaben"],tip:"Was steht auf der steinernen Tafel?",expl:"Auf der steinernen Tafel stehen die drei Aufgaben."},
+   {q:"Wo hilft zum ersten Mal ein <b>Tier</b> dem Dummling?",ok:["kam der Ameisenkönig"],tip:"Wer hilft bei den Perlen?",expl:"Der Ameisenkönig kommt mit fünftausend Ameisen."},
+   {q:"Wo zeigt sich, dass der Dummling <b>gut zu Tieren</b> ist?",ok:["Lasst die Tiere in Frieden"],tip:"Was sagt der Dummling zu seinen Brüdern?",expl:"„Lasst die Tiere in Frieden …“ – deshalb helfen ihm die Tiere später."}
+  ],{w:54})}
+  <h3>Zeichne den Märchenberg zu „Sterntaler“</h3>
+  ${mfBerg(["Anfang","Das Problem","1. Prüfung","2. Prüfung","3. Prüfung","Schluss"],["#2e9e4f","#a855f7","#8b5cf6","#7c3aed","#6d28d9","#2563eb"],
+   ["Das Mädchen ist ein armes Waisenkind.","Von allen verlassen, geht es ins Feld.","Es schenkt einem hungrigen Mann sein Brot.","Es schenkt frierenden Kindern Mütze, Leibchen und Röcklein.","Im dunklen Wald gibt es sein letztes Hemd her.","Die Sterne fallen als Taler – es ist reich."])}
+  <h2>Jetzt du! 💪</h2>
+  ${wQuiz([
+   ["Wie heißen die drei Handlungsbausteine?",["Anfang, Hauptteil, Schluss","Titel, Text, Bild","Frage, Antwort, Lehre","Held, Hexe, Hochzeit"],"Anfang – Hauptteil – Schluss: So sind die meisten Märchen aufgebaut."],
+   ["Was passiert im Hauptteil?",["Die Hauptfigur muss ein Problem lösen, oft mit drei Aufgaben.","Es wird erzählt, wie alles gut ausgeht.","Die Figuren werden vorgestellt.","Es steht eine Lehre."],"Im Hauptteil stehen Aufgaben, Prüfungen und Abenteuer."],
+   ["Was steht beim Märchenberg aus deinem Buch auf dem Gipfel?",["der Schluss mit dem glücklichen Ende","der Anfang","die erste Aufgabe","die Lehre"],"Der Weg führt von unten (Anfang) über die Aufgaben bis nach oben zum glücklichen Ende."],
+   ["Wie gibst du eine Textstelle richtig an?",["mit der Zeilenangabe, z. B. (Z. 6–12)","mit der Seitenzahl des Buches","mit dem Titel","gar nicht"],"Mit Zeilenangaben beweist du, wo etwas steht."]
+  ])}
+  ${MF_DONE_BTN("aufbau")}`},
+
+ {id:"figuren", em:"👑", t:"3 · Figuren & Helfer", html:()=>`
+  <h2>3 · Märchenfiguren und Zauberhelfer</h2>
+  <p>In Märchen gibt es immer wieder dieselben Arten von Figuren. Dreh die Karten um!</p>
+  ${wFlip(Object.values(MF_KARTEN).map(k=>[`${k.em} ${k.n}`,k.l.slice(0,6).join(" · ")]),"antippen")}
+  <h3>Wer ist wer?</h3>
+  ${wSort(["Held / Heldin","Gegenspieler/-in","Helfer"],[["Der Dummling",0],["Die böse Stiefmutter",1],["Der Ameisenkönig",2],["Ein gieriger Räuber",1],["Das Sterntaler-Mädchen",0],["Die gute Fee",2],["Der böse Wolf",1],["Eine weiße Taube",2],["Gretel",0],["Ein zorniger Riese",1],["Ein sprechender Fuchs",2],["Die arme Bauerstochter",0]])}
+  <h3>🎲 Der Märchen-Würfel</h3>
+  <p>Würfle dir eine Märchenidee zusammen – so wie mit den Karten in deinem Buch. Die Idee kannst du in die Probe-Klassenarbeit übernehmen und dort ein ganzes Märchen dazu schreiben.</p>
+  ${mfWuerfel()}
+  <h2>Jetzt du! 💪</h2>
+  ${wQuiz([
+   ["Welche Figur ist ein typischer Gegenspieler?",["die böse Hexe","der jüngste Sohn","die weiße Taube","der gute König"],"Hexen, Riesen, Räuber und böse Stiefmütter sind typische Gegenspieler."],
+   ["Was ist ein magischer Helfer?",["ein Zauberschlüssel","ein Bleistift","ein Fahrrad","ein Brief"],"Zaubergegenstände, Zauberwesen und hilfreiche Tiere helfen der Hauptfigur."],
+   ["Warum helfen die Tiere dem Dummling?",["Weil er sie vorher beschützt hat.","Weil er sie bezahlt.","Weil sie ihn nicht kennen.","Weil der König es befiehlt."],"Wer gut ist, wird im Märchen belohnt – hier durch die Hilfe der Tiere."],
+   ["Wer ist im Märchen oft die Hauptfigur?",["das jüngste Kind, ein armes Mädchen oder ein tapferer Prinz","ein reicher Kaufmann","eine böse Königin","ein Lehrer"],"Oft ist die Hauptfigur klein, arm oder wird unterschätzt – und schafft es am Ende doch."]
+  ])}
+  ${MF_DONE_BTN("figuren")}`},
+
+ {id:"woerter", em:"📜", t:"4 · Alte Wörter", html:()=>`
+  <h2>4 · Alte Wörter verstehen</h2>
+  <p>Weil viele Märchen sehr alt sind, kommen darin Wörter vor, die wir heute kaum noch benutzen. So findest du heraus, was sie bedeuten:</p>
+  <div class="lp-steps">
+   <div><span class="em">🧱</span><b>1 · Verwandte Wörter</b>Suche Wörter, die darin stecken: <i>lieblich</i> → Liebe, lieb → angenehm. Zerlege zusammengesetzte Wörter: <i>Schlafkammer</i> = schlafen + Kammer → Schlafzimmer.</div>
+   <div><span class="em">🔎</span><b>2 · Textzusammenhang</b>Lies den ganzen Satz: „Da sammelte es die <i>Taler</i> ein und war reich.“ → Taler und reich → Taler = Geldstück.</div>
+   <div><span class="em">📖</span><b>3 · Wörterbuch</b>Schlage nach. Achtung: Im Wörterbuch stehen Wörter in der Grundform: <i>ging</i> → gehen, <i>die Wände</i> → die Wand.</div>
+  </div>
+  <h3>Wörter-Paare</h3>
+  ${mfPaare()}
+  <h3>Was bedeutet das? (aus „Die Bienenkönigin“)</h3>
+  ${wQuiz([
+   ["„… und gerieten in ein wildes, wüstes Leben“",["und lebten wild, ohne Ordnung und Regeln","und wohnten in der Wüste","und wurden sehr krank","und wurden reich"],"Die Brüder lebten wild und unordentlich und kamen nicht mehr nach Hause."],
+   ["„ich leid's nicht, dass ihr sie stört“",["ich erlaube nicht, dass ihr sie stört","es tut mir leid, dass ihr sie stört","ich leide, weil ihr sie stört","ich weiß nicht, ob ihr sie stört"],"„Ich leid's nicht“ heißt hier: Ich dulde es nicht, ich lasse es nicht zu."],
+   ["„dadurch konnte man in die Stube sehen“",["durch das kleine Fenster konnte man ins Zimmer sehen","man konnte in den Stall sehen","man konnte in die Küche gehen","man konnte nichts sehen"],"Das Lädlein ist ein kleines Fenster, die Stube ein Zimmer."],
+   ["„und führte sie zu einem reich besetzten Tisch“",["zu einem Tisch mit sehr viel Essen","zu einem Tisch voller reicher Leute","zu einem Tisch aus Gold","zu einem leeren Tisch"],"Ein reich besetzter (gedeckter) Tisch ist voll mit Essen."],
+   ["„führte es einen jeglichen in ein eigenes Schlafgemach“",["brachte es jeden in ein eigenes Schlafzimmer","brachte es alle in einen Keller","jagte es jeden aus dem Haus","gab es jedem ein Geschenk"],"Jeglicher = jeder, Schlafgemach = Schlafzimmer."],
+   ["„so ward der, welcher gesucht hatte, zu Stein“",["dann wurde der, der gesucht hatte, zu Stein","dann fand der Sucher einen Stein","dann warf er einen Stein","dann war der Stein weg"],"„Ward“ ist eine alte Form von „wurde“."],
+   ["„und versuchte den Mund von allen dreien“",["und probierte (kostete) an den Mündern aller drei","und küsste alle drei","und versuchte, mit allen zu sprechen","und weckte alle drei"],"„Versuchen“ heißt hier: kosten, probieren – die Biene schmeckt, wer Honig gegessen hat."]
+  ])}
+  <h3>Übertrage ins heutige Deutsch (aus „Frau Holle“)</h3>
+  <div class="quizbox">„Weil die Alte so gut sprach, <u>willigte</u> das Mädchen <u>ein</u> und <u>begab sich in ihren Dienst</u>. Es <u>besorgte</u> auch alles <u>nach ihrer Zufriedenheit</u> und schüttelte ihr das Bett immer <u>gewaltig</u> auf, dafür hatte es auch ein gutes Leben bei ihr, kein böses Wort und alle Tage <u>Gesottenes und Gebratenes</u>.“</div>
+  ${mfWrite("holle","Schreibe den Satz in heutigem Deutsch …","„Weil die alte Frau so freundlich sprach, war das Mädchen einverstanden und fing an, bei ihr zu arbeiten. Es machte alles so, wie die Frau es wollte, und schüttelte ihr das Bett immer kräftig auf. Dafür hatte es ein gutes Leben bei ihr: Sie schimpfte nie mit ihm, und es bekam jeden Tag Gekochtes und Gebratenes zu essen.“")}
+  ${MF_DONE_BTN("woerter")}`},
+
+ {id:"werkzeug", em:"🧰", t:"5 · Werkzeugkasten", html:()=>`
+  <h2>5 · Dein Werkzeugkasten zum Schreiben</h2>
+  <p>Wenn du ein Märchen schreibst oder fortsetzt, brauchst du drei Werkzeuge: das <b>Präteritum</b>, die <b>wörtliche Rede</b> und <b>märchentypische Formulierungen</b>.</p>
+  <h3>🔧 Werkzeug 1: Das Präteritum</h3>
+  <div class="note"><b>Merke:</b> Märchen werden im <b>Präteritum</b> erzählt: er <i>war</i>, es <i>gab</i>, sie <i>kam</i>. Viele Märchenverben sind <b>unregelmäßig</b>: sprechen → sprach, reiten → ritt, finden → fand. Nur in der <b>wörtlichen Rede</b> darf das Präsens stehen: „Ich <i>helfe</i> dir“, sprach die Fee.</div>
+  ${mfPraet()}
+  <h3>Welcher Satz ist richtig im Präteritum?</h3>
+  ${wQuiz([
+   ["Welcher Satz steht im Präteritum?",["Der Prinz ritt in den dunklen Wald.","Der Prinz reitet in den dunklen Wald.","Der Prinz wird in den Wald reiten.","Der Prinz ist in den Wald geritten."],"„ritt“ ist die Präteritumform von „reiten“."],
+   ["Welcher Satz steht im Präteritum?",["Plötzlich stand eine alte Frau vor ihr.","Plötzlich steht eine alte Frau vor ihr.","Plötzlich hat eine alte Frau vor ihr gestanden.","Plötzlich wird eine alte Frau vor ihr stehen."],"„stand“ ist Präteritum von „stehen“."],
+   ["Wo ist ein Zeitform-Fehler? „Die Hexe lachte böse. Dann sperrt sie Hänsel in einen Stall.“",["„sperrt“ – richtig wäre „sperrte“","„lachte“ – richtig wäre „lacht“","Es gibt keinen Fehler.","„böse“ – richtig wäre „böser“"],"Bleib im Präteritum: Dann sperrte sie Hänsel in einen Stall."],
+   ["Welcher Satz ist richtig? (wörtliche Rede)",["„Ich bin so hungrig“, jammerte der Mann.","„Ich war so hungrig“, jammert der Mann.","„Ich bin so hungrig“, jammert der Mann.","„Ich war so hungrig“, jammerte der Mann."],"Die Figur spricht in der Gegenwart (Präsens), der Erzähler erzählt im Präteritum."]
+  ])}
+  <h3>🔧 Werkzeug 2: Die wörtliche Rede</h3>
+  <p>Lass deine Figuren sprechen! Der <b>Redebegleitsatz</b> (wer spricht) kann an drei Stellen stehen:</p>
+  ${wSwitch(["vorne","hinten","in der Mitte"],i=>[
+   `<p class="mf-rede"><span class="b">Der Winzling fragte</span><span class="z">:</span> <span class="z">„</span><span class="r">Wer bist du?</span><span class="z">“</span></p><p>Nach dem Begleitsatz steht ein <b>Doppelpunkt</b>. Dann folgen die Anführungszeichen unten <b>„</b> und oben <b>“</b>.</p>`,
+   `<p class="mf-rede"><span class="z">„</span><span class="r">Ich helfe dir</span><span class="z">“,</span> <span class="b">sprach die Eule.</span></p><p>Nach den Anführungszeichen oben steht ein <b>Komma</b>. Der Punkt der Rede fällt weg! Frage- und Ausrufezeichen bleiben: <span class="mf-rede"><span class="z">„</span><span class="r">Wer bist du?</span><span class="z">“,</span> <span class="b">fragte er.</span></span></p>`,
+   `<p class="mf-rede"><span class="z">„</span><span class="r">Wenn du mir hilfst</span><span class="z">“,</span> <span class="b">sprach der Prinz</span><span class="z">, „</span><span class="r">bekommst du einen Schatz.</span><span class="z">“</span></p><p>Der Begleitsatz steht zwischen zwei Teilen der Rede – mit <b>Kommas</b> davor und danach.</p>`][i])}
+  ${wQuiz([
+   ["Welcher Satz ist richtig?",["„Wie kann ich dir helfen?“, fragte die Taube.","„Wie kann ich dir helfen“? fragte die Taube.","„Wie kann ich dir helfen?“ fragte die Taube.","Wie kann ich dir helfen?, fragte die Taube."],"Das Fragezeichen gehört in die Rede, danach folgt ein Komma."],
+   ["Welcher Satz ist richtig?",["Die Fee sprach: „Du hast drei Wünsche frei.“","Die Fee sprach „Du hast drei Wünsche frei.“","Die Fee sprach: Du hast drei Wünsche frei.","Die Fee sprach, „Du hast drei Wünsche frei.“"],"Steht der Begleitsatz vorne, folgt ein Doppelpunkt."],
+   ["Welcher Satz ist richtig?",["„Ich gehe in den Wald“, sagte Hans.","„Ich gehe in den Wald.“, sagte Hans.","„Ich gehe in den Wald“ sagte Hans.","„Ich gehe in den Wald.“ sagte Hans."],"Der Punkt der Rede fällt weg, danach steht ein Komma."],
+   ["Welcher Satz ist richtig?",["„Komm mit“, rief der Fuchs, „ich zeige dir den Weg!“","„Komm mit, rief der Fuchs, ich zeige dir den Weg!“","„Komm mit“ rief der Fuchs „ich zeige dir den Weg!“","„Komm mit“, rief der Fuchs. „ich zeige dir den Weg!“"],"Eingeschobener Begleitsatz: Kommas davor und danach."]
+  ])}
+  <h3>Statt immer „sagte“: Welches Verb passt am besten?</h3>
+  ${wQuiz([
+   ["„Psst, sei ganz leise!“, ___ die Fee.",["flüsterte","brüllte","lachte","jubelte"],"Wer leise spricht, flüstert."],
+   ["„Hilfe, ein Drache!“, ___ die Prinzessin.",["schrie","murmelte","flüsterte","seufzte"],"Bei Angst und Gefahr schreit oder ruft man."],
+   ["„Weine nicht, ich helfe dir“, ___ die Taube.",["tröstete","drohte","schimpfte","befahl"],"Wer jemandem Mut macht, tröstet."],
+   ["„Ach, ich bin so allein“, ___ das Mädchen.",["jammerte","jubelte","befahl","kicherte"],"Wer traurig klagt, jammert."],
+   ["„Nein, das ist nicht wahr!“, ___ der Prinz.",["entgegnete","flüsterte","seufzte","kicherte"],"Wer widerspricht, entgegnet oder erwidert."],
+   ["„Bringt mir sofort den Schlüssel!“, ___ der König.",["befahl","bat","flüsterte","jammerte"],"Ein König, der etwas verlangt, befiehlt."]
+  ])}
+  <h3>🔧 Werkzeug 3: Märchentypische Formulierungen</h3>
+  <p>Wohin gehört die Formulierung am besten – an den Anfang, in den Hauptteil oder an den Schluss?</p>
+  ${wSort(["Anfang","Hauptteil","Schluss"],[["Es war einmal …",0],["Vor langer, langer Zeit …",0],["Weit hinter den sieben Bergen …",0],["Es begab sich vor langer Zeit …",0],["Eines Tages …",1],["Da ritt er weiter und sah …",1],["Plötzlich stand … vor ihm.",1],["Am nächsten Morgen …",1],["Und wie sie so überlegte …",1],["Furchtlos ging er …",1],["Da war der Zauber vorbei.",2],["Und sie lebten glücklich bis an ihr Lebensende.",2],["Und wenn sie nicht gestorben sind, dann leben sie noch heute.",2]])}
+  <div class="note"><b>Gedanken zeigen:</b> „Ob ich durch die Ritze passe?, dachte der Winzling.“ – „Sie wunderte sich …“ – „Er freute sich …“ So weiß die Leserin, was die Figur denkt und fühlt.</div>
+  ${MF_DONE_BTN("werkzeug")}`},
+
+ {id:"nacherzaehlen", em:"🗣️", t:"6 · Nacherzählen", html:()=>`
+  <h2>6 · Ein Märchen nacherzählen</h2>
+  <p>Beim Nacherzählen hältst du dich eng an die Textvorlage. Du erfindest <b>nichts Neues</b> dazu und lässt <b>nichts Wichtiges</b> weg.</p>
+  <div class="lp-steps">
+   <div><span class="em">📖</span><b>Vorbereiten</b>Lies das Märchen mehrmals laut. Präge dir die Handlung und den „Ton“ ein.</div>
+   <div><span class="em">📝</span><b>Stichworte</b>Notiere Stichworte zu Anfang, Hauptteil und Schluss.</div>
+   <div><span class="em">🧠</span><b>Auswendig</b>Lerne wichtige Stellen auswendig, z. B. Anfangs- und Schlussformel oder Zaubersprüche.</div>
+   <div><span class="em">🎤</span><b>Vortragen</b>Erzähle mit eigenen Worten im Präteritum. Zeige mit der Stimme, welche Figur spricht. Sprich deutlich, langsam und mach Pausen.</div>
+  </div>
+  <h3>Bring „Der Fisch mit dem goldenen Bart“ in die richtige Reihenfolge</h3>
+  <p>Ein türkisches Märchen aus deinem Buch. Verschiebe die Karten mit ▲ und ▼.</p>
+  ${mfOrder(["Zwei Fische sind beste Freunde. Einer hat einen langen, goldenen Bart.","Eines Tages ist der Freund verschwunden.","Der Zauberer Oktapus erklärt: Menschen haben ihn gefangen. Er verwandelt den Fisch in einen Menschen – aber vor Sonnenuntergang muss er zurück ins Meer.","An Land ist Winter. Der Fisch wandert durch Wälder und Schnee bis in die Stadt.","Lange sucht er vergeblich und wird sehr traurig.","Im Schaufenster eines Ladens entdeckt er seinen Freund in einem Aquarium.","Der Verkäufer will Geld. Der Fisch schneidet seinen goldenen Bart ab und bezahlt damit.","Gerade bei Sonnenuntergang erreichen beide das Meer. Seitdem sind sie die besten Freunde."],
+   "<b>Dein Stichwortzettel:</b> <b>Anfang:</b> Fisch mit goldenem Bart sucht verschwundenen Freund. <b>Hauptteil:</b> Zauberer verwandelt ihn in einen Menschen (zurück vor Sonnenuntergang) – Suche in der Stadt – Freund im Aquarium – bezahlt mit dem Bart. <b>Schluss:</b> rechtzeitig zurück im Meer, beste Freunde.")}
+  <h3>Welche Lehre steckt in dem Märchen?</h3>
+  ${mfWrite("lehre","Was sagt das Märchen über Freundschaft? Schreib eine Lehre …","„Ein echter Freund gibt alles, um dem anderen zu helfen – auch das, was ihm am wertvollsten ist.“ Die Fische sind am Ende die besten Freunde, weil der eine für den anderen seinen goldenen Bart geopfert hat.",3)}
+  ${wQuiz([
+   ["Welches Märchenmerkmal findest du in „Der Fisch mit dem goldenen Bart“?",["Ein Zauberer verwandelt den Fisch in einen Menschen.","Es gibt eine böse Stiefmutter.","Es gibt drei Brüder.","Es beginnt mit „Es war einmal“."],"Die Verwandlung ist Wunder und Magie. Der Anfang lautet hier „vor langer, langer Zeit“."],
+   ["Was darfst du beim Nacherzählen NICHT tun?",["neue Figuren oder Abenteuer erfinden","eigene Worte benutzen","im Präteritum erzählen","mit der Stimme die Figuren zeigen"],"Beim Nacherzählen bleibst du bei der Vorlage."],
+   ["In welcher Zeitform erzählst du nach?",["in der Zeitform der Vorlage – meist Präteritum","im Futur","immer im Präsens","im Perfekt"],"Die Zeitform der Vorlage ist bei Märchen meist das Präteritum."]
+  ])}
+  ${MF_DONE_BTN("nacherzaehlen")}`},
+
+ {id:"modern", em:"🛹", t:"7 · Moderne Märchen", html:()=>`
+  <h2>7 · Moderne Märchen</h2>
+  <p>In deinem Buch steht „Prinzessin Isabella“ von <b>Cornelia Funke</b>. Das ist ein <b>modernes Märchen</b>: Es klingt wie ein Märchen, aber vieles ist anders.</p>
+  <div class="note"><b>Worum geht es?</b> Isabella ist eine Prinzessin, die Diener für alles hat – und sie findet das schrecklich langweilig. Sie will sich schmutzig machen, selbst bestimmen, was sie anzieht, und auf Bäume klettern. Wütend wirft sie ihre Krone aus dem Fenster in den Fischteich. Zur Strafe schickt der König sie in die Küche. In der Mitte fehlt ein Stück – und am Ende versöhnen sich Vater und Tochter.</div>
+  <h3>Klassisch oder modern?</h3>
+  ${wSort(["klassisches Märchen","modernes Märchen"],[["Die Prinzessin wartet im Turm auf den Prinzen, der sie rettet.",0],["Die Prinzessin will eine Hose tragen und auf Bäume klettern.",1],["„Es war einmal …“",0],["Die Figuren sprechen wie heute: „Das ist doch doof!“",1],["Ein Zauberer verwandelt Menschen in Stein.",0],["Eine Figur will nicht so sein, wie man es von ihr erwartet.",1],["altertümliche Sprache: „ich leid's nicht“, „er ward“",0],["lustige, freche Sprache und Übertreibungen",1],["drei Aufgaben, die immer schwerer werden",0],["Die Prinzessin arbeitet freiwillig im Stall und ist glücklich dabei.",1]])}
+  <h3>Füll die Lücke!</h3>
+  <p>Im Buch fehlt in der Mitte ein Teil. Was erlebt Isabella in der Küche, bevor sie sich mit ihrem Vater versöhnt? Diese Fragen helfen dir:</p>
+  <ul><li>Was erlebt Isabella in der Küche? Gefällt es ihr dort vielleicht sogar?</li><li>Kommt ihr Vater, der König, sie besuchen?</li><li>Was sagen die beiden zueinander? (wörtliche Rede!)</li><li>Was passiert, damit sich die beiden wieder vertragen?</li></ul>
+  <div class="note"><b>Achte darauf:</b> Dein Lückenfüller muss <b>nahtlos</b> passen – gleiche Zeitform (Präteritum), gleicher frecher „Ton“ und eine Erklärung, <b>warum</b> sich Vater und Tochter am Ende versöhnen.</div>
+  ${mfWrite("isabella","Also brachten die Diener Isabella in die Küche. …","Isabella schälte Zwiebeln, bis ihr die Tränen liefen, und schrubbte Töpfe, bis ihre Arme wehtaten. Aber sie lachte dabei! Die Köchin zeigte ihr, wie man Pfannkuchen backt, und Isabella warf sie so hoch, dass sie an der Decke kleben blieben. Nach einer Woche kam der König in die Küche. „Holst du nun endlich deine Krone aus dem Fischteich?“, fragte er. „Nein“, sagte Isabella und hielt ihm einen Pfannkuchen hin. Der König biss hinein – und machte große Augen. „Den hast du gemacht?“, staunte er. „Ganz allein“, antwortete Isabella stolz. Da musste der König lächeln …",7)}
+  ${wQuiz([
+   ["Woran erkennst du ein modernes Märchen?",["Die Figuren benehmen und sprechen wie Menschen von heute.","Es beginnt immer mit „Es war einmal“.","Es ist besonders alt.","Es kommt nie ein König vor."],"Moderne Märchen spielen mit den alten Regeln: Figuren verhalten sich anders, als man es erwartet."],
+   ["Ist der Schluss von „Prinzessin Isabella“ typisch für ein Märchen?",["Teils: Er ist glücklich – aber Isabella bleibt, wie sie ist, statt eine „brave“ Prinzessin zu werden.","Nein, er ist traurig.","Ja, sie heiratet einen Prinzen.","Es gibt keinen Schluss."],"Glücklich ja – aber anders als im klassischen Märchen."]
+  ])}
+  ${MF_DONE_BTN("modern")}`},
+
+ {id:"klassenarbeit", em:"✍️", t:"8 · Probe-Klassenarbeit", html:()=>`
+  <h2>8 · Probe-Klassenarbeit: Ein Märchen fortsetzen</h2>
+  <p>So oder so ähnlich kann deine Deutscharbeit aussehen. Wähle einen Märchenanfang und arbeite die fünf Schritte durch. Alles wird auf diesem Gerät gespeichert.</p>
+  ${mfKlassenarbeit()}
+  ${MF_DONE_BTN("klassenarbeit")}`},
+
+ {id:"spick", em:"📋", t:"Spickzettel & Test", html:()=>`
+  <h2>📋 Spickzettel: Märchen auf einen Blick</h2>
+  <div class="mf-spick">
+   <div><b>🧩 Aufbau</b><ol><li><b>Anfang:</b> schwierige Situation</li><li><b>Hauptteil:</b> Problem, meist drei Aufgaben/Prüfungen, Helfer</li><li><b>Schluss:</b> glückliches Ende – Gutes belohnt, Böses bestraft</li></ol></div>
+   <div><b>👑 Figuren</b><ul><li>Held/Heldin: jüngstes Kind, arm, klein, unterschätzt</li><li>Gegenspieler: Hexe, Riese, Stiefmutter, Wolf</li><li>Helfer: Fee, Zwerge, sprechende Tiere, Zaubergegenstände</li></ul></div>
+   <div><b>🗣️ Erzählweise</b><ul><li>„Es war einmal …“ – „Und wenn sie nicht gestorben sind …“</li><li>magische Zahlen: 3, 7, 12</li><li>altertümliche Wörter: ward, Stube, Lebtag</li><li>Wunder und Zauber</li></ul></div>
+   <div><b>🏰 Ort und Zeit</b><ul><li>ungenau: „vor langer Zeit“, „hinter den sieben Bergen“, „in einem Wald“</li></ul></div>
+   <div><b>✍️ Schreiben</b><ul><li>immer im <b>Präteritum</b> (war, ging, sprach)</li><li>wörtliche Rede: „…“, sprach die Fee.</li><li>Gedanken: Ob ich …?, dachte sie.</li><li>Überleitungen: Eines Tages … – Da … – Plötzlich …</li></ul></div>
+   <div><b>✅ Fortsetzen – Checkliste</b><ul><li>passt zum Anfang (Figuren, Problem, Helfer)</li><li>drei Aufgaben/Abenteuer</li><li>Zauberwesen oder Zaubergegenstand</li><li>das Gute siegt</li><li>Schlussformel</li></ul></div>
+  </div>
+  <div class="row"><button class="btn" onclick="window.print()">🖨️ Spickzettel drucken</button></div>
+  <h2>🏆 Der große Abschlusstest</h2>
+  ${wQuiz([
+   ["Wie heißen die drei Handlungsbausteine eines Märchens?",["Anfang, Hauptteil, Schluss","Einleitung, Lehre, Moral","Held, Helfer, Hexe","Titel, Text, Bild"],"Anfang (schwierige Situation) – Hauptteil (Problem, Aufgaben) – Schluss (glückliches Ende)."],
+   ["In welcher Zeitform schreibst du ein Märchen?",["Präteritum","Präsens","Futur","Perfekt"],"Märchen werden im Präteritum erzählt."],
+   ["Was ist das Präteritum von „sprechen“?",["sprach","sprechte","gesprochen","spracht"],"er spricht → er sprach"],
+   ["Was ist das Präteritum von „reiten“?",["ritt","reitete","geritten","ritte"],"er reitet → er ritt"],
+   ["Welcher Satz ist richtig?",["„Ich helfe dir“, sprach die Eule.","„Ich helfe dir.“, sprach die Eule.","„Ich helfe dir“ sprach die Eule.","Ich helfe dir, sprach die Eule."],"Punkt fällt weg, Komma nach dem Anführungszeichen."],
+   ["Was bedeutet „Lebtag“?",["das ganze Leben","ein Feiertag","ein Geburtstag","ein langer Tag"],"„Reich für sein Lebtag“ = reich für das ganze Leben."],
+   ["Was bedeutet „er ward zu Stein“?",["er wurde zu Stein","er warf einen Stein","er war ein Stein","er fand einen Stein"],"„ward“ = wurde"],
+   ["Du sollst ein Märchen fortsetzen. Was ist FALSCH?",["den Anfang noch einmal nacherzählen","drei Aufgaben erzählen","das Gute siegen lassen","eine Schlussformel verwenden"],"Der Anfang steht schon da – du schreibst weiter."],
+   ["Wer hilft dem Dummling bei der zweiten Aufgabe?",["die Enten","die Ameisen","die Bienenkönigin","das graue Männchen"],"Die Enten holen den Schlüssel aus dem See."],
+   ["Was erfahren wir über Ort und Zeit im Märchen?",["Sie bleiben ungenau.","Sie werden ganz genau genannt.","Es spielt immer in Berlin.","Es spielt immer im Sommer."],"„Vor langer Zeit“, „in einem Schloss“ – ungenau."],
+   ["Welche Formulierung passt an den Schluss?",["Und sie lebten glücklich bis an ihr Lebensende.","Es war einmal …","Eines Tages …","Plötzlich stand ein Riese vor ihm."],"Das ist eine typische Schlussformel."],
+   ["Warum belohnen die Sterne das Mädchen im Sterntaler?",["Weil es gut ist und alles verschenkt hat.","Weil es fleißig gearbeitet hat.","Weil es die Hexe besiegt hat.","Weil es Geburtstag hat."],"Im Märchen wird das Gute belohnt."],
+   ["Was gehört NICHT zu einem klassischen Märchen?",["Die Prinzessin ruft ihre Freundin mit dem Handy an.","Ein Frosch spricht.","Ein Fluch wird gebrochen.","Ein König hat drei Söhne."],"Handys gibt es höchstens in modernen Märchen."],
+   ["Wie findest du heraus, was „lieblich“ bedeutet?",["Ich suche verwandte Wörter: Liebe, lieb.","Ich rate einfach.","Ich lasse das Wort weg.","Ich schreibe es dreimal ab."],"Verwandte Wörter, Textzusammenhang, Wörterbuch – das sind die drei Strategien."],
+   ["Was machst du beim Nacherzählen?",["Ich erzähle mit eigenen Worten, ohne etwas zu erfinden.","Ich erfinde ein neues Ende.","Ich lese den Text nur vor.","Ich erzähle im Futur."],"Eng an der Vorlage bleiben – nichts dazuerfinden, nichts Wichtiges weglassen."]
+  ])}
+  ${MF_DONE_BTN("spick")}`}
+];
+
+function renderMaerchenFit(el){
+  el.innerHTML = `<div class="lp"><style>
+  .mf-nav{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+  .mf-nav button{border:2px solid var(--ink);background:#fff;border-radius:99px;padding:5px 12px;font-family:var(--head);font-weight:700;cursor:pointer;font-size:.92rem}
+  .mf-nav button.on{background:var(--ink);color:#fff}.mf-nav button.done::after{content:" ✓";color:#1c7a39}.mf-nav button.on.done::after{color:#9be7b0}
+  .mf-over{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+  .mf-over button{text-align:left;border:2px solid var(--line);border-radius:14px;background:#fff;padding:12px;cursor:pointer;font:inherit}
+  .mf-over button:hover{border-color:var(--c)}.mf-over b{display:block;font-family:var(--head);font-size:1.05rem}.mf-over .em{font-size:1.6rem}
+  .mf-over button.done{background:#e3f6e7;border-color:#2e9e4f}
+  .mf-prog{height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin:6px 0 2px}.mf-prog i{display:block;height:100%;background:#2e9e4f}
+  .mf-done{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:26px 0 6px;padding-top:14px;border-top:2px dashed var(--line);font-weight:700;color:#1c7a39}
+  .mf-such svg{width:100%;height:auto;border-radius:12px;display:block}
+  .mf-hid{cursor:pointer}.mf-hid text{transition:transform .2s;transform-box:fill-box;transform-origin:center}.mf-hid:hover text{transform:scale(1.25)}
+  .mf-hid.got circle{fill:rgba(255,255,255,.55);stroke:#2e9e4f;stroke-width:3}
+  .mf-stifte{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .mf-stift{border:2px solid var(--mc);background:#fff;border-radius:99px;padding:5px 11px;font-family:var(--head);font-weight:700;cursor:pointer}
+  .mf-stift.on{background:var(--mc);color:#fff}.mf-stift small{opacity:.8;margin-left:4px}
+  .mf-text{font-size:1.08rem;line-height:1.9;background:#fffdf6;border:2px solid var(--line);border-radius:12px;padding:12px 14px}
+  .mf-seg{cursor:pointer;border-radius:4px;padding:1px 0;transition:background .2s}.mf-seg:hover{background:#0000000d}
+  .mf-seg.no,.mf-zl.no{background:#fde7e5!important;animation:mfshake .3s}
+  @keyframes mfshake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+  .mf-chips{display:flex;flex-wrap:wrap;gap:6px}
+  .mf-chip{border:2px solid var(--line);background:#fff;border-radius:99px;padding:5px 12px;font-weight:700;cursor:pointer;font:inherit;font-weight:700;text-align:left}
+  .mf-chip.on{border-color:var(--ink);background:var(--soft)}.mf-chip.ok{background:#e3f6e7;border-color:#2e9e4f}.mf-chip.no{background:#fde7e5;border-color:#d93a34}.mf-chip.miss{border-color:#2e9e4f;border-style:dashed}
+  .mf-why{margin:8px 0 0;padding-left:1.2em}.mf-why li.y::marker{content:"✅ "}.mf-why li.n::marker{content:"❌ "}
+  .mf-ztext{background:#fffdf6;border:2px solid var(--line);border-radius:12px;padding:8px 4px;margin:8px 0;max-height:430px;overflow:auto;font-size:1rem}
+  .mf-zl{display:flex;gap:10px;cursor:pointer;padding:1px 8px;border-radius:6px;white-space:nowrap}.mf-zl:hover{background:var(--soft)}
+  .mf-zl.ok{background:#e3f6e7}.mf-zn{width:24px;flex:none;text-align:right;color:var(--muted);font-size:.8rem;padding-top:3px}
+  .mf-zhead{font-weight:700}.mf-zhead .pill{margin-right:6px}
+  .mf-berg{position:relative;width:100%;aspect-ratio:1/1;max-width:560px;margin:6px auto}
+  .mf-berg svg{position:absolute;inset:0;width:100%;height:100%}
+  .mf-flag{position:absolute;left:50%;top:-1%;transform:translate(-20%,-60%);font-size:1.5rem}
+  .mf-slot{position:absolute;transform:translate(-50%,-50%);width:46%;min-height:40px;background:#fffffff2;border:2px dashed var(--mc);border-radius:10px;padding:3px 7px;font-size:.82rem;line-height:1.25;cursor:pointer;box-shadow:0 1px 3px #0001}
+  @media(max-width:560px){.mf-slot{font-size:.7rem;width:48%;min-height:30px;padding:2px 5px}}
+  .mf-slot small{display:block;font-family:var(--head);font-weight:800;color:var(--mc);font-size:.72rem;text-transform:uppercase;letter-spacing:.03em}
+  .mf-slot.full{border-style:solid}.mf-slot.ok{background:#e3f6e7;border-color:#2e9e4f}.mf-slot.no{background:#fde7e5;border-color:#d93a34}
+  .mf-pool{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .mf-card{border:2px solid var(--ink);background:#fff;border-radius:10px;padding:6px 10px;cursor:pointer;font:inherit;text-align:left;max-width:100%}
+  .mf-card.sel{background:var(--ink);color:#fff}
+  .mf-order{list-style:none;padding:0;margin:0 0 8px;counter-reset:o}
+  .mf-order li{counter-increment:o;display:flex;gap:8px;align-items:center;border:2px solid var(--line);border-radius:10px;padding:6px 8px;margin:5px 0;background:#fff}
+  .mf-order li::before{content:counter(o);font-family:var(--head);font-weight:800;width:22px;text-align:center}
+  .mf-order li>span:first-child{flex:1}.mf-order li.ok{background:#e3f6e7;border-color:#2e9e4f}.mf-order li.no{background:#fde7e5;border-color:#d93a34}
+  .mf-ud{display:flex;gap:4px}.mf-ud .btn{padding:2px 8px}
+  .mf-reels{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .mf-reel{border:3px solid var(--mc);border-radius:14px;padding:10px;text-align:center;background:#fff;display:flex;flex-direction:column;gap:6px}
+  .mf-reel small{font-family:var(--head);font-weight:700}.mf-reel b{font-family:var(--head);font-size:1.05rem;min-height:2.6em;display:grid;place-items:center}
+  .mf-reel .btn{font-size:.8rem;padding:3px 8px}
+  .mf-paare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.mf-paare>div{display:flex;flex-direction:column;gap:6px}
+  .mf-p{border:2px solid var(--ink);background:#fff;border-radius:10px;padding:7px 10px;cursor:pointer;font:inherit;font-weight:700;text-align:left}
+  .mf-p.sel{background:var(--ink);color:#fff}.mf-p.ok{background:#e3f6e7;border-color:#2e9e4f;color:inherit}.mf-p.no{background:#fde7e5;border-color:#d93a34}
+  .mf-in{font:inherit;font-size:1.2rem;border:2px solid var(--ink);border-radius:10px;padding:6px 10px;width:min(240px,60vw)}
+  .mf-umlaut .btn{padding:3px 10px}
+  .mf-rede{font-size:1.15rem;background:#fff;border-radius:10px;padding:8px 12px;border:2px solid var(--line)}
+  .mf-rede .b{background:#dbeafe;border-radius:4px;padding:0 3px}.mf-rede .r{background:#fef3c7;border-radius:4px;padding:0 3px}.mf-rede .z{color:#d93a34;font-weight:900;font-size:1.2em}
+  .mf-puzzle{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:10px 0}
+  .mf-puzzle div{background:var(--mc);padding:16px 18px;border-radius:14px;position:relative;font-size:.95rem}
+  .mf-puzzle div b{display:block;font-family:var(--head);font-size:1.1rem}
+  .mf-puzzle div:not(:last-child)::after{content:"";position:absolute;right:-14px;top:50%;width:28px;height:28px;border-radius:50%;background:var(--mc);transform:translateY(-50%);z-index:1}
+  .mf-puzzle div:not(:first-child){padding-left:24px}
+  @media(max-width:640px){.mf-puzzle{grid-template-columns:1fr}.mf-puzzle div:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%)}.mf-puzzle div:not(:first-child){padding-left:18px;padding-top:22px}}
+  .mf-ta{width:100%;border:2px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;resize:vertical;background:#fff}
+  .mf-ta:focus{border-color:var(--c);outline:none}.mf-big{min-height:320px;line-height:1.6}
+  .mf-lab{display:block;font-family:var(--head);font-weight:700;margin:10px 0 3px}
+  .mf-saved{color:#1c7a39;font-weight:700;font-size:.9rem}
+  .mf-anf{background:#fffdf6;border:2px solid var(--line);border-radius:12px;padding:8px 14px;margin:10px 0}.mf-anf summary{cursor:pointer}
+  .mf-steps{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0}
+  .mf-steps button{flex:1 1 130px;border:2px solid var(--line);background:#fff;border-radius:10px;padding:6px 8px;font-family:var(--head);font-weight:700;cursor:pointer;font-size:.88rem}
+  .mf-steps button.on{border-color:var(--ink);background:var(--ink);color:#fff}
+  .mf-plan{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:760px){.mf-plan{grid-template-columns:1fr}}
+  .mf-timer{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}.mf-timer span{font-family:var(--head);font-weight:800;font-size:1.4rem;min-width:90px}
+  .mf-score{font-family:var(--head);font-size:1.2rem;margin:6px 0}
+  .mf-check{list-style:none;padding:0;margin:0}.mf-check li{display:flex;gap:10px;padding:7px 10px;border-radius:10px;margin:4px 0;background:#fff;border:2px solid var(--line)}
+  .mf-check li.s2{border-color:#9fd9ae}.mf-check li.s0{border-color:#f2b3ae}.mf-check li.s1{border-color:#f3d48a}.mf-check small{color:var(--muted)}
+  .mf-manual label{display:flex;gap:8px;align-items:flex-start;margin:6px 0;font-weight:600;cursor:pointer}.mf-manual input{width:20px;height:20px;flex:none;margin-top:2px}
+  .mf-spick{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin:10px 0}
+  .mf-spick>div{border:2px solid var(--line);border-top:8px solid var(--c);border-radius:12px;padding:10px 14px;background:#fff}
+  .mf-spick ul,.mf-spick ol{margin:.3em 0 0;padding-left:1.2em}
+  @media print{.tabs,.crumbs,.mf-nav,.mf-done,header,.row{display:none!important}}
+  </style>
+  <h1>🏰 Märchen – fit für die Deutscharbeit</h1>
+  <p class="lead">Alles aus deinem Deutschbuch, Kapitel 7 „Es war einmal …“: Märchen erkennen, untersuchen, nacherzählen und fortsetzen.</p>
+  <div class="mf-prog" aria-hidden="true"><i></i></div><small class="mf-progt"></small>
+  <div class="mf-nav" role="tablist"></div></div><div id="mfBody"></div>`;
+  const nav=$(".mf-nav",el), body=$("#mfBody",el); let off=null, cur=mfGet("ch","start"); if(!MF_CH.some(c=>c.id===cur)) cur="start";
+  const upd=()=>{ const d=mfGet("done",{}); const n=MF_CH.filter(c=>c.id!=="start"&&d[c.id]).length, all=MF_CH.length-1;
+    nav.innerHTML=MF_CH.map(c=>`<button role="tab" data-ch="${c.id}" class="${c.id===cur?"on":""} ${d[c.id]?"done":""}" aria-selected="${c.id===cur}">${c.em} ${c.t}</button>`).join("");
+    $(".mf-prog i",el).style.width=(n/all*100)+"%"; $(".mf-progt",el).textContent=`${n} von ${all} Kapiteln geschafft`;
+    const ov=body.querySelector("[data-over]"); if(ov) ov.innerHTML=MF_CH.filter(c=>c.id!=="start").map(c=>`<button data-ch="${c.id}" class="${d[c.id]?"done":""}"><span class="em">${c.em}</span><b>${c.t}</b>${d[c.id]?"✓ geschafft":"noch offen"}</button>`).join(""); };
+  const show=id=>{ if(off){ try{off()}catch(e){} } cur=id; mfSet("ch",id); const ch=MF_CH.find(c=>c.id===id); off=lpBuild(body, ch.html()); upd(); };
+  el.addEventListener("click",e=>{ const b=e.target.closest("[data-ch]"); if(b){ show(b.dataset.ch); nav.scrollIntoView({block:"start",behavior:"smooth"}); } });
+  nav.addEventListener("mf-upd",upd);
+  show(cur);
+  return ()=>{ if(off) try{off()}catch(e){} };
+}
+
+(function(){ const s=SUBJECTS.find(x=>x.id==="deutsch"); const i=s.topics.findIndex(t=>t.id==="maerchen-und-fabeln");
+  s.topics.splice(i<0?0:i,0,{id:"maerchen-fit", title:"Märchen – fit für die Deutscharbeit", em:"🏰",
+    desc:"Alles aus Kapitel 7: Märchen erkennen, Aufbau, alte Wörter, Präteritum, wörtliche Rede – und eine Probe-Klassenarbeit.", render:renderMaerchenFit}); })();
+
 
 route();
 </script>
